@@ -1,10 +1,11 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import { Animated, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
+import React, { useRef, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { AntDesign } from '@expo/vector-icons';
 
 const MenuScreen = () => {
 
-    const [activeOption, setActiveOption] = useState("Week")
+    const [activeOption, setActiveOption] = useState("Today")
 
     const week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -17,6 +18,18 @@ const MenuScreen = () => {
     const month = today.getMonth(); // Months are zero-based
     const date = today.getDate();
     const day = today.getDay();
+
+    const [isOpen, setIsOpen] = useState(false);
+    const translateY = useRef(new Animated.Value(2000)).current;
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+        Animated.timing(translateY, {
+            toValue: isOpen ? -4 : 0,
+            duration: 300,
+            useNativeDriver: true
+        }).start();
+    };
 
 
     return (
@@ -43,15 +56,29 @@ const MenuScreen = () => {
                     ))}
                 </> : <>
                     <View style={{ alignItems: "center", justifyContent: "center" }}>
-                        <Text style={{ fontSize: 18, fontWeight:"bold" }}>TODAY</Text>
+                        <Text style={{ fontSize: 18, fontWeight: "bold" }}>TODAY</Text>
                         <Text style={{ color: "gray", fontSize: 15 }}>{date}th {monthNames[month]}, {dayNames[today.getDay()]}</Text>
                     </View>
 
-                    {week.map((option, index) => (
-                        <TouchableOpacity key={index} style={{ justifyContent: "space-between", backgroundColor: "#C8F7B1", marginTop: 15, padding: 20, borderRadius: 15 }}>
-                            <Text style={{ fontSize: 15, fontWeight: "500" }}>{option}</Text>
-                        </TouchableOpacity>
-                    ))}
+
+                    <TouchableWithoutFeedback onPress={toggleDropdown}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center',  justifyContent: "space-between", marginTop: 15 }}>
+                            <Text style={{ marginRight: 10, fontSize: 16, fontWeight:"600" }}>Breakfast</Text>
+                            <AntDesign name={isOpen ? 'up' : 'down'} size={24} color="gray" />
+                        </View>
+                    </TouchableWithoutFeedback>
+
+                    <Animated.View style={{ transform: [{ translateY }] }}>
+                        {isOpen && (
+                            <View style={{ backgroundColor: '#fff', padding: 10 }}>
+                                <Text>Menu item 1</Text>
+                                <Text>Menu item 2</Text>
+                                <Text>Menu item 3</Text>
+                            </View>
+                        )}
+                    </Animated.View>
+
+
                 </>}
             </View>
         </SafeAreaView>

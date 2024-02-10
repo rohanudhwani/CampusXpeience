@@ -1,0 +1,128 @@
+{
+    "Monday" : {
+      "Breakfast" : {
+        "timings" : ["7:30AM", "9:30AM"],
+        "menu" : [["Idli", "https://www.ticklingpalates.com/wp-content/uploads/2020/06/Soft-Spongy-Idli-Recipe-500x500.jpg"], ["Milk", "https://cdn.britannica.com/34/176234-050-0E0C55C6/Glass-milk.jpg"], ["Tea", "https://www.bigbasket.com/media/uploads/p/l/40166733-4_6-omega-stainless-steel-rampatra-coffeetea-glass.jpg"], ["Bread, Butter, Jam", "https://images6.fanpop.com/image/photos/41200000/Bread-Butter-Jam-bread-41248652-1200-900.jpg"], ["Banana", "https://img.freepik.com/free-photo/single-banana-isolated-white-background_839833-17794.jpg"]]
+      },
+      "Lunch" : {
+        "timings" : ["12:00PM", "2:00PM"],
+        "menu" : [["Chapati", "https://www.maheelapower.com/cdn/shop/products/WheatChapatis_1134x.jpg?v=1602433328"], ["Lobia", "https://images.squarespace-cdn.com/content/v1/5ea3b22556f3d073f3d9cae4/1597574329934-UTVPRKLUDG4S2DT1ZNFK/IMG_1759.jpg"], ["Rice", "https://hips.hearstapps.com/vidthumb/images/delish-u-rice-2-1529079587.jpg?crop=0.75xw:1xh;center,top&resize=1200:*"], ["Dal Tadka", "https://vegecravings.com/wp-content/uploads/2018/01/Dal-Tadka-Recipe-Step-By-Step-Instructions.jpg"], ["Salad, Achar, Papad", "https://img-global.cpcdn.com/recipes/9b132d098c00f71c/1200x630cq70/photo.jpg"], ["Chach", "https://media-cdn.tripadvisor.com/media/photo-s/13/9f/bc/f6/masala-chach-or-butter.jpg"]]
+      },
+      "Snacks" : {
+        "timings" : ["5:30PM", "6:30PM"],
+        "menu" : [["Coffee", "https://vaya.in/recipes/wp-content/uploads/2018/05/Coffee.jpg"], ["Upma", "https://myfoodstory.com/wp-content/uploads/2022/11/Vegetable-Upma-3-500x375.jpg"]]
+      }, 
+      "Dinner" : {
+        "timings" : ["7:30PM", "9:30PM"],
+        "menu" : [["Chapati", "https://www.maheelapower.com/cdn/shop/products/WheatChapatis_1134x.jpg?v=1602433328"], ["Matar Aloo", "https://static.toiimg.com/thumb/61204624.cms?imgsize=606561&width=800&height=800"], ["Jeera Rice", "https://static.toiimg.com/thumb/53542259.cms?imgsize=133039&width=800&height=800"], ["Dal Makhani", "https://www.vegrecipesofindia.com/wp-content/uploads/2015/01/dal-makhani-recipe-1.jpg"], ["Salad, Achar", "https://i.ytimg.com/vi/UwvI5ODBtrA/maxresdefault.jpg"]]
+      }
+    }, 
+    "Tuesday" : {
+      "Breakfast" : {
+        "timings" : ["7:30AM", "9:30AM"],
+        "menu" : [["Uttapam", ""], ["Milk", "https://cdn.britannica.com/34/176234-050-0E0C55C6/Glass-milk.jpg"], ["Tea", "https://www.bigbasket.com/media/uploads/p/l/40166733-4_6-omega-stainless-steel-rampatra-coffeetea-glass.jpg"], ["Bread, Butter, Jam", "https://images6.fanpop.com/image/photos/41200000/Bread-Butter-Jam-bread-41248652-1200-900.jpg"], ["Seasonal Fruit", ""]]
+      },
+      "Lunch" : {
+        "timings" : ["12:00PM", "2:00PM"],
+        "menu" : [["Chapati", "https://www.maheelapower.com/cdn/shop/products/WheatChapatis_1134x.jpg?v=1602433328"], ["Soya Wadi", ""], ["Mutter Rice", ""], ["Dal", ""], ["Salad, Achar", ""], ["Curd", ""]]
+      },
+      "Snacks" : {
+        "timings" : ["5:30PM", "6:30PM"],
+        "menu" : [["Tea", "https://www.bigbasket.com/media/uploads/p/l/40166733-4_6-omega-stainless-steel-rampatra-coffeetea-glass.jpg"], ["White Sauce Pasta", ""]]
+      }, 
+      "Dinner" : {
+        "timings" : ["7:30PM", "9:30PM"],
+        "menu" : [["Chapati", "https://www.maheelapower.com/cdn/shop/products/WheatChapatis_1134x.jpg?v=1602433328"], ["Gatta Curry", ""], ["Rice", "https://hips.hearstapps.com/vidthumb/images/delish-u-rice-2-1529079587.jpg?crop=0.75xw:1xh;center,top&resize=1200:*"], ["Sambhar", ""], ["Salad, Achar", ""], ["Jalebi", ""]]
+      }
+    }, 
+    "Wednesday" : {
+      "Breakfast" : {
+        "timings" : ["7:30AM", "9:30AM"],
+        "menu" : [["Aalu Paratha", ""], ["Milk", "https://cdn.britannica.com/34/176234-050-0E0C55C6/Glass-milk.jpg"], ["Tea", "https://www.bigbasket.com/media/uploads/p/l/40166733-4_6-omega-stainless-steel-rampatra-coffeetea-glass.jpg"], ["Bread, Butter, Jam", "https://images6.fanpop.com/image/photos/41200000/Bread-Butter-Jam-bread-41248652-1200-900.jpg"], ["Banana", "https://img.freepik.com/free-photo/single-banana-isolated-white-background_839833-17794.jpg"], ["Curd", ""]]
+      },
+      "Lunch" : {
+        "timings" : ["12:00PM", "2:00PM"],
+        "menu" : [["Chapati", "https://www.maheelapower.com/cdn/shop/products/WheatChapatis_1134x.jpg?v=1602433328"], ["Sem Aloo", ""], ["Pulav Rice", ""], ["Kadi Pakoda", ""], ["Salad, Achar, Papad", ""]]
+      },
+      "Snacks" : {
+        "timings" : ["5:30PM", "6:30PM"],
+        "menu" : [["Tea", "https://www.bigbasket.com/media/uploads/p/l/40166733-4_6-omega-stainless-steel-rampatra-coffeetea-glass.jpg"], ["Sev Poha", ""]]
+      }, 
+      "Dinner" : {
+        "timings" : ["7:30PM", "9:30PM"],
+        "menu" : [["Chapati", "https://www.maheelapower.com/cdn/shop/products/WheatChapatis_1134x.jpg?v=1602433328"], ["Paneer", ""], ["Rice", "https://hips.hearstapps.com/vidthumb/images/delish-u-rice-2-1529079587.jpg?crop=0.75xw:1xh;center,top&resize=1200:*"], ["Dal", ""], ["Salad, Achar", ""]]
+      }
+    }, 
+    "Thursday" : {
+      "Breakfast" : {
+        "timings" : ["7:30AM", "9:30AM"],
+        "menu" : [["Aloo Puri", ""], ["Milk", "https://cdn.britannica.com/34/176234-050-0E0C55C6/Glass-milk.jpg"], ["Tea", "https://www.bigbasket.com/media/uploads/p/l/40166733-4_6-omega-stainless-steel-rampatra-coffeetea-glass.jpg"], ["Bread, Butter, Jam", "https://images6.fanpop.com/image/photos/41200000/Bread-Butter-Jam-bread-41248652-1200-900.jpg"], ["Seasonal Fruit", ""]]
+      },
+      "Lunch" : {
+        "timings" : ["12:00PM", "2:00PM"],
+        "menu" : [["Chapati", "https://www.maheelapower.com/cdn/shop/products/WheatChapatis_1134x.jpg?v=1602433328"], ["Desi Chana Gravy", ""], ["Rice", ""], ["Masur Dal", ""], ["Salad, Achar", ""], ["Curd", ""]]
+      },
+      "Snacks" : {
+        "timings" : ["5:30PM", "6:30PM"],
+        "menu" : [["Tea", "https://www.bigbasket.com/media/uploads/p/l/40166733-4_6-omega-stainless-steel-rampatra-coffeetea-glass.jpg"], ["Fried Rice", ""]]
+      }, 
+      "Dinner" : {
+        "timings" : ["7:30PM", "9:30PM"],
+        "menu" : [["Chapati", "https://www.maheelapower.com/cdn/shop/products/WheatChapatis_1134x.jpg?v=1602433328"], ["Corn Palak", ""], ["Tomato Rice", ""], ["Chana Dal", ""], ["Achar, Salad", ""], ["Gulab Jamun", ""]]
+      }
+    }, 
+    "Friday" : {
+      "Breakfast" : {
+        "timings" : ["7:30AM", "9:30AM"],
+        "menu" : [["Wada", ""], ["Milk", "https://cdn.britannica.com/34/176234-050-0E0C55C6/Glass-milk.jpg"], ["Tea", "https://www.bigbasket.com/media/uploads/p/l/40166733-4_6-omega-stainless-steel-rampatra-coffeetea-glass.jpg"], ["Bread, Butter, Jam", "https://images6.fanpop.com/image/photos/41200000/Bread-Butter-Jam-bread-41248652-1200-900.jpg"], ["Seasonal Fruit", ""]]
+      },
+      "Lunch" : {
+        "timings" : ["12:00PM", "2:00PM"],
+        "menu" : [["Paratha", ""], ["Sev Bhaji", ""], ["Mutter Rice", ""], ["Moong Dal", ""], ["Salad, Achar", ""], ["Chach", ""]]
+      },
+      "Snacks" : {
+        "timings" : ["5:30PM", "6:30PM"],
+        "menu" : [["Tea", "https://www.bigbasket.com/media/uploads/p/l/40166733-4_6-omega-stainless-steel-rampatra-coffeetea-glass.jpg"], ["Chana Masala", ""]]
+      }, 
+      "Dinner" : {
+        "timings" : ["7:30PM", "9:30PM"],
+        "menu" : [["Chapati", "https://www.maheelapower.com/cdn/shop/products/WheatChapatis_1134x.jpg?v=1602433328"], ["Mix Veg", ""], ["Rice", "https://hips.hearstapps.com/vidthumb/images/delish-u-rice-2-1529079587.jpg?crop=0.75xw:1xh;center,top&resize=1200:*"], ["Sambhar", ""], ["Achar", ""]]
+      }
+    }, 
+    "Saturday" : {
+      "Breakfast" : {
+        "timings" : ["7:30AM", "9:30AM"],
+        "menu" : [["Dosa", ""], ["Milk", "https://cdn.britannica.com/34/176234-050-0E0C55C6/Glass-milk.jpg"], ["Tea", "https://www.bigbasket.com/media/uploads/p/l/40166733-4_6-omega-stainless-steel-rampatra-coffeetea-glass.jpg"], ["Bread, Butter, Jam", "https://images6.fanpop.com/image/photos/41200000/Bread-Butter-Jam-bread-41248652-1200-900.jpg"], ["Banana", "https://img.freepik.com/free-photo/single-banana-isolated-white-background_839833-17794.jpg"]]
+      },
+      "Lunch" : {
+        "timings" : ["12:00PM", "2:00PM"],
+        "menu" : [["Chapati", "https://www.maheelapower.com/cdn/shop/products/WheatChapatis_1134x.jpg?v=1602433328"], ["Rajma Curry", ""], ["Lemon Rice", ""], ["Dal Fry", ""], ["Salad, Achar, Papad", ""], ["Lassi", ""]]
+      },
+      "Snacks" : {
+        "timings" : ["5:30PM", "6:30PM"],
+        "menu" : [["Tea", "https://www.bigbasket.com/media/uploads/p/l/40166733-4_6-omega-stainless-steel-rampatra-coffeetea-glass.jpg"], ["Samosa/Bread Pakoda", ""], ["Green Chatani", ""]]
+      }, 
+      "Dinner" : {
+        "timings" : ["7:30PM", "9:30PM"],
+        "menu" : [["Chapati", "https://www.maheelapower.com/cdn/shop/products/WheatChapatis_1134x.jpg?v=1602433328"], ["Methi Matar", ""], ["Rice", "https://hips.hearstapps.com/vidthumb/images/delish-u-rice-2-1529079587.jpg?crop=0.75xw:1xh;center,top&resize=1200:*"], ["Chana Dal", ""], ["Salad, Achar", ""]]
+      }
+    }, 
+    "Sunday" : {
+      "Breakfast" : {
+        "timings" : ["7:30AM", "10:00AM"],
+        "menu" : [["Poha", ""], ["Milk", "https://cdn.britannica.com/34/176234-050-0E0C55C6/Glass-milk.jpg"], ["Tea", "https://www.bigbasket.com/media/uploads/p/l/40166733-4_6-omega-stainless-steel-rampatra-coffeetea-glass.jpg"], ["Bread, Butter, Jam", "https://images6.fanpop.com/image/photos/41200000/Bread-Butter-Jam-bread-41248652-1200-900.jpg"], ["Seasonal Fruit", ""]]
+      },
+      "Lunch" : {
+        "timings" : ["12:00PM", "2:00PM"],
+        "menu" : [["Puri", ""], ["Chole", ""], ["Rice", "https://hips.hearstapps.com/vidthumb/images/delish-u-rice-2-1529079587.jpg?crop=0.75xw:1xh;center,top&resize=1200:*"], ["Moong Dal", ""], ["Salad, Achar", ""], ["Boondi Raita", ""]]
+      },
+      "Snacks" : {
+        "timings" : ["5:30PM", "6:30PM"],
+        "menu" : [["Tea", "https://www.bigbasket.com/media/uploads/p/l/40166733-4_6-omega-stainless-steel-rampatra-coffeetea-glass.jpg"], ["Cup Cakes/Dhokla", ""]]
+      }, 
+      "Dinner" : {
+        "timings" : ["7:30PM", "9:30PM"],
+        "menu" : [["Chapati", "https://www.maheelapower.com/cdn/shop/products/WheatChapatis_1134x.jpg?v=1602433328"], ["Kadhai Paneer", ""], ["Jeera Rice", ""], ["Dal Fry", ""], ["Salad, Achar", ""], ["Ice Cream/Rasgulla", ""]]
+      }
+    }
+  }
