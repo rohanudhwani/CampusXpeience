@@ -32,13 +32,13 @@
     "Saturday": {
       "Breakfast": ["Dosa", "Milk", "Tea", "Bread, Butter, Jam", "Banana"],
       "Lunch": ["Chapati", "Rajma Curry", "Lemon Rice", "Dal Fry", "Salad, Achar", "Lassi"],
-      "Snacks": ["Tea", "Samosa/Bread Pakoda", "Green Chutney"],
+      "Snacks": ["Tea", "Samosa-Bread Pakoda", "Green Chutney"],
       "Dinner": ["Chapati", "Methi Matar", "Rice", "Chana Dal", "Salad, Achar"]
     },
     "Sunday": {
       "Breakfast": ["Poha", "Milk", "Tea", "Bread, Butter, Jam", "Seasonal Fruit"],
       "Lunch": ["Puri", "Chole", "Rice", "Moong Dal", "Salad, Achar", "Boondi Raita"],
-      "Snacks": ["Tea", "Cup Cakes/Dhokla"],
-      "Dinner": ["Chapati", "Kadhai Paneer", "Jeera Rice", "Dal Fry", "Salad, Achar", "Ice Cream/Rasgulla"]
+      "Snacks": ["Tea", "Cup Cakes-Dhokla"],
+      "Dinner": ["Chapati", "Kadhai Paneer", "Jeera Rice", "Dal Fry", "Salad, Achar", "Ice Cream-Rasgulla"]
     }
   }

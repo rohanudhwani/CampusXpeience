@@ -1,11 +1,11 @@
-import { Animated, Image, ScrollView, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
-import React, { useRef, useState } from 'react'
+import { ActivityIndicator, Animated, Image, ScrollView, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
-import menu from '../menu.json';
-import dishes from '../dishes.json';
+import { connect } from 'react-redux';
 
-const MenuScreen = () => {
+const MenuScreen = ({ menu, dishes }) => {    
+
 
     const [activeOption, setActiveOption] = useState("Today")
 
@@ -90,7 +90,7 @@ const MenuScreen = () => {
     }
 
     const forwardDay = (days) => {
-        if(days===-1 && selectedDate===date && selectedMonth===monthNames[month] && selectedDay===dayNames[day]) return;
+        if (days === -1 && selectedDate === date && selectedMonth === monthNames[month] && selectedDay === dayNames[day]) return;
         const newDate = new Date();
         newDate.setDate(selectedDate + days);
         setSelectedDay(dayNames[newDate.getDay()]);
@@ -98,8 +98,21 @@ const MenuScreen = () => {
         setSelectedMonth(monthNames[newDate.getMonth()]);
     }
 
+    const [isLoaded, setIsLoaded] = useState(false);
+    useEffect(() => {
+        if (menu !== null && dishes !== null) {
+            setIsLoaded(true); // Data is loaded
+        }
+    }, [menu, dishes]);
 
-
+    // Render loader if data is not loaded yet
+    if (!isLoaded) {
+        return (
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <ActivityIndicator size="30" color="#94F074" />
+            </View>
+        );
+    }
 
     return (
         <SafeAreaView style={{ backgroundColor: "#94F074" }}>
@@ -129,7 +142,7 @@ const MenuScreen = () => {
                             <AntDesign onPress={() => forwardDay(-1)} name="left" size={22} color="gray" />
                         </View>
                         <View style={{ flex: 1 }}>
-                            <Text style={{ fontSize: 18, fontWeight: "bold", textAlign: "center" }}>{selectedDay === dayNames[day] && selectedMonth===monthNames[month] && selectedDate===date ? "TODAY" : selectedDay}</Text>
+                            <Text style={{ fontSize: 18, fontWeight: "bold", textAlign: "center" }}>{selectedDay === dayNames[day] && selectedMonth === monthNames[month] && selectedDate === date ? "TODAY" : selectedDay}</Text>
                             <Text style={{ color: "gray", fontSize: 15, textAlign: "center" }}>{selectedDate} {selectedMonth}, {selectedDay}</Text>
                         </View>
                         <View style={{ justifyContent: "center" }}>
@@ -253,6 +266,11 @@ const MenuScreen = () => {
     )
 }
 
-export default MenuScreen
+const mapStateToProps = state => ({
+    menu: state.menu,
+    dishes: state.dishes
+});
+
+export default connect(mapStateToProps)(MenuScreen);
 
 const styles = StyleSheet.create({})
