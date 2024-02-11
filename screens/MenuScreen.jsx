@@ -12,6 +12,7 @@ const MenuScreen = () => {
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
+
     const today = new Date();
 
     // Extract year, month, and day
@@ -73,16 +74,27 @@ const MenuScreen = () => {
     };
 
     const [selectedDay, setSelectedDay] = useState(dayNames[day])
-    const [selectedDate, setSelectedDate] = useState(today)
+    const [selectedDate, setSelectedDate] = useState(date)
+    const [selectedMonth, setSelectedMonth] = useState(monthNames[month])
 
     const changeDay = (dayChosen) => {
         setSelectedDay(dayChosen)
         const dayIndex = dayNames.indexOf(dayChosen);
         const daysToAdd = dayIndex - day >= 0 ? dayIndex - day : 7 - (day - dayIndex);
-        const newDate = new Date(today);
+        const newDate = new Date();
         newDate.setDate(today.getDate() + daysToAdd);
-        setSelectedDate(newDate);
-        console.log(selectedDate)
+        setSelectedDate(newDate.getDate());
+        setSelectedMonth(monthNames[newDate.getMonth()]);
+        setActiveOption("Today")
+    }
+
+    const forwardDay = (days) => {
+        if(days===-1 && selectedDate===date && selectedMonth===monthNames[month] && selectedDay===dayNames[day]) return;
+        const newDate = new Date();
+        newDate.setDate(selectedDate + days);
+        setSelectedDay(dayNames[newDate.getDay()]);
+        setSelectedDate(newDate.getDate());
+        setSelectedMonth(monthNames[newDate.getMonth()]);
     }
 
 
@@ -91,7 +103,7 @@ const MenuScreen = () => {
     return (
         <SafeAreaView style={{ backgroundColor: "#94F074" }}>
 
-            <Text style={{ marginTop: 20, textAlign: "center", fontSize: 20, fontWeight: "600" }}>Menu</Text>
+            <Text onPress={() => console.log(today)} style={{ marginTop: 20, textAlign: "center", fontSize: 20, fontWeight: "600" }}>Menu</Text>
 
             <View style={{ marginTop: 20, marginBottom: 20, justifyContent: "space-evenly", flexDirection: "row", gap: 30 }}>
                 <Text style={{ fontSize: 15, fontWeight: activeOption === "Today" ? 500 : "normal" }} onPress={() => { setActiveOption("Today"); changeDay(dayNames[day]) }}>Today</Text>
@@ -111,18 +123,28 @@ const MenuScreen = () => {
                         </TouchableOpacity>
                     ))}
                 </> : <>
-                    <View style={{ alignItems: "center", justifyContent: "center" }}>
-                        <Text style={{ fontSize: 18, fontWeight: "bold" }}>{selectedDay === dayNames[day] ? "TODAY" : selectedDay}</Text>
-                        <Text style={{ color: "gray", fontSize: 15 }}>{date}th {monthNames[month]}, {selectedDay}</Text>
+                    <View style={{ alignItems: "center", flexDirection: "row" }}>
+                        <View style={{ justifyContent: "center" }}>
+                            <AntDesign onPress={() => forwardDay(-1)} name="left" size={22} color="gray" />
+                        </View>
+                        <View style={{ flex: 1 }}>
+                            <Text style={{ fontSize: 18, fontWeight: "bold", textAlign: "center" }}>{selectedDay === dayNames[day] && selectedMonth===monthNames[month] && selectedDate===date ? "TODAY" : selectedDay}</Text>
+                            <Text style={{ color: "gray", fontSize: 15, textAlign: "center" }}>{selectedDate} {selectedMonth}, {selectedDay}</Text>
+                        </View>
+                        <View style={{ justifyContent: "center" }}>
+                            <AntDesign onPress={() => forwardDay(1)} name="right" size={22} color="gray" />
+                        </View>
                     </View>
+
+
 
 
                     <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ flexGrow: 0 }}>
                         <TouchableWithoutFeedback onPress={toggleBreakfastDropdown} style={{ marginTop: 20 }}>
                             <View>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between", marginTop: 15 }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between", marginTop: 15, marginRight: 10 }}>
                                     <Text style={{ marginRight: 10, fontSize: 18, fontWeight: "500" }}>Breakfast</Text>
-                                    <AntDesign name={isBreakfastOpen ? 'up' : 'down'} size={24} color="gray" />
+                                    <AntDesign name={isBreakfastOpen ? 'up' : 'down'} size={20} color="gray" />
                                 </View>
                                 <Animated.View style={{ transform: [{ translateY }] }}>
                                     {isBreakfastOpen && (
@@ -146,9 +168,9 @@ const MenuScreen = () => {
 
                         <TouchableWithoutFeedback onPress={toggleLunchDropdown}>
                             <View>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between", marginTop: 10 }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between", marginTop: 10, marginRight: 10 }}>
                                     <Text style={{ marginRight: 10, fontSize: 18, fontWeight: "500" }}>Lunch</Text>
-                                    <AntDesign name={isLunchOpen ? 'up' : 'down'} size={24} color="gray" />
+                                    <AntDesign name={isLunchOpen ? 'up' : 'down'} size={20} color="gray" />
                                 </View>
                                 <Animated.View style={{ transform: [{ translateY }] }}>
                                     {isLunchOpen && (
@@ -172,9 +194,9 @@ const MenuScreen = () => {
 
                         <TouchableWithoutFeedback onPress={toggleSnacksDropdown}>
                             <View>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between", marginTop: 10 }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between", marginTop: 10, marginRight: 10 }}>
                                     <Text style={{ marginRight: 10, fontSize: 18, fontWeight: "500" }}>Snacks</Text>
-                                    <AntDesign name={isSnacksOpen ? 'up' : 'down'} size={24} color="gray" />
+                                    <AntDesign name={isSnacksOpen ? 'up' : 'down'} size={20} color="gray" />
                                 </View>
                                 <Animated.View style={{ transform: [{ translateY }] }}>
                                     {isSnacksOpen && (
@@ -198,9 +220,9 @@ const MenuScreen = () => {
 
                         <TouchableWithoutFeedback onPress={toggleDinnerDropdown}>
                             <View>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between", marginTop: 10 }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between", marginTop: 10, marginRight: 10 }}>
                                     <Text style={{ marginRight: 10, fontSize: 18, fontWeight: "500" }}>Dinner</Text>
-                                    <AntDesign name={isDinnerOpen ? 'up' : 'down'} size={24} color="gray" />
+                                    <AntDesign name={isDinnerOpen ? 'up' : 'down'} size={20} color="gray" />
                                 </View>
                                 <Animated.View style={{ transform: [{ translateY }] }}>
                                     {isDinnerOpen && (
