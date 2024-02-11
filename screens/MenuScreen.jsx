@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
 import menu from '../menu.json';
+import dishes from '../dishes.json';
 
 const MenuScreen = () => {
 
@@ -149,12 +150,12 @@ const MenuScreen = () => {
                                 <Animated.View style={{ transform: [{ translateY }] }}>
                                     {isBreakfastOpen && (
                                         <View style={{ padding: 10 }}>
-                                            {[...Array(Math.ceil(menu.Monday.Breakfast.menu.length / 2))].map((_, rowIndex) => (
+                                            {[...Array(Math.ceil(menu.Monday.Breakfast.length / 2))].map((_, rowIndex) => (
                                                 <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
-                                                    {menu[selectedDay].Breakfast.menu.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
+                                                    {menu[selectedDay].Breakfast.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
                                                         <TouchableOpacity key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
-                                                            <Image source={{ uri: option[1] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
-                                                            <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{option[0]}</Text>
+                                                            <Image source={{ uri: dishes[option] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
+                                                            <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{option}</Text>
                                                         </TouchableOpacity>
                                                     ))}
                                                 </View>
@@ -175,12 +176,12 @@ const MenuScreen = () => {
                                 <Animated.View style={{ transform: [{ translateY }] }}>
                                     {isLunchOpen && (
                                         <View style={{ padding: 10 }}>
-                                            {[...Array(Math.ceil(menu.Monday.Lunch.menu.length / 2))].map((_, rowIndex) => (
+                                            {[...Array(Math.ceil(menu.Monday.Lunch.length / 2))].map((_, rowIndex) => (
                                                 <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
-                                                    {menu[selectedDay].Lunch.menu.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
+                                                    {menu[selectedDay].Lunch.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
                                                         <TouchableOpacity key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
-                                                            <Image source={{ uri: option[1] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
-                                                            <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{option[0]}</Text>
+                                                            <Image source={{ uri: dishes[option] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
+                                                            <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{option}</Text>
                                                         </TouchableOpacity>
                                                     ))}
                                                 </View>
@@ -201,12 +202,12 @@ const MenuScreen = () => {
                                 <Animated.View style={{ transform: [{ translateY }] }}>
                                     {isSnacksOpen && (
                                         <View style={{ padding: 10 }}>
-                                            {[...Array(Math.ceil(menu.Monday.Lunch.menu.length / 2))].map((_, rowIndex) => (
+                                            {[...Array(Math.ceil(menu.Monday.Snacks.length / 2))].map((_, rowIndex) => (
                                                 <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
-                                                    {menu[selectedDay].Snacks.menu.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
+                                                    {menu[selectedDay].Snacks.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
                                                         <TouchableOpacity key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
-                                                            <Image source={{ uri: option[1] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
-                                                            <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{option[0]}</Text>
+                                                            <Image source={{ uri: dishes[option] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
+                                                            <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{option}</Text>
                                                         </TouchableOpacity>
                                                     ))}
                                                 </View>
@@ -227,12 +228,12 @@ const MenuScreen = () => {
                                 <Animated.View style={{ transform: [{ translateY }] }}>
                                     {isDinnerOpen && (
                                         <View style={{ padding: 10 }}>
-                                            {[...Array(Math.ceil(menu.Monday.Lunch.menu.length / 2))].map((_, rowIndex) => (
+                                            {[...Array(Math.ceil(menu.Monday.Lunch.length / 2))].map((_, rowIndex) => (
                                                 <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
-                                                    {menu[selectedDay].Dinner.menu.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
+                                                    {menu[selectedDay].Dinner.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
                                                         <TouchableOpacity key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
-                                                            <Image source={{ uri: option[1] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
-                                                            <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{option[0]}</Text>
+                                                            <Image source={{ uri: dishes[option] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
+                                                            <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{option}</Text>
                                                         </TouchableOpacity>
                                                     ))}
                                                 </View>
