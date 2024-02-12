@@ -1,13 +1,14 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { MenuScreen } from './screens'
+import { MenuScreen, SignUpScreen, LoginScreen } from './screens'
 import { ref, onValue } from 'firebase/database';
 import { db } from './firebase';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import { useFonts, Inter_400Regular, Inter_500Medium, Inter_700Bold } from '@expo-google-fonts/inter';
 
 const Stack = createNativeStackNavigator()
 
@@ -16,6 +17,8 @@ const userRefDishes = ref(db, '/dishes');
 
 const MyComponent = ({ setActiveScreen }) => {
   const navigation = useNavigation()
+
+  
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('state', () => {
@@ -31,6 +34,9 @@ export default function App() {
   const [activeScreen, setActiveScreen] = useState("")
   const [isLoading, setIsLoading] = useState(true)
 
+  let [fontsLoaded, fontError] = useFonts({
+    Inter_400Regular, Inter_500Medium, Inter_700Bold,
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,11 +59,27 @@ export default function App() {
     fetchData();
   }, []);
 
+  if (isLoading) {
+    // You can show a loading indicator here if needed
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
+  if (!fontsLoaded && !fontError) {
+    console.log("Font not loaded")
+    return null;
+  }
+
   return (
     <Provider store={store}>
       <NavigationContainer>
         <MyComponent setActiveScreen={setActiveScreen} />
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Menu" component={MenuScreen} />
         </Stack.Navigator>
       </NavigationContainer>

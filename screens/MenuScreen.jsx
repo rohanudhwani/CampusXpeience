@@ -1,11 +1,18 @@
 import { ActivityIndicator, Animated, Image, ScrollView, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
+import { auth, fireDb } from '../firebase';
+import { signOut } from 'firebase/auth'
+import { useNavigation } from '@react-navigation/native';
+import firebase from 'firebase/app';
+import { doc, getDoc } from "firebase/firestore";
 
-const MenuScreen = ({ menu, dishes }) => {    
+const MenuScreen = ({ menu, dishes }) => {
 
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const [activeOption, setActiveOption] = useState("Today")
 
@@ -27,7 +34,44 @@ const MenuScreen = ({ menu, dishes }) => {
     const [isSnacksOpen, setIsSnacksOpen] = useState(false);
     const [isDinnerOpen, setIsDinnerOpen] = useState(false);
 
+    const [selectedDay, setSelectedDay] = useState(dayNames[day])
+    const [selectedDate, setSelectedDate] = useState(date)
+    const [selectedMonth, setSelectedMonth] = useState(monthNames[month])
+
+
+    useEffect(() => {
+        async function fetchUserData() {
+            const snap = await getDoc(doc(fireDb, 'users', auth.currentUser.uid));
+            if (snap.exists()) {
+                const userData = snap.data();
+                setIsAdmin(userData.isAdmin || false);
+            } else {
+                setIsAdmin(false);
+            }
+        }
+    
+        fetchUserData();
+    
+        // No need to return anything from useEffect
+    }, []);
+
+    
+    useEffect(() => {
+        if (menu !== null && dishes !== null) {
+            setIsLoaded(true); // Data is loaded
+        }
+    }, [menu, dishes]);
+
     const translateY = useRef(new Animated.Value(0)).current;
+
+    // Render loader if data is not loaded yet
+    if (!isLoaded) {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <ActivityIndicator size="30" color="#94F074" />
+            </View>
+        );
+    }
 
     const toggleBreakfastDropdown = () => {
         setIsBreakfastOpen(!isBreakfastOpen);
@@ -74,10 +118,6 @@ const MenuScreen = ({ menu, dishes }) => {
         }).start();
     };
 
-    const [selectedDay, setSelectedDay] = useState(dayNames[day])
-    const [selectedDate, setSelectedDate] = useState(date)
-    const [selectedMonth, setSelectedMonth] = useState(monthNames[month])
-
     const changeDay = (dayChosen) => {
         setSelectedDay(dayChosen)
         const dayIndex = dayNames.indexOf(dayChosen);
@@ -98,26 +138,34 @@ const MenuScreen = ({ menu, dishes }) => {
         setSelectedMonth(monthNames[newDate.getMonth()]);
     }
 
-    const [isLoaded, setIsLoaded] = useState(false);
-    useEffect(() => {
-        if (menu !== null && dishes !== null) {
-            setIsLoaded(true); // Data is loaded
-        }
-    }, [menu, dishes]);
+    const navigation = useNavigation()
 
-    // Render loader if data is not loaded yet
-    if (!isLoaded) {
-        return (
-            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                <ActivityIndicator size="30" color="#94F074" />
-            </View>
-        );
+    const handleExitPress = () => {
+        signOut(auth).then(() => {
+            navigation.replace("Login")
+        }).catch((error) => {
+            console.log(error.message)
+        })
+    }
+
+    const menuItemClicked = (meal, item) => () => {
+        if (!isAdmin) {
+            return;
+        }
+        console.log(meal, item);
     }
 
     return (
         <SafeAreaView style={{ backgroundColor: "#94F074" }}>
 
-            <Text onPress={() => console.log(today)} style={{ marginTop: 20, textAlign: "center", fontSize: 20, fontWeight: "600" }}>Menu</Text>
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 20, paddingHorizontal: 20 }}>
+                <Text onPress={() => console.log(isAdmin)} style={{ flex: 1, textAlign: "center", fontSize: 20, fontWeight: "600", marginLeft: 25 }}>Menu</Text>
+                <TouchableOpacity onPress={() => handleExitPress()}>
+                    <Ionicons name="exit-outline" size={24} color="black" />
+                </TouchableOpacity>
+            </View>
+
+
 
             <View style={{ marginTop: 20, marginBottom: 20, justifyContent: "space-evenly", flexDirection: "row", gap: 30 }}>
                 <Text style={{ fontSize: 15, fontWeight: activeOption === "Today" ? 500 : "normal" }} onPress={() => { setActiveOption("Today"); changeDay(dayNames[day]) }}>Today</Text>
@@ -163,10 +211,10 @@ const MenuScreen = ({ menu, dishes }) => {
                                 <Animated.View style={{ transform: [{ translateY }] }}>
                                     {isBreakfastOpen && (
                                         <View style={{ padding: 10 }}>
-                                            {[...Array(Math.ceil(menu.Monday.Breakfast.length / 2))].map((_, rowIndex) => (
+                                            {[...Array(Math.ceil(menu[selectedDay].Breakfast.length / 2))].map((_, rowIndex) => (
                                                 <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
                                                     {menu[selectedDay].Breakfast.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
-                                                        <TouchableOpacity key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
+                                                        <TouchableOpacity onPress={menuItemClicked('Breakfast', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
                                                             <Image source={{ uri: dishes[option] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
                                                             <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{option}</Text>
                                                         </TouchableOpacity>
@@ -189,7 +237,7 @@ const MenuScreen = ({ menu, dishes }) => {
                                 <Animated.View style={{ transform: [{ translateY }] }}>
                                     {isLunchOpen && (
                                         <View style={{ padding: 10 }}>
-                                            {[...Array(Math.ceil(menu.Monday.Lunch.length / 2))].map((_, rowIndex) => (
+                                            {[...Array(Math.ceil(menu[selectedDay].Lunch.length / 2))].map((_, rowIndex) => (
                                                 <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
                                                     {menu[selectedDay].Lunch.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
                                                         <TouchableOpacity key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
@@ -215,7 +263,7 @@ const MenuScreen = ({ menu, dishes }) => {
                                 <Animated.View style={{ transform: [{ translateY }] }}>
                                     {isSnacksOpen && (
                                         <View style={{ padding: 10 }}>
-                                            {[...Array(Math.ceil(menu.Monday.Snacks.length / 2))].map((_, rowIndex) => (
+                                            {[...Array(Math.ceil(menu[selectedDay].Snacks.length / 2))].map((_, rowIndex) => (
                                                 <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
                                                     {menu[selectedDay].Snacks.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
                                                         <TouchableOpacity key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
@@ -241,7 +289,7 @@ const MenuScreen = ({ menu, dishes }) => {
                                 <Animated.View style={{ transform: [{ translateY }] }}>
                                     {isDinnerOpen && (
                                         <View style={{ padding: 10 }}>
-                                            {[...Array(Math.ceil(menu.Monday.Lunch.length / 2))].map((_, rowIndex) => (
+                                            {[...Array(Math.ceil(menu[selectedDay].Dinner.length / 2))].map((_, rowIndex) => (
                                                 <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
                                                     {menu[selectedDay].Dinner.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
                                                         <TouchableOpacity key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
