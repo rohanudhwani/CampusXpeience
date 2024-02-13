@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { MenuScreen, SignUpScreen, LoginScreen } from './screens'
+import { MenuScreen, SignUpScreen, LoginScreen, EditMenuScreen } from './screens'
 import { ref, onValue } from 'firebase/database';
 import { db } from './firebase';
 import { Provider } from 'react-redux';
@@ -14,6 +14,7 @@ const Stack = createNativeStackNavigator()
 
 const userRefMenu = ref(db, '/menu');
 const userRefDishes = ref(db, '/dishes');
+const userRefUpdates = ref(db, '/updates');
 
 const MyComponent = ({ setActiveScreen }) => {
   const navigation = useNavigation()
@@ -49,6 +50,10 @@ export default function App() {
           const data = snapshot.val();
           store.dispatch({ type: 'SET_DISHES', payload: data })
         })
+        onValue(userRefUpdates, (snapshot) => {
+          const data = snapshot.val();
+          store.dispatch({ type: 'SET_UPDATES', payload: data })
+        })
         setIsLoading(false);
       } catch (error) {
         console.log('Error fetching data:', error);
@@ -81,6 +86,7 @@ export default function App() {
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Menu" component={MenuScreen} />
+          <Stack.Screen name="EditMenu" component={EditMenuScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

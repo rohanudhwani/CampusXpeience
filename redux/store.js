@@ -19,10 +19,20 @@ const dishesReducer = (state = null, action) => {
   }
 };
 
+const updatesReducer = (state = null, action) => {
+  switch (action.type) {
+    case 'SET_UPDATES':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 // Combine reducers
 const rootReducer = combineReducers({
   menu: menuReducer,
   dishes: dishesReducer,
+  updates: updatesReducer,
 });
 
 // Create Redux store

@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import firebase from 'firebase/app';
 import { doc, getDoc } from "firebase/firestore";
 
-const MenuScreen = ({ menu, dishes }) => {
+const MenuScreen = ({ menu, dishes, updates }) => {
 
     const [isAdmin, setIsAdmin] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -57,21 +57,12 @@ const MenuScreen = ({ menu, dishes }) => {
 
     
     useEffect(() => {
-        if (menu !== null && dishes !== null) {
+        if (menu !== null && dishes !== null && updates !== null) {
             setIsLoaded(true); // Data is loaded
         }
-    }, [menu, dishes]);
+    }, [menu, dishes, updates]);
 
     const translateY = useRef(new Animated.Value(0)).current;
-
-    // Render loader if data is not loaded yet
-    if (!isLoaded) {
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <ActivityIndicator size="30" color="#94F074" />
-            </View>
-        );
-    }
 
     const toggleBreakfastDropdown = () => {
         setIsBreakfastOpen(!isBreakfastOpen);
@@ -148,11 +139,56 @@ const MenuScreen = ({ menu, dishes }) => {
         })
     }
 
+    const superscript = (number) => {
+        if (number > 3 && number < 21) {
+            return "th"
+        } else if (number%10 === 1) {
+            return "st"
+        } else if (number%10 === 2) {
+            return "nd"
+        } else if (number%10 === 3) {
+            return "rd"
+        } else {
+            return "th"
+        }
+    }
+
     const menuItemClicked = (meal, item) => () => {
         if (!isAdmin) {
             return;
         }
-        console.log(meal, item);
+        const dateBeingChecked = (String(selectedDate).padStart(2, '0')+"-"+String(monthNames.indexOf(selectedMonth)+1).padStart(2, '0')+"-"+year);
+        navigation.navigate("EditMenu", { date: dateBeingChecked, meal: meal, item: item });
+    }
+
+    const checkUpdates = (item, meal) => {
+        if(updates === null) {
+            return item;
+        } else {
+            const dateBeingChecked = (String(selectedDate).padStart(2, '0')+"-"+String(monthNames.indexOf(selectedMonth)+1).padStart(2, '0')+"-"+year);
+            if(Object.keys(updates).includes(dateBeingChecked)){
+                if(Object.keys(updates[dateBeingChecked]).includes(meal)){
+                    if(Object.keys(updates[dateBeingChecked][meal]).includes(item)){
+                        return updates[dateBeingChecked][meal][item];
+                    } else {
+                        return item;
+                    }
+                } else {
+                    return item;
+                }
+            } else {
+                return item;
+            }
+        }
+    }
+
+    // Render loader if data is not loaded yet
+    if (!isLoaded) {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <ActivityIndicator size="30" color="#94F074" />
+            </View>
+        );
     }
 
     return (
@@ -191,7 +227,7 @@ const MenuScreen = ({ menu, dishes }) => {
                         </View>
                         <View style={{ flex: 1 }}>
                             <Text style={{ fontSize: 18, fontWeight: "bold", textAlign: "center" }}>{selectedDay === dayNames[day] && selectedMonth === monthNames[month] && selectedDate === date ? "TODAY" : selectedDay}</Text>
-                            <Text style={{ color: "gray", fontSize: 15, textAlign: "center" }}>{selectedDate} {selectedMonth}, {selectedDay}</Text>
+                            <Text style={{ color: "gray", fontSize: 15, textAlign: "center" }}>{selectedDate}{superscript(selectedDate)} {selectedMonth}, {selectedDay}</Text>
                         </View>
                         <View style={{ justifyContent: "center" }}>
                             <AntDesign onPress={() => forwardDay(1)} name="right" size={22} color="gray" />
@@ -215,8 +251,8 @@ const MenuScreen = ({ menu, dishes }) => {
                                                 <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
                                                     {menu[selectedDay].Breakfast.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
                                                         <TouchableOpacity onPress={menuItemClicked('Breakfast', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
-                                                            <Image source={{ uri: dishes[option] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
-                                                            <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{option}</Text>
+                                                            <Image source={{ uri: dishes[checkUpdates(option, 'Breakfast')] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
+                                                            <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{checkUpdates(option, 'Breakfast')}</Text>
                                                         </TouchableOpacity>
                                                     ))}
                                                 </View>
@@ -241,8 +277,8 @@ const MenuScreen = ({ menu, dishes }) => {
                                                 <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
                                                     {menu[selectedDay].Lunch.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
                                                         <TouchableOpacity key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
-                                                            <Image source={{ uri: dishes[option] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
-                                                            <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{option}</Text>
+                                                            <Image source={{ uri: dishes[checkUpdates(option, 'Lunch')] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
+                                                            <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{checkUpdates(option, 'Lunch')}</Text>
                                                         </TouchableOpacity>
                                                     ))}
                                                 </View>
@@ -267,8 +303,8 @@ const MenuScreen = ({ menu, dishes }) => {
                                                 <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
                                                     {menu[selectedDay].Snacks.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
                                                         <TouchableOpacity key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
-                                                            <Image source={{ uri: dishes[option] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
-                                                            <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{option}</Text>
+                                                            <Image source={{ uri: dishes[checkUpdates(option, 'Snacks')] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
+                                                            <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{checkUpdates(option, 'Snacks')}</Text>
                                                         </TouchableOpacity>
                                                     ))}
                                                 </View>
@@ -293,8 +329,8 @@ const MenuScreen = ({ menu, dishes }) => {
                                                 <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
                                                     {menu[selectedDay].Dinner.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
                                                         <TouchableOpacity key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
-                                                            <Image source={{ uri: dishes[option] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
-                                                            <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{option}</Text>
+                                                            <Image source={{ uri: dishes[checkUpdates(option, 'Dinner')] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
+                                                            <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{checkUpdates(option, 'Dinner')}</Text>
                                                         </TouchableOpacity>
                                                     ))}
                                                 </View>
@@ -316,7 +352,8 @@ const MenuScreen = ({ menu, dishes }) => {
 
 const mapStateToProps = state => ({
     menu: state.menu,
-    dishes: state.dishes
+    dishes: state.dishes,
+    updates: state.updates
 });
 
 export default connect(mapStateToProps)(MenuScreen);
