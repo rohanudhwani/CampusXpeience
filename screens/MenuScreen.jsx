@@ -153,12 +153,13 @@ const MenuScreen = ({ menu, dishes, updates }) => {
         }
     }
 
-    const menuItemClicked = (meal, item) => () => {
+    const menuItemClicked = (meal, item) => {
+        console.log("pressed")
         if (!isAdmin) {
             return;
         }
         const dateBeingChecked = (String(selectedDate).padStart(2, '0')+"-"+String(monthNames.indexOf(selectedMonth)+1).padStart(2, '0')+"-"+year);
-        navigation.navigate("EditMenu", { date: dateBeingChecked, meal: meal, item: item });
+        navigation.navigate("EditMenu", { date: dateBeingChecked, meal: meal, item: item, dishes: dishes, updates: updates});
     }
 
     const checkUpdates = (item, meal) => {
@@ -250,7 +251,7 @@ const MenuScreen = ({ menu, dishes, updates }) => {
                                             {[...Array(Math.ceil(menu[selectedDay].Breakfast.length / 2))].map((_, rowIndex) => (
                                                 <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
                                                     {menu[selectedDay].Breakfast.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
-                                                        <TouchableOpacity onPress={menuItemClicked('Breakfast', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
+                                                        <TouchableOpacity onPress={() => menuItemClicked('Breakfast', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
                                                             <Image source={{ uri: dishes[checkUpdates(option, 'Breakfast')] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
                                                             <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{checkUpdates(option, 'Breakfast')}</Text>
                                                         </TouchableOpacity>
@@ -276,7 +277,7 @@ const MenuScreen = ({ menu, dishes, updates }) => {
                                             {[...Array(Math.ceil(menu[selectedDay].Lunch.length / 2))].map((_, rowIndex) => (
                                                 <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
                                                     {menu[selectedDay].Lunch.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
-                                                        <TouchableOpacity key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
+                                                        <TouchableOpacity onPress={() => menuItemClicked('Lunch', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
                                                             <Image source={{ uri: dishes[checkUpdates(option, 'Lunch')] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
                                                             <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{checkUpdates(option, 'Lunch')}</Text>
                                                         </TouchableOpacity>
@@ -302,7 +303,7 @@ const MenuScreen = ({ menu, dishes, updates }) => {
                                             {[...Array(Math.ceil(menu[selectedDay].Snacks.length / 2))].map((_, rowIndex) => (
                                                 <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
                                                     {menu[selectedDay].Snacks.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
-                                                        <TouchableOpacity key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
+                                                        <TouchableOpacity onPress={() => menuItemClicked('Snacks', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
                                                             <Image source={{ uri: dishes[checkUpdates(option, 'Snacks')] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
                                                             <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{checkUpdates(option, 'Snacks')}</Text>
                                                         </TouchableOpacity>
@@ -328,7 +329,7 @@ const MenuScreen = ({ menu, dishes, updates }) => {
                                             {[...Array(Math.ceil(menu[selectedDay].Dinner.length / 2))].map((_, rowIndex) => (
                                                 <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
                                                     {menu[selectedDay].Dinner.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
-                                                        <TouchableOpacity key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
+                                                        <TouchableOpacity onPress={() => menuItemClicked('Dinner', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
                                                             <Image source={{ uri: dishes[checkUpdates(option, 'Dinner')] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
                                                             <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{checkUpdates(option, 'Dinner')}</Text>
                                                         </TouchableOpacity>
