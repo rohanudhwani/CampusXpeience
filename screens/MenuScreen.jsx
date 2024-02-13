@@ -8,6 +8,7 @@ import { signOut } from 'firebase/auth'
 import { useNavigation } from '@react-navigation/native';
 import firebase from 'firebase/app';
 import { doc, getDoc } from "firebase/firestore";
+import { StatusBar } from 'expo-status-bar';
 
 const MenuScreen = ({ menu, dishes, updates }) => {
 
@@ -22,6 +23,13 @@ const MenuScreen = ({ menu, dishes, updates }) => {
 
 
     const today = new Date();
+
+    const formattedTime = today.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+    const timeParts = formattedTime.split(':');
+    const hours = timeParts[0];
+    const minutes = timeParts[1].slice(0, 2);
+    const period = timeParts[1].slice(2);
+    const formattedTimeString = `${hours}:${minutes}${period.toUpperCase()}`;
 
     // Extract year, month, and day
     const year = today.getFullYear();
@@ -38,6 +46,11 @@ const MenuScreen = ({ menu, dishes, updates }) => {
     const [selectedDate, setSelectedDate] = useState(date)
     const [selectedMonth, setSelectedMonth] = useState(monthNames[month])
 
+    const [breakfastTimings, setBreakfastTimings] = useState([])
+    const [lunchTimings, setLunchTimings] = useState([])
+    const [snacksTimings, setSnacksTimings] = useState([])
+    const [dinnerTimings, setDinnerTimings] = useState([])
+
 
     useEffect(() => {
         async function fetchUserData() {
@@ -49,15 +62,19 @@ const MenuScreen = ({ menu, dishes, updates }) => {
                 setIsAdmin(false);
             }
         }
-    
+
         fetchUserData();
-    
+
         // No need to return anything from useEffect
     }, []);
 
-    
+
     useEffect(() => {
         if (menu !== null && dishes !== null && updates !== null) {
+            setBreakfastTimings([menu[selectedDay].timings.Breakfast[0], menu[selectedDay].timings.Breakfast[1]]);
+            setLunchTimings([menu[selectedDay].timings.Lunch[0], menu[selectedDay].timings.Lunch[1]]);
+            setSnacksTimings([menu[selectedDay].timings.Snacks[0], menu[selectedDay].timings.Snacks[1]]);
+            setDinnerTimings([menu[selectedDay].timings.Dinner[0], menu[selectedDay].timings.Dinner[1]]);
             setIsLoaded(true); // Data is loaded
         }
     }, [menu, dishes, updates]);
@@ -142,11 +159,11 @@ const MenuScreen = ({ menu, dishes, updates }) => {
     const superscript = (number) => {
         if (number > 3 && number < 21) {
             return "th"
-        } else if (number%10 === 1) {
+        } else if (number % 10 === 1) {
             return "st"
-        } else if (number%10 === 2) {
+        } else if (number % 10 === 2) {
             return "nd"
-        } else if (number%10 === 3) {
+        } else if (number % 10 === 3) {
             return "rd"
         } else {
             return "th"
@@ -158,18 +175,18 @@ const MenuScreen = ({ menu, dishes, updates }) => {
         if (!isAdmin) {
             return;
         }
-        const dateBeingChecked = (String(selectedDate).padStart(2, '0')+"-"+String(monthNames.indexOf(selectedMonth)+1).padStart(2, '0')+"-"+year);
-        navigation.navigate("EditMenu", { date: dateBeingChecked, meal: meal, item: item, dishes: dishes, updates: updates});
+        const dateBeingChecked = (String(selectedDate).padStart(2, '0') + "-" + String(monthNames.indexOf(selectedMonth) + 1).padStart(2, '0') + "-" + year);
+        navigation.navigate("EditMenu", { date: dateBeingChecked, meal: meal, item: item, dishes: dishes, updates: updates });
     }
 
     const checkUpdates = (item, meal) => {
-        if(updates === null) {
+        if (updates === null) {
             return item;
         } else {
-            const dateBeingChecked = (String(selectedDate).padStart(2, '0')+"-"+String(monthNames.indexOf(selectedMonth)+1).padStart(2, '0')+"-"+year);
-            if(Object.keys(updates).includes(dateBeingChecked)){
-                if(Object.keys(updates[dateBeingChecked]).includes(meal)){
-                    if(Object.keys(updates[dateBeingChecked][meal]).includes(item)){
+            const dateBeingChecked = (String(selectedDate).padStart(2, '0') + "-" + String(monthNames.indexOf(selectedMonth) + 1).padStart(2, '0') + "-" + year);
+            if (Object.keys(updates).includes(dateBeingChecked)) {
+                if (Object.keys(updates[dateBeingChecked]).includes(meal)) {
+                    if (Object.keys(updates[dateBeingChecked][meal]).includes(item)) {
                         return updates[dateBeingChecked][meal][item];
                     } else {
                         return item;
@@ -193,160 +210,168 @@ const MenuScreen = ({ menu, dishes, updates }) => {
     }
 
     return (
-        <SafeAreaView style={{ backgroundColor: "#94F074" }}>
-
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 20, paddingHorizontal: 20 }}>
-                <Text onPress={() => console.log(isAdmin)} style={{ flex: 1, textAlign: "center", fontSize: 20, fontWeight: "600", marginLeft: 25 }}>Menu</Text>
-                <TouchableOpacity onPress={() => handleExitPress()}>
-                    <Ionicons name="exit-outline" size={24} color="black" />
-                </TouchableOpacity>
-            </View>
-
-
-
-            <View style={{ marginTop: 20, marginBottom: 20, justifyContent: "space-evenly", flexDirection: "row", gap: 30 }}>
-                <Text style={{ fontSize: 15, fontWeight: activeOption === "Today" ? 500 : "normal" }} onPress={() => { setActiveOption("Today"); changeDay(dayNames[day]) }}>Today</Text>
-                <Text style={{ fontSize: 15, fontWeight: activeOption === "Week" ? 500 : "normal" }} onPress={() => setActiveOption("Week")}>Week</Text>
-            </View>
-
-            <View style={{ backgroundColor: "white", borderTopLeftRadius: 25, borderTopRightRadius: 25, padding: 20 }}>
-                {activeOption === "Week" ? <>
-                    <View style={{ alignItems: "center", justifyContent: "center" }}>
-                        <Text style={{ color: "gray", fontSize: 15 }}>Month of</Text>
-                        <Text style={{ fontSize: 18, fontWeight: "bold" }}>{monthNames[month].toUpperCase()}</Text>
-                    </View>
-
-                    {week.map((option, index) => (
-                        <TouchableOpacity onPress={() => changeDay(option)} key={index} style={{ justifyContent: "space-between", backgroundColor: "#C8F7B1", marginTop: 15, padding: 20, borderRadius: 15 }}>
-                            <Text style={{ fontSize: 15, fontWeight: "500" }}>{option}</Text>
+        <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
+            <StatusBar backgroundColor="#94F074" barStyle="dark-content" />
+            <ScrollView>
+                <View style={{ backgroundColor: "#94F074" }}>
+                    <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 20, paddingHorizontal: 20 }}>
+                        <Text onPress={() => console.log(isAdmin)} style={{ flex: 1, textAlign: "center", fontSize: 20, fontWeight: "600", marginLeft: 25 }}>Menu</Text>
+                        <TouchableOpacity onPress={() => handleExitPress()}>
+                            <Ionicons name="exit-outline" size={24} color="black" />
                         </TouchableOpacity>
-                    ))}
-                </> : <>
-                    <View style={{ alignItems: "center", flexDirection: "row" }}>
-                        <View style={{ justifyContent: "center" }}>
-                            <AntDesign onPress={() => forwardDay(-1)} name="left" size={22} color="gray" />
-                        </View>
-                        <View style={{ flex: 1 }}>
-                            <Text style={{ fontSize: 18, fontWeight: "bold", textAlign: "center" }}>{selectedDay === dayNames[day] && selectedMonth === monthNames[month] && selectedDate === date ? "TODAY" : selectedDay}</Text>
-                            <Text style={{ color: "gray", fontSize: 15, textAlign: "center" }}>{selectedDate}{superscript(selectedDate)} {selectedMonth}, {selectedDay}</Text>
-                        </View>
-                        <View style={{ justifyContent: "center" }}>
-                            <AntDesign onPress={() => forwardDay(1)} name="right" size={22} color="gray" />
-                        </View>
                     </View>
 
 
 
+                    <View style={{ marginTop: 20, marginBottom: 20, justifyContent: "space-evenly", flexDirection: "row", gap: 30 }}>
+                        <Text style={{ fontSize: 15, fontWeight: activeOption === "Today" ? 500 : "normal" }} onPress={() => { setActiveOption("Today"); changeDay(dayNames[day]) }}>Today</Text>
+                        <Text style={{ fontSize: 15, fontWeight: activeOption === "Week" ? 500 : "normal" }} onPress={() => setActiveOption("Week")}>Week</Text>
+                    </View>
+                </View>
 
-                    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ flexGrow: 0 }}>
-                        <TouchableWithoutFeedback onPress={toggleBreakfastDropdown} style={{ marginTop: 20 }}>
-                            <View>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between", marginTop: 15, marginRight: 10 }}>
-                                    <Text style={{ marginRight: 10, fontSize: 18, fontWeight: "500" }}>Breakfast</Text>
-                                    <AntDesign name={isBreakfastOpen ? 'up' : 'down'} size={20} color="gray" />
-                                </View>
-                                <Animated.View style={{ transform: [{ translateY }] }}>
-                                    {isBreakfastOpen && (
-                                        <View style={{ padding: 10 }}>
-                                            {[...Array(Math.ceil(menu[selectedDay].Breakfast.length / 2))].map((_, rowIndex) => (
-                                                <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
-                                                    {menu[selectedDay].Breakfast.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
-                                                        <TouchableOpacity onPress={() => menuItemClicked('Breakfast', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
-                                                            <Image source={{ uri: dishes[checkUpdates(option, 'Breakfast')] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
-                                                            <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{checkUpdates(option, 'Breakfast')}</Text>
-                                                        </TouchableOpacity>
-                                                    ))}
-                                                </View>
-                                            ))}
-                                        </View>
-                                    )}
-                                </Animated.View>
+                <View style={{ backgroundColor: "white", borderTopLeftRadius: 25, borderTopRightRadius: 25, padding: 20 }}>
+                    {activeOption === "Week" ? <>
+                        <View style={{ alignItems: "center", justifyContent: "center" }}>
+                            <Text style={{ color: "gray", fontSize: 15 }}>Month of</Text>
+                            <Text style={{ fontSize: 18, fontWeight: "bold" }}>{monthNames[month].toUpperCase()}</Text>
+                        </View>
+
+                        {week.map((option, index) => (
+                            <TouchableOpacity onPress={() => changeDay(option)} key={index} style={{ justifyContent: "space-between", backgroundColor: "#C8F7B1", marginTop: 18, padding: 20, borderRadius: 15 }}>
+                                <Text style={{ fontSize: 15, fontWeight: "500" }}>{option}</Text>
+                            </TouchableOpacity>
+                        ))}
+                    </> : <>
+                        <View style={{ alignItems: "center", flexDirection: "row" }}>
+                            <View style={{ justifyContent: "center" }}>
+                                <AntDesign onPress={() => forwardDay(-1)} name="left" size={22} color="gray" />
                             </View>
-                        </TouchableWithoutFeedback>
-
-
-                        <TouchableWithoutFeedback onPress={toggleLunchDropdown}>
-                            <View>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between", marginTop: 10, marginRight: 10 }}>
-                                    <Text style={{ marginRight: 10, fontSize: 18, fontWeight: "500" }}>Lunch</Text>
-                                    <AntDesign name={isLunchOpen ? 'up' : 'down'} size={20} color="gray" />
-                                </View>
-                                <Animated.View style={{ transform: [{ translateY }] }}>
-                                    {isLunchOpen && (
-                                        <View style={{ padding: 10 }}>
-                                            {[...Array(Math.ceil(menu[selectedDay].Lunch.length / 2))].map((_, rowIndex) => (
-                                                <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
-                                                    {menu[selectedDay].Lunch.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
-                                                        <TouchableOpacity onPress={() => menuItemClicked('Lunch', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
-                                                            <Image source={{ uri: dishes[checkUpdates(option, 'Lunch')] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
-                                                            <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{checkUpdates(option, 'Lunch')}</Text>
-                                                        </TouchableOpacity>
-                                                    ))}
-                                                </View>
-                                            ))}
-                                        </View>
-                                    )}
-                                </Animated.View>
+                            <View style={{ flex: 1 }}>
+                                <Text style={{ fontSize: 18, fontWeight: "bold", textAlign: "center" }}>{selectedDay === dayNames[day] && selectedMonth === monthNames[month] && selectedDate === date ? "TODAY" : selectedDay}</Text>
+                                <Text style={{ color: "gray", fontSize: 15, textAlign: "center" }}>{selectedDate}{superscript(selectedDate)} {selectedMonth}, {selectedDay}</Text>
                             </View>
-                        </TouchableWithoutFeedback>
-
-
-                        <TouchableWithoutFeedback onPress={toggleSnacksDropdown}>
-                            <View>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between", marginTop: 10, marginRight: 10 }}>
-                                    <Text style={{ marginRight: 10, fontSize: 18, fontWeight: "500" }}>Snacks</Text>
-                                    <AntDesign name={isSnacksOpen ? 'up' : 'down'} size={20} color="gray" />
-                                </View>
-                                <Animated.View style={{ transform: [{ translateY }] }}>
-                                    {isSnacksOpen && (
-                                        <View style={{ padding: 10 }}>
-                                            {[...Array(Math.ceil(menu[selectedDay].Snacks.length / 2))].map((_, rowIndex) => (
-                                                <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
-                                                    {menu[selectedDay].Snacks.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
-                                                        <TouchableOpacity onPress={() => menuItemClicked('Snacks', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
-                                                            <Image source={{ uri: dishes[checkUpdates(option, 'Snacks')] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
-                                                            <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{checkUpdates(option, 'Snacks')}</Text>
-                                                        </TouchableOpacity>
-                                                    ))}
-                                                </View>
-                                            ))}
-                                        </View>
-                                    )}
-                                </Animated.View>
+                            <View style={{ justifyContent: "center" }}>
+                                <AntDesign onPress={() => forwardDay(1)} name="right" size={22} color="gray" />
                             </View>
-                        </TouchableWithoutFeedback>
+                        </View>
 
 
-                        <TouchableWithoutFeedback onPress={toggleDinnerDropdown}>
-                            <View>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between", marginTop: 10, marginRight: 10 }}>
-                                    <Text style={{ marginRight: 10, fontSize: 18, fontWeight: "500" }}>Dinner</Text>
-                                    <AntDesign name={isDinnerOpen ? 'up' : 'down'} size={20} color="gray" />
+
+
+                        <ScrollView showsVerticalScrollIndicator={true} contentContainerStyle={{ flexGrow: 1 }} >
+                            <TouchableWithoutFeedback onPress={toggleBreakfastDropdown} style={{ marginTop: 20 }}>
+                                <View>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between", marginTop: 20, marginRight: 10 }}>
+                                        <Text style={{ marginRight: 10, fontSize: 18, fontWeight: "500" }}>Breakfast</Text>
+                                        <Text style={{ marginRight: 2, fontSize: 16, fontWeight: "300", marginLeft: 2 }}>{breakfastTimings[0]} - {breakfastTimings[1]}</Text>
+                                        <AntDesign name={isBreakfastOpen ? 'up' : 'down'} size={20} color="gray" />
+                                    </View>
+                                    <Animated.View style={{ transform: [{ translateY }], marginTop: 8 }}>
+                                        {isBreakfastOpen && (
+                                            <View style={{ padding: 10 }}>
+                                                {[...Array(Math.ceil(menu[selectedDay].Breakfast.length / 2))].map((_, rowIndex) => (
+                                                    <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
+                                                        {menu[selectedDay].Breakfast.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
+                                                            <TouchableOpacity onPress={() => menuItemClicked('Breakfast', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
+                                                                <Image source={{ uri: dishes[checkUpdates(option, 'Breakfast')] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
+                                                                <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{checkUpdates(option, 'Breakfast')}</Text>
+                                                            </TouchableOpacity>
+                                                        ))}
+                                                    </View>
+                                                ))}
+                                            </View>
+                                        )}
+                                    </Animated.View>
                                 </View>
-                                <Animated.View style={{ transform: [{ translateY }] }}>
-                                    {isDinnerOpen && (
-                                        <View style={{ padding: 10 }}>
-                                            {[...Array(Math.ceil(menu[selectedDay].Dinner.length / 2))].map((_, rowIndex) => (
-                                                <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
-                                                    {menu[selectedDay].Dinner.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
-                                                        <TouchableOpacity onPress={() => menuItemClicked('Dinner', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
-                                                            <Image source={{ uri: dishes[checkUpdates(option, 'Dinner')] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
-                                                            <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{checkUpdates(option, 'Dinner')}</Text>
-                                                        </TouchableOpacity>
-                                                    ))}
-                                                </View>
-                                            ))}
-                                        </View>
-                                    )}
-                                </Animated.View>
-                            </View>
-                        </TouchableWithoutFeedback>
-
-                    </ScrollView>
+                            </TouchableWithoutFeedback>
 
 
-                </>}
-            </View>
+                            <TouchableWithoutFeedback onPress={toggleLunchDropdown}>
+                                <View>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between", marginTop: 15, marginRight: 10 }}>
+                                        <Text style={{ marginRight: 10, fontSize: 18, fontWeight: "500" }}>Lunch</Text>
+                                        <Text style={{ marginRight: 2, fontSize: 16, fontWeight: "300", marginLeft: 22 }}>{lunchTimings[0]} - {lunchTimings[1]}</Text>
+                                        <AntDesign name={isLunchOpen ? 'up' : 'down'} size={20} color="gray" />
+                                    </View>
+                                    <Animated.View style={{ transform: [{ translateY }], marginTop: 8 }}>
+                                        {isLunchOpen && (
+                                            <View style={{ padding: 10 }}>
+                                                {[...Array(Math.ceil(menu[selectedDay].Lunch.length / 2))].map((_, rowIndex) => (
+                                                    <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
+                                                        {menu[selectedDay].Lunch.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
+                                                            <TouchableOpacity onPress={() => menuItemClicked('Lunch', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
+                                                                <Image source={{ uri: dishes[checkUpdates(option, 'Lunch')] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
+                                                                <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{checkUpdates(option, 'Lunch')}</Text>
+                                                            </TouchableOpacity>
+                                                        ))}
+                                                    </View>
+                                                ))}
+                                            </View>
+                                        )}
+                                    </Animated.View>
+                                </View>
+                            </TouchableWithoutFeedback>
+
+
+                            <TouchableWithoutFeedback onPress={toggleSnacksDropdown}>
+                                <View>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between", marginTop: 15, marginRight: 10 }}>
+                                        <Text style={{ marginRight: 10, fontSize: 18, fontWeight: "500" }}>Snacks</Text>
+                                        <Text style={{ marginRight: 2, fontSize: 16, fontWeight: "300", marginLeft: 19 }}>{snacksTimings[0]} - {snacksTimings[1]}</Text>
+                                        <AntDesign name={isSnacksOpen ? 'up' : 'down'} size={20} color="gray" />
+                                    </View>
+                                    <Animated.View style={{ transform: [{ translateY }], marginTop: 8 }}>
+                                        {isSnacksOpen && (
+                                            <View style={{ padding: 10 }}>
+                                                {[...Array(Math.ceil(menu[selectedDay].Snacks.length / 2))].map((_, rowIndex) => (
+                                                    <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
+                                                        {menu[selectedDay].Snacks.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
+                                                            <TouchableOpacity onPress={() => menuItemClicked('Snacks', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
+                                                                <Image source={{ uri: dishes[checkUpdates(option, 'Snacks')] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
+                                                                <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{checkUpdates(option, 'Snacks')}</Text>
+                                                            </TouchableOpacity>
+                                                        ))}
+                                                    </View>
+                                                ))}
+                                            </View>
+                                        )}
+                                    </Animated.View>
+                                </View>
+                            </TouchableWithoutFeedback>
+
+
+                            <TouchableWithoutFeedback onPress={toggleDinnerDropdown}>
+                                <View>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "space-between", marginTop: 15, marginRight: 10 }}>
+                                        <Text style={{ marginRight: 10, fontSize: 18, fontWeight: "500" }}>Dinner</Text>
+                                        <Text style={{ marginRight: 2, fontSize: 16, fontWeight: "300", marginLeft: 22 }}>{dinnerTimings[0]} - {dinnerTimings[1]}</Text>
+                                        <AntDesign name={isDinnerOpen ? 'up' : 'down'} size={20} color="gray" />
+                                    </View>
+                                    <Animated.View style={{ transform: [{ translateY }], paddingBottom: 30, marginTop: 8 }}>
+                                        {isDinnerOpen && (
+                                            <View style={{ padding: 10 }}>
+                                                {[...Array(Math.ceil(menu[selectedDay].Dinner.length / 2))].map((_, rowIndex) => (
+                                                    <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
+                                                        {menu[selectedDay].Dinner.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
+                                                            <TouchableOpacity onPress={() => menuItemClicked('Dinner', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
+                                                                <Image source={{ uri: dishes[checkUpdates(option, 'Dinner')] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
+                                                                <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{checkUpdates(option, 'Dinner')}</Text>
+                                                            </TouchableOpacity>
+                                                        ))}
+                                                    </View>
+                                                ))}
+                                            </View>
+                                        )}
+                                    </Animated.View>
+                                </View>
+                            </TouchableWithoutFeedback>
+
+                        </ScrollView>
+
+
+                    </>}
+                </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }

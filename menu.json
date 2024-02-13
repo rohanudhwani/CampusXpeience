@@ -1,41 +1,83 @@
 {
     "Monday": {
+      "timings" : {
+        "Breakfast" : ["7:30AM", "9:30AM"],
+        "Lunch" : ["12:00PM", "2:00PM"],
+        "Snacks" : ["5:30PM", "6:30PM"],
+        "Dinner" : ["7:30PM", "9:30PM"]
+      },
       "Breakfast": ["Idli", "Milk", "Tea", "Bread, Butter, Jam", "Banana"],
       "Lunch": ["Chapati", "Lobia", "Rice", "Dal Tadka", "Salad, Achar, Papad", "Chach"],
       "Snacks": ["Coffee", "Upma"],
       "Dinner": ["Chapati", "Matar Aloo", "Jeera Rice", "Dal Makhani", "Salad, Achar"]
     },
     "Tuesday": {
+      "timings" : {
+        "Breakfast" : ["7:30AM", "9:30AM"],
+        "Lunch" : ["12:00PM", "2:00PM"],
+        "Snacks" : ["5:30PM", "6:30PM"],
+        "Dinner" : ["7:30PM", "9:30PM"]
+      },
       "Breakfast": ["Uttapam", "Milk", "Tea", "Bread, Butter, Jam", "Seasonal Fruit"],
       "Lunch": ["Chapati", "Soya Wadi", "Mutter Rice", "Dal", "Salad, Achar", "Curd"],
       "Snacks": ["Tea", "White Sauce Pasta"],
       "Dinner": ["Chapati", "Gatta Curry", "Rice", "Sambhar", "Salad, Achar", "Jalebi"]
     },
     "Wednesday": {
+      "timings" : {
+        "Breakfast" : ["7:30AM", "9:30AM"],
+        "Lunch" : ["12:00PM", "2:00PM"],
+        "Snacks" : ["5:30PM", "6:30PM"],
+        "Dinner" : ["7:30PM", "9:30PM"]
+      },
       "Breakfast": ["Aloo Paratha", "Milk", "Tea", "Bread, Butter, Jam", "Banana", "Curd"],
       "Lunch": ["Chapati", "Sem Aloo", "Pulav Rice", "Kadi Pakoda", "Salad, Achar, Papad"],
       "Snacks": ["Tea", "Sev Poha"],
       "Dinner": ["Chapati", "Paneer", "Rice", "Dal", "Salad, Achar"]
     },
     "Thursday": {
+      "timings" : {
+        "Breakfast" : ["7:30AM", "9:30AM"],
+        "Lunch" : ["12:00PM", "2:00PM"],
+        "Snacks" : ["5:30PM", "6:30PM"],
+        "Dinner" : ["7:30PM", "9:30PM"]
+      },
       "Breakfast": ["Aloo Puri", "Milk", "Tea", "Bread, Butter, Jam", "Seasonal Fruit"],
       "Lunch": ["Chapati", "Desi Chana Gravy", "Rice", "Masur Dal", "Salad, Achar", "Curd"],
       "Snacks": ["Tea", "Fried Rice"],
       "Dinner": ["Chapati", "Corn Palak", "Tomato Rice", "Chana Dal", "Salad, Achar", "Gulab Jamun"]
     },
     "Friday": {
+      "timings" : {
+        "Breakfast" : ["7:30AM", "9:30AM"],
+        "Lunch" : ["12:00PM", "2:00PM"],
+        "Snacks" : ["5:30PM", "6:30PM"],
+        "Dinner" : ["7:30PM", "9:30PM"]
+      },
       "Breakfast": ["Wada", "Milk", "Tea", "Bread, Butter, Jam", "Seasonal Fruit"],
       "Lunch": ["Paratha", "Sev Bhaji", "Mutter Rice", "Moong Dal", "Salad, Achar", "Chach"],
       "Snacks": ["Tea", "Chana Masala"],
       "Dinner": ["Chapati", "Mix Veg", "Rice", "Sambhar", "Achar"]
     },
     "Saturday": {
+      "timings" : {
+        "Breakfast" : ["7:30AM", "9:30AM"],
+        "Lunch" : ["12:00PM", "2:00PM"],
+        "Snacks" : ["5:30PM", "6:30PM"],
+        "Dinner" : ["7:30PM", "9:30PM"]
+      },
       "Breakfast": ["Dosa", "Milk", "Tea", "Bread, Butter, Jam", "Banana"],
       "Lunch": ["Chapati", "Rajma Curry", "Lemon Rice", "Dal Fry", "Salad, Achar", "Lassi"],
       "Snacks": ["Tea", "Samosa-Bread Pakoda", "Green Chutney"],
       "Dinner": ["Chapati", "Methi Matar", "Rice", "Chana Dal", "Salad, Achar"]
     },
     "Sunday": {
+      "timings" : {
+        "Breakfast" : ["7:30AM", "10:00AM"],
+        "Lunch" : ["12:00PM", "2:00PM"],
+        "Snacks" : ["5:30PM", "6:30PM"],
+        "Dinner" : ["7:30PM", "9:30PM"]
+      },
       "Breakfast": ["Poha", "Milk", "Tea", "Bread, Butter, Jam", "Seasonal Fruit"],
       "Lunch": ["Puri", "Chole", "Rice", "Moong Dal", "Salad, Achar", "Boondi Raita"],
       "Snacks": ["Tea", "Cup Cakes-Dhokla"],
