@@ -24,12 +24,13 @@ const MenuScreen = ({ menu, dishes, updates }) => {
 
     const today = new Date();
 
-    const formattedTime = today.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+    const formattedTime = today.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: false });
     const timeParts = formattedTime.split(':');
     const hours = timeParts[0];
     const minutes = timeParts[1].slice(0, 2);
     const period = timeParts[1].slice(2);
     const formattedTimeString = `${hours}:${minutes}${period.toUpperCase()}`;
+    const current24hrTime = `${hours}:${minutes}`;
 
     // Extract year, month, and day
     const year = today.getFullYear();
@@ -71,13 +72,65 @@ const MenuScreen = ({ menu, dishes, updates }) => {
 
     useEffect(() => {
         if (menu !== null && dishes !== null && updates !== null) {
+            setIsLoaded(true); // Data is loaded
+
             setBreakfastTimings([menu[selectedDay].timings.Breakfast[0], menu[selectedDay].timings.Breakfast[1]]);
             setLunchTimings([menu[selectedDay].timings.Lunch[0], menu[selectedDay].timings.Lunch[1]]);
             setSnacksTimings([menu[selectedDay].timings.Snacks[0], menu[selectedDay].timings.Snacks[1]]);
             setDinnerTimings([menu[selectedDay].timings.Dinner[0], menu[selectedDay].timings.Dinner[1]]);
-            setIsLoaded(true); // Data is loaded
+
         }
     }, [menu, dishes, updates]);
+
+    useEffect(() => {
+        if (breakfastTimings.length === 0 || lunchTimings.length === 0 || snacksTimings.length === 0 || dinnerTimings.length === 0) return;
+        
+        if (current24hrTime < convertTo24HourFormat(breakfastTimings[1])) {
+            setIsBreakfastOpen(true);
+            setIsLunchOpen(false);
+            setIsSnacksOpen(false);
+            setIsDinnerOpen(false);
+            console.log("Breakfast is open")
+            return;
+        } else if (current24hrTime < convertTo24HourFormat(lunchTimings[1])) {
+            setIsBreakfastOpen(false);
+            setIsLunchOpen(true);
+            setIsSnacksOpen(false);
+            setIsDinnerOpen(false);
+            console.log("Lunch is open")
+            return;
+        } else if (current24hrTime < convertTo24HourFormat(snacksTimings[1])) {
+            setIsBreakfastOpen(false);
+            setIsLunchOpen(false);
+            setIsSnacksOpen(true);
+            setIsDinnerOpen(false);
+            console.log("Snacks is open")
+            return;
+        } else if (current24hrTime < convertTo24HourFormat(dinnerTimings[1])) {
+            setIsBreakfastOpen(false);
+            setIsLunchOpen(false);
+            setIsSnacksOpen(false);
+            setIsDinnerOpen(true);
+            console.log("Dinner is open")
+            return;
+        }
+        console.log("All closed", formattedTimeString)
+    }, [breakfastTimings, lunchTimings, snacksTimings, dinnerTimings, current24hrTime])
+
+    const convertTo24HourFormat = (timeString) => {
+        const [time, period] = timeString.split(/(?=[AP]M)/);
+        let [hours, minutes] = time.split(':').map(str => parseInt(str, 10));
+        // Adjust hours for PM period
+        if (period.toUpperCase() === "PM" && hours < 12) {
+            hours += 12;
+        }
+
+        // Format hours and minutes with leading zeros if necessary
+        const formattedHours = hours.toString().padStart(2, "0");
+
+        // Return the time in 24-hour format
+        return `${formattedHours}:${minutes}`;
+    }
 
     const translateY = useRef(new Animated.Value(0)).current;
 
@@ -272,8 +325,8 @@ const MenuScreen = ({ menu, dishes, updates }) => {
                                                 {[...Array(Math.ceil(menu[selectedDay].Breakfast.length / 2))].map((_, rowIndex) => (
                                                     <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
                                                         {menu[selectedDay].Breakfast.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
-                                                            <TouchableOpacity onPress={() => menuItemClicked('Breakfast', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
-                                                                <Image source={{ uri: dishes[checkUpdates(option, 'Breakfast')] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
+                                                            <TouchableOpacity onPress={() => menuItemClicked('Breakfast', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 160, alignItems: "center" }}>
+                                                                <Image source={{ uri: dishes[checkUpdates(option, 'Breakfast')] }} style={{ width: '100%', height: 130, borderRadius: 15 }} resizeMode="cover" />
                                                                 <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{checkUpdates(option, 'Breakfast')}</Text>
                                                             </TouchableOpacity>
                                                         ))}
@@ -299,8 +352,8 @@ const MenuScreen = ({ menu, dishes, updates }) => {
                                                 {[...Array(Math.ceil(menu[selectedDay].Lunch.length / 2))].map((_, rowIndex) => (
                                                     <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
                                                         {menu[selectedDay].Lunch.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
-                                                            <TouchableOpacity onPress={() => menuItemClicked('Lunch', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
-                                                                <Image source={{ uri: dishes[checkUpdates(option, 'Lunch')] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
+                                                            <TouchableOpacity onPress={() => menuItemClicked('Lunch', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 160, alignItems: "center" }}>
+                                                                <Image source={{ uri: dishes[checkUpdates(option, 'Lunch')] }} style={{ width: '100%', height: 130, borderRadius: 15 }} resizeMode="cover" />
                                                                 <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{checkUpdates(option, 'Lunch')}</Text>
                                                             </TouchableOpacity>
                                                         ))}
@@ -326,8 +379,8 @@ const MenuScreen = ({ menu, dishes, updates }) => {
                                                 {[...Array(Math.ceil(menu[selectedDay].Snacks.length / 2))].map((_, rowIndex) => (
                                                     <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
                                                         {menu[selectedDay].Snacks.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
-                                                            <TouchableOpacity onPress={() => menuItemClicked('Snacks', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
-                                                                <Image source={{ uri: dishes[checkUpdates(option, 'Snacks')] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
+                                                            <TouchableOpacity onPress={() => menuItemClicked('Snacks', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 160, alignItems: "center" }}>
+                                                                <Image source={{ uri: dishes[checkUpdates(option, 'Snacks')] }} style={{ width: '100%', height: 130, borderRadius: 15 }} resizeMode="cover" />
                                                                 <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{checkUpdates(option, 'Snacks')}</Text>
                                                             </TouchableOpacity>
                                                         ))}
@@ -353,8 +406,8 @@ const MenuScreen = ({ menu, dishes, updates }) => {
                                                 {[...Array(Math.ceil(menu[selectedDay].Dinner.length / 2))].map((_, rowIndex) => (
                                                     <View key={rowIndex} style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
                                                         {menu[selectedDay].Dinner.slice(rowIndex * 2, rowIndex * 2 + 2).map((option, index) => (
-                                                            <TouchableOpacity onPress={() => menuItemClicked('Dinner', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 140, alignItems: "center" }}>
-                                                                <Image source={{ uri: dishes[checkUpdates(option, 'Dinner')] }} style={{ width: '100%', height: 110, borderRadius: 15 }} resizeMode="cover" />
+                                                            <TouchableOpacity onPress={() => menuItemClicked('Dinner', option)} key={index} style={{ backgroundColor: "#C8F7B1", borderRadius: 15, width: '48%', height: 160, alignItems: "center" }}>
+                                                                <Image source={{ uri: dishes[checkUpdates(option, 'Dinner')] }} style={{ width: '100%', height: 130, borderRadius: 15 }} resizeMode="cover" />
                                                                 <Text style={{ fontSize: 15, fontWeight: "500", textAlign: "center", marginTop: 2 }}>{checkUpdates(option, 'Dinner')}</Text>
                                                             </TouchableOpacity>
                                                         ))}
