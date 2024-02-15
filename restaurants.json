@@ -1,0 +1,22 @@
+{
+    "R Burger": {
+        "mainImage": "https://popmenucloud.com/cdn-cgi/image/width=1920,height=1920,format=auto,fit=scale-down/zegkcsiy/dfbc4acc-db64-4860-bdb0-170084ad0c50",
+        "menu" : ["https://d3jmn01ri1fzgl.cloudfront.net/photoadking/webp_thumbnail/delicious-burger-menu-template-ydwv600748b7fb.webp"],
+        "location" : "Butibori",
+        "mobile" : "9324088967",
+        "type" : "Burger, Fast Food",
+        "price" : "₹100"
+    },
+    "Apna Burger": {
+        "mainImage": "https://popmenucloud.com/cdn-cgi/image/width=1920,height=1920,format=auto,fit=scale-down/zegkcsiy/dfbc4acc-db64-4860-bdb0-170084ad0c50",
+        "menu" : ["https://d3jmn01ri1fzgl.cloudfront.net/photoadking/webp_thumbnail/delicious-burger-menu-template-ydwv600748b7fb.webp"],
+        "location" : "Butibori",
+        "mobile" : "9324088967"
+    },
+    "Tera Burger": {
+        "mainImage": "https://popmenucloud.com/cdn-cgi/image/width=1920,height=1920,format=auto,fit=scale-down/zegkcsiy/dfbc4acc-db64-4860-bdb0-170084ad0c50",
+        "menu" : ["https://d3jmn01ri1fzgl.cloudfront.net/photoadking/webp_thumbnail/delicious-burger-menu-template-ydwv600748b7fb.webp"],
+        "location" : "Butibori",
+        "mobile" : "9324088967"
+    }
+}
