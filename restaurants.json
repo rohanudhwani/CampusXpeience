@@ -8,7 +8,8 @@
     ],
     "owner": "Rohan",
     "price": "₹100",
-    "type": "Biryani"
+    "type": "Biryani",
+    "gmaps":"https://maps.app.goo.gl/EEAXv8Uzqyf13JVs6"
   },
   "Biryani Van": {
     "contactNumber": "8825450313",
@@ -31,7 +32,8 @@
     "owner": "Rohan",
     "price": "₹200",
     "type": "Pizza, Bakery, Burger",
-    "zomato": "http://zoma.to/r/20962801"
+    "zomato": "http://zoma.to/r/20962801",
+    "gmaps":"https://maps.app.goo.gl/jUuG4d8ts6xASD719"
   },
   "Cake Plus": {
     "contactNumber": "9028471100",
@@ -45,7 +47,8 @@
     "owner": "Rohan",
     "price": "₹350",
     "type": "Cakes, Bakery",
-    "zomato": "http://zoma.to/r/19655474"
+    "zomato": "http://zoma.to/r/19655474",
+    "gmaps":"https://maps.app.goo.gl/9KHppS8HiYNYHS9F8"
   },
   "Dadus Family Restaurant": {
     "contactNumber": "8208270486",
@@ -56,7 +59,8 @@
     ],
     "owner": "Rohan",
     "price": "₹250",
-    "type": "North Indian, Mughlai, Continental"
+    "type": "North Indian, Mughlai, Continental",
+    "gmaps":"https://maps.app.goo.gl/ovj7BGzaAHRkQJjC8"
   },
   "Eating Point Cafe & Resto": {
     "contactNumber": "6384445917",
@@ -71,7 +75,8 @@
     "owner": "Rohan",
     "price": "₹150",
     "type": "Fast Food, North Indian",
-    "zomato": "http://zoma.to/r/20822519"
+    "zomato": "http://zoma.to/r/20822519",
+    "gmaps":"https://maps.app.goo.gl/qWoWtigPE5BEAEvW7"
   },
   "Hotel Jagat": {
     "contactNumber": "9545015666",
@@ -90,18 +95,20 @@
     "owner": "Rohan",
     "price": "₹350",
     "type": "North Indian, Mughlai, Biryani",
-    "zomato": "http://zoma.to/r/20917873"
+    "zomato": "http://zoma.to/r/20917873",
+    "gmaps":"https://maps.app.goo.gl/4cDC7xLQ8R7mEnNv7"
   },
   "Khalsa Dhaba": {
     "contactNumber": "7942677725",
     "location": "Reliance Petrol pump, Mohgaon",
-    "mainImage": "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_014919145.png?alt=media&token=19bda7f5-cb15-4a64-8eff-80acd393ebaa",
+    "mainImage": "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_212151878.png?alt=media&token=7d825bbb-f52b-427d-bacd-affaf013ddab",
     "menu": [
-      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_014919145.png?alt=media&token=19bda7f5-cb15-4a64-8eff-80acd393ebaa"
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/WhatsApp%20Image%202024-02-16%20at%209.17.41%20PM.jpeg?alt=media&token=d0675b04-d564-415d-9b5e-4b1ac7abdaa0"
     ],
     "owner": "Rohan",
     "price": "₹150",
-    "type": "North Indian, Punjabi"
+    "type": "North Indian, Punjabi",
+    "gmaps":"https://maps.app.goo.gl/vaw5mmqGERr2PiJv9"
   },
   "Momos Bar": {
     "contactNumber": "9373441513",
@@ -125,7 +132,8 @@
     "owner": "Rohan",
     "price": "₹100",
     "type": "Burger, Fast Food",
-    "zomato": "http://zoma.to/r/20802276"
+    "zomato": "http://zoma.to/r/20802276",
+    "gmaps":"https://maps.app.goo.gl/Bpc64KrXLzyfFSw7A"
   },
   "Ulitsa Cafe & Resto": {
     "contactNumber": "9923607595",
@@ -143,7 +151,8 @@
     "owner": "Rohan",
     "price": "₹150",
     "type": "North Indian, South Indian",
-    "zomato": "http://zoma.to/r/20812446"
+    "zomato": "http://zoma.to/r/20812446",
+    "gmaps":"https://maps.app.goo.gl/XHHdPFFYg92FGDU66"
   },
   "Vithal Kamat": {
     "contactNumber": "9987681268",
@@ -156,6 +165,7 @@
     "owner": "Rohan",
     "price": "₹100",
     "type": "North Indian, Continental",
-    "zomato": "http://zoma.to/r/20909045"
+    "zomato": "http://zoma.to/r/20909045",
+    "gmaps":"https://maps.app.goo.gl/zs9eaadyf1ZjYjQAA"
   }
 }

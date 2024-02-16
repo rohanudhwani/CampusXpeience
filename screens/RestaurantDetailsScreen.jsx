@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Image, View, Dimensions, FlatList, Text, Linking, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Entypo } from '@expo/vector-icons';
 import ImageViewer from 'react-native-image-zoom-viewer';
 
 const RestaurantDetailsScreen = ({ route }) => {
@@ -90,21 +90,33 @@ const RestaurantDetailsScreen = ({ route }) => {
                     <Text style={{ fontFamily: 'Inter_400Regular', fontSize: 18, fontWeight: "700", marginLeft: 10 }}>{restaurantDetails.owner}</Text>
                 </View>
 
-                <View style={{ alignItems: "center", justifyContent: "center", flexDirection: "row", marginLeft:35 }}>
-                    <TouchableOpacity onPress={handleCallPress} style={{ borderWidth: 4, borderColor: "#6CAB3C", borderRadius: 200, padding: 8 }}>
-                        <Ionicons name="call-outline" size={25} color="black" style={{ justifyContent: 'center', alignItems: 'center' }} />
-                    </TouchableOpacity>
-                </View>
+                <View style={{flexDirection:"row", gap:10}}>
+                    <View style={{ alignItems: "center", justifyContent: "center", flexDirection: "row" }}>
+                        <TouchableOpacity onPress={handleCallPress} style={{ borderWidth: 4, borderColor: "#6CAB3C", borderRadius: 200, padding: 8 }}>
+                            <Ionicons name="call-outline" size={25} color="black" style={{ justifyContent: 'center', alignItems: 'center' }} />
+                        </TouchableOpacity>
+                    </View>
 
-                {
-                    restaurantDetails.zomato && (
-                        <View style={{ alignItems: "center", justifyContent: "center", flexDirection: "row", marginRight:15}}>
-                            <TouchableOpacity onPress={() => Linking.openURL(restaurantDetails.zomato)} style={{  }}>
-                                <Image source={require('../assets/zomato_logo.png')} style={{ width: 40, height: 40 }} resizeMode="cover" />
-                            </TouchableOpacity>
-                        </View>
-                    )
-                }
+                    {
+                        restaurantDetails.zomato && (
+                            <View style={{ alignItems: "center", justifyContent: "center", flexDirection: "row" }}>
+                                <TouchableOpacity onPress={() => Linking.openURL(restaurantDetails.zomato)} style={{}}>
+                                    <Image source={require('../assets/zomato_logo.png')} style={{ width: 40, height: 40 }} resizeMode="cover" />
+                                </TouchableOpacity>
+                            </View>
+                        )
+                    }
+
+                    {
+                        restaurantDetails.gmaps && (
+                            <View style={{ alignItems: "center", justifyContent: "center", flexDirection: "row" }}>
+                                <TouchableOpacity onPress={() => Linking.openURL(restaurantDetails.gmaps)} style={{ borderWidth: 4, borderColor: "#6CAB3C", borderRadius: 200, padding: 8 }}>
+                                    <Entypo name="location" size={24} color="black" />
+                                </TouchableOpacity>
+                            </View>
+                        )
+                    }
+                </View>
 
             </View>
         </SafeAreaView>
