@@ -28,11 +28,21 @@ const updatesReducer = (state = null, action) => {
   }
 };
 
+const restaurantsReducer = (state = null, action) => {
+  switch (action.type) {
+    case 'SET_RESTAURANTS':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 // Combine reducers
 const rootReducer = combineReducers({
   menu: menuReducer,
   dishes: dishesReducer,
   updates: updatesReducer,
+  restaurants: restaurantsReducer,
 });
 
 // Create Redux store

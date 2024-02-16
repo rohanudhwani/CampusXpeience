@@ -26,16 +26,16 @@ const BottomTab = ({ activeScreen }) => {
           }}>
             <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
               {activeScreen === "Menu" ? (
-                <FontAwesome5 name="utensils" size={25} color="black" />
+                <Ionicons name="restaurant" size={28} color="black" />
               ) : (
-                <FontAwesome5 name="utensils" size={25} color="black" />
+                <Ionicons name="restaurant-outline" size={28} color="black" />
               )}
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("Restaurants")}>
               {activeScreen === "Restaurants" ? (
-                <MaterialCommunityIcons name="food-fork-drink" size={32} color="black" />
+                <Ionicons name="fast-food" size={30} color="black" />
               ) : (
-                <MaterialCommunityIcons name="food-fork-drink" size={32} color="black" />
+                <Ionicons name="fast-food-outline" size={30} color="black" />
               )}
             </TouchableOpacity>
           </View>

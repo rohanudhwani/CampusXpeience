@@ -1,22 +1,161 @@
 {
-    "R Burger": {
-        "mainImage": "https://popmenucloud.com/cdn-cgi/image/width=1920,height=1920,format=auto,fit=scale-down/zegkcsiy/dfbc4acc-db64-4860-bdb0-170084ad0c50",
-        "menu" : ["https://d3jmn01ri1fzgl.cloudfront.net/photoadking/webp_thumbnail/delicious-burger-menu-template-ydwv600748b7fb.webp"],
-        "location" : "Butibori",
-        "mobile" : "9324088967",
-        "type" : "Burger, Fast Food",
-        "price" : "₹100"
-    },
-    "Apna Burger": {
-        "mainImage": "https://popmenucloud.com/cdn-cgi/image/width=1920,height=1920,format=auto,fit=scale-down/zegkcsiy/dfbc4acc-db64-4860-bdb0-170084ad0c50",
-        "menu" : ["https://d3jmn01ri1fzgl.cloudfront.net/photoadking/webp_thumbnail/delicious-burger-menu-template-ydwv600748b7fb.webp"],
-        "location" : "Butibori",
-        "mobile" : "9324088967"
-    },
-    "Tera Burger": {
-        "mainImage": "https://popmenucloud.com/cdn-cgi/image/width=1920,height=1920,format=auto,fit=scale-down/zegkcsiy/dfbc4acc-db64-4860-bdb0-170084ad0c50",
-        "menu" : ["https://d3jmn01ri1fzgl.cloudfront.net/photoadking/webp_thumbnail/delicious-burger-menu-template-ydwv600748b7fb.webp"],
-        "location" : "Butibori",
-        "mobile" : "9324088967"
-    }
+  "Biryani House": {
+    "contactNumber": "7947138030",
+    "location": "Butibori",
+    "mainImage": "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_013851205.png?alt=media&token=d798f0c0-ee8e-4671-8fc9-2088b48a432d",
+    "menu": [
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_014005050.png?alt=media&token=df406f41-1be1-4497-9c59-102ea6925e14"
+    ],
+    "owner": "Rohan",
+    "price": "₹100",
+    "type": "Biryani"
+  },
+  "Biryani Van": {
+    "contactNumber": "8825450313",
+    "location": "Main Gate",
+    "mainImage": "https://popmenucloud.com/cdn-cgi/image/width=1920,height=1920,format=auto,fit=scale-down/zegkcsiy/dfbc4acc-db64-4860-bdb0-170084ad0c50",
+    "menu": [
+      "https://d3jmn01ri1fzgl.cloudfront.net/photoadking/webp_thumbnail/delicious-burger-menu-template-ydwv600748b7fb.webp"
+    ],
+    "owner": "Rohan",
+    "price": "₹70",
+    "type": "Biryani"
+  },
+  "Cafe Insiders": {
+    "contactNumber": "9766632190",
+    "location": "Butibori",
+    "mainImage": "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_014138347.png?alt=media&token=3073b46e-6199-4871-baa2-c87882b9f337",
+    "menu": [
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_014223414.png?alt=media&token=18600280-2f4f-440f-b5c3-a2649c6158e5"
+    ],
+    "owner": "Rohan",
+    "price": "₹200",
+    "type": "Pizza, Bakery, Burger",
+    "zomato": "http://zoma.to/r/20962801"
+  },
+  "Cake Plus": {
+    "contactNumber": "9028471100",
+    "location": "Butibori",
+    "mainImage": "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_015819929.png?alt=media&token=53970961-1017-4dc7-8115-deee2e4759ba",
+    "menu": [
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_111314656.png?alt=media&token=2a516c1d-989d-43a9-9f5a-4929f4cb9ff4",
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_111339760.png?alt=media&token=fc589b43-b03e-415a-99d0-82e1cfc75324",
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_111359970.png?alt=media&token=e6d8dae4-51b7-4d4a-815d-ccce2d8451a1"
+    ],
+    "owner": "Rohan",
+    "price": "₹350",
+    "type": "Cakes, Bakery",
+    "zomato": "http://zoma.to/r/19655474"
+  },
+  "Dadus Family Restaurant": {
+    "contactNumber": "8208270486",
+    "location": "Butibori",
+    "mainImage": "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_015656301.png?alt=media&token=65b98f71-f25f-4fc5-808a-652fce1f669f",
+    "menu": [
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_015600447.png?alt=media&token=6c70bf66-9a3d-4b7d-9c39-3b6c46e69ac6"
+    ],
+    "owner": "Rohan",
+    "price": "₹250",
+    "type": "North Indian, Mughlai, Continental"
+  },
+  "Eating Point Cafe & Resto": {
+    "contactNumber": "6384445917",
+    "location": "Butibori",
+    "mainImage": "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_014138347.png?alt=media&token=3073b46e-6199-4871-baa2-c87882b9f337",
+    "menu": [
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_015257508.png?alt=media&token=914689fb-90e7-4cd7-ab98-412616a7f28d",
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_015357268.png?alt=media&token=0dc70a26-5758-4999-95ce-be1f41d628f6",
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_015433152.png?alt=media&token=0f5f43f5-42f4-4c88-a060-cf06c0589049",
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_015456971.png?alt=media&token=28818912-d94a-4590-85f6-fc58e7ccd01a"
+    ],
+    "owner": "Rohan",
+    "price": "₹150",
+    "type": "Fast Food, North Indian",
+    "zomato": "http://zoma.to/r/20822519"
+  },
+  "Hotel Jagat": {
+    "contactNumber": "9545015666",
+    "location": "Butibori",
+    "mainImage": "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_014919145.png?alt=media&token=19bda7f5-cb15-4a64-8eff-80acd393ebaa",
+    "menu": [
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_110054729.png?alt=media&token=3d4fe688-251d-42a7-83ed-b61f0e9e75aa",
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_110124706.png?alt=media&token=7c9e131e-310a-4b20-b5bb-7392c95047f4",
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_110150645.png?alt=media&token=af80d80d-2fc5-4e51-8ed7-0462112aea69",
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_110236007.png?alt=media&token=ca906d15-55ce-4aab-ac2f-481e1e900df3",
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_110302836.png?alt=media&token=a7ca4614-17ad-4284-882c-ff4e1451fdae",
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_110323319.png?alt=media&token=d9cbec47-1143-40fb-bf81-64c1c1b521c0",
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_110350239.png?alt=media&token=10c7985c-86cb-46fb-b97a-cfa13ac4489d",
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_110410770.png?alt=media&token=05904df9-00d5-4203-aab6-3b4519c57c90"
+    ],
+    "owner": "Rohan",
+    "price": "₹350",
+    "type": "North Indian, Mughlai, Biryani",
+    "zomato": "http://zoma.to/r/20917873"
+  },
+  "Khalsa Dhaba": {
+    "contactNumber": "7942677725",
+    "location": "Reliance Petrol pump, Mohgaon",
+    "mainImage": "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_014919145.png?alt=media&token=19bda7f5-cb15-4a64-8eff-80acd393ebaa",
+    "menu": [
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_014919145.png?alt=media&token=19bda7f5-cb15-4a64-8eff-80acd393ebaa"
+    ],
+    "owner": "Rohan",
+    "price": "₹150",
+    "type": "North Indian, Punjabi"
+  },
+  "Momos Bar": {
+    "contactNumber": "9373441513",
+    "location": "Sootgirni",
+    "mainImage": "https://popmenucloud.com/cdn-cgi/image/width=1920,height=1920,format=auto,fit=scale-down/zegkcsiy/dfbc4acc-db64-4860-bdb0-170084ad0c50",
+    "menu": [
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/WhatsApp%20Image%202024-02-16%20at%201.31.26%20AM.jpeg?alt=media&token=e34a4614-852e-4b41-9472-357e004006a2",
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/WhatsApp%20Image%202024-02-16%20at%201.31.26%20AM%20(1).jpeg?alt=media&token=893820c1-9120-483c-b71d-f93abb9ee5d8"
+    ],
+    "owner": "Ashish Palandurkar",
+    "price": "₹130",
+    "type": "Momos, Fast Food"
+  },
+  "R Burger": {
+    "contactNumber": "7774848877",
+    "location": "Butibori",
+    "mainImage": "https://popmenucloud.com/cdn-cgi/image/width=1920,height=1920,format=auto,fit=scale-down/zegkcsiy/dfbc4acc-db64-4860-bdb0-170084ad0c50",
+    "menu": [
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_013323001.png?alt=media&token=88837231-bcfa-4bec-bd08-32c1b3040b5f"
+    ],
+    "owner": "Rohan",
+    "price": "₹100",
+    "type": "Burger, Fast Food",
+    "zomato": "http://zoma.to/r/20802276"
+  },
+  "Ulitsa Cafe & Resto": {
+    "contactNumber": "9923607595",
+    "location": "Butibori",
+    "mainImage": "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_105149307.png?alt=media&token=a9ca3756-4639-411d-abb9-6516d8744676",
+    "menu": [
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_105508260.png?alt=media&token=0e514694-533e-4e64-88fb-33790e6664b1",
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_105558330.png?alt=media&token=d886a9e9-49aa-4da9-bc7f-ee1bdd44f1d8",
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_105615713.png?alt=media&token=2589ae67-73cb-407b-8c39-da7478469e8b",
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_105659456.png?alt=media&token=c3b36675-0c8b-4e5b-bd52-2ae51316a287",
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_105728240.png?alt=media&token=1adadf71-acf6-4e58-b06f-c1b5f8552c37",
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_105751679.png?alt=media&token=df4fa8d4-52b8-471b-872b-6e110d7816cd",
+      ""
+    ],
+    "owner": "Rohan",
+    "price": "₹150",
+    "type": "North Indian, South Indian",
+    "zomato": "http://zoma.to/r/20812446"
+  },
+  "Vithal Kamat": {
+    "contactNumber": "9987681268",
+    "location": "Butibori",
+    "mainImage": "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_014801145.png?alt=media&token=6175477d-52d0-4032-b51b-7491124b7936",
+    "menu": [
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_014825923.png?alt=media&token=c42377bf-8510-408c-bca6-09cf261b8e16",
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_014843117.png?alt=media&token=b228ab65-81f1-4e1a-874f-dd21bb136577"
+    ],
+    "owner": "Rohan",
+    "price": "₹100",
+    "type": "North Indian, Continental",
+    "zomato": "http://zoma.to/r/20909045"
+  }
 }
