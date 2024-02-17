@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "CampusXperience",
-    "slug": "CampusXperience",
+    "slug": "MessMate",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,11 +18,21 @@
       "supportsTablet": true
     },
     "android": {
+      "config": {
+        "usesCleartextTraffic": true,
+        "googleServicesFile": "./google-services.json",
+        "networkSecurityConfig": "./assets/network_security_config.xml"
+      },
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.rohanudhwani.CampusXperience"
+      "package": "com.rohanudhwani.CampusXperience",
+      "cleartext": {
+        "config": {
+          "cleartext": true
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

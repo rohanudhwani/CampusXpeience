@@ -51,13 +51,15 @@ const FTPScreen = () => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-        <StatusBar backgroundColor="white" barStyle="dark-content" />
+            <StatusBar backgroundColor="white" barStyle="dark-content" />
             <WebView
                 ref={webViewRef}
                 source={{ uri: url }}
                 style={{ flex: 1 }}
                 injectedJavaScript={autoLoginScript}
                 javaScriptEnabled={true}
+                allowsFullscreenVideo={true}
+                domStorageEnabled={true}
             />
         </SafeAreaView>
     );

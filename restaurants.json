@@ -169,5 +169,17 @@
     "type": "North Indian, Continental",
     "zomato": "http://zoma.to/r/20909045",
     "gmaps":"https://maps.app.goo.gl/zs9eaadyf1ZjYjQAA"
+  },
+  "Rocky Da Cafe": {
+    "contactNumber": "9309949597",
+    "location": "MNLU",
+    "mainImage": "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-17_231103757.png?alt=media&token=1f1e37dd-8766-4c6c-a107-54bd6a14b847",
+    "menu": [
+      "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/WhatsApp%20Image%202024-02-17%20at%2011.04.14%20PM.jpeg?alt=media&token=8c23d1f7-48bf-4e0e-8cb3-fb6f5bacf35a"
+    ],
+    "owner": "Rocky",
+    "price": "₹80",
+    "type": "Momos, Fast Food",
+    "gmaps":"https://maps.app.goo.gl/Rqx9y3oqpEnrLdf26"
   }
 }
