@@ -20,7 +20,8 @@
     ],
     "owner": "Rohan",
     "price": "₹70",
-    "type": "Biryani"
+    "type": "Biryani",
+    "gmaps":"https://maps.app.goo.gl/treVxF3nygAaDXbU9"
   },
   "Cafe Insiders": {
     "contactNumber": "9766632190",
@@ -120,7 +121,8 @@
     ],
     "owner": "Ashish Palandurkar",
     "price": "₹130",
-    "type": "Momos, Fast Food"
+    "type": "Momos, Fast Food",
+    "gmaps":"https://maps.app.goo.gl/TwjqcwJGaTh7cXKm9"
   },
   "R Burger": {
     "contactNumber": "7774848877",

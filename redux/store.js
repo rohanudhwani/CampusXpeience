@@ -37,12 +37,22 @@ const restaurantsReducer = (state = null, action) => {
   }
 };
 
+const laundryReducer = (state = null, action) => {
+  switch (action.type) {
+    case 'SET_LAUNDRY':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 // Combine reducers
 const rootReducer = combineReducers({
   menu: menuReducer,
   dishes: dishesReducer,
   updates: updatesReducer,
   restaurants: restaurantsReducer,
+  laundry: laundryReducer,
 });
 
 // Create Redux store

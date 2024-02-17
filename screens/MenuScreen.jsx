@@ -52,6 +52,13 @@ const MenuScreen = ({ menu, dishes, updates }) => {
     const [snacksTimings, setSnacksTimings] = useState([])
     const [dinnerTimings, setDinnerTimings] = useState([])
 
+    const [breakfastMenu, setBreakfastMenu] = useState([])
+    const [lunchMenu, setLunchMenu] = useState([])
+    const [snacksMenu, setSnacksMenu] = useState([])
+    const [dinnerMenu, setDinnerMenu] = useState([])
+
+    const [tempMealMenu, setTempMealMenu] = useState([])
+
 
     useEffect(() => {
         async function fetchUserData() {
@@ -79,12 +86,42 @@ const MenuScreen = ({ menu, dishes, updates }) => {
             setSnacksTimings([menu[selectedDay].timings.Snacks[0], menu[selectedDay].timings.Snacks[1]]);
             setDinnerTimings([menu[selectedDay].timings.Dinner[0], menu[selectedDay].timings.Dinner[1]]);
 
+
+            //is mapped  with dates and not day
+            // const updateMenu = (meal) => {
+            //     setTempMealMenu(menu[selectedDay][meal]);
+            //     if (updates && updates[selectedDay] && updates[selectedDay][meal]) {
+            //         const { remove, add } = updates[selectedDay][meal];
+    
+            //         console.log('Remove:', remove);
+                    
+            //         if (remove) {
+            //             setTempMealMenu(tempMealMenu.filter(item => !remove.includes(item)))
+            //         }
+            //         if (add) {
+            //             setTempMealMenu(tempMealMenu.concat(add))
+            //         }
+            //     }
+            //     if(meal==='Breakfast'){
+            //         setBreakfastMenu(tempMealMenu)
+            //     } else if(meal==='Lunch'){
+            //         setLunchMenu(tempMealMenu)
+            //     } else if(meal==='Snacks'){
+            //         setSnacksMenu(tempMealMenu)
+            //     } else if(meal==='Dinner'){
+            //         setDinnerMenu(tempMealMenu)
+            //     }
+            // }
+            // updateMenu('Breakfast');
+            // console.log('Breakfast menu:', breakfastMenu);
+
         }
     }, [menu, dishes, updates]);
 
+
     useEffect(() => {
         if (breakfastTimings.length === 0 || lunchTimings.length === 0 || snacksTimings.length === 0 || dinnerTimings.length === 0) return;
-        
+
         if (current24hrTime < convertTo24HourFormat(breakfastTimings[1])) {
             setIsBreakfastOpen(true);
             setIsLunchOpen(false);
@@ -400,7 +437,7 @@ const MenuScreen = ({ menu, dishes, updates }) => {
                                         <Text style={{ marginRight: 2, fontSize: 16, fontWeight: "300", marginLeft: 22 }}>{dinnerTimings[0]} - {dinnerTimings[1]}</Text>
                                         <AntDesign name={isDinnerOpen ? 'up' : 'down'} size={20} color="gray" />
                                     </View>
-                                    <Animated.View style={{ transform: [{ translateY }], paddingBottom: 30, marginTop: 8 }}>
+                                    <Animated.View style={{ transform: [{ translateY }], paddingBottom: 40, marginTop: 8 }}>
                                         {isDinnerOpen && (
                                             <View style={{ padding: 10 }}>
                                                 {[...Array(Math.ceil(menu[selectedDay].Dinner.length / 2))].map((_, rowIndex) => (

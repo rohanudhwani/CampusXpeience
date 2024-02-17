@@ -38,6 +38,13 @@ const BottomTab = ({ activeScreen }) => {
                 <Ionicons name="fast-food-outline" size={30} color="black" />
               )}
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Laundry")}>
+              {activeScreen === "Laundry" ? (
+                <MaterialCommunityIcons name="washing-machine" size={30} color="black" />
+              ) : (
+                <MaterialCommunityIcons name="washing-machine" size={30} color="gray" />
+              )}
+            </TouchableOpacity>
           </View>
         </LinearGradient>
       </View>

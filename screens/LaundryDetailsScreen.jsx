@@ -5,10 +5,10 @@ import { Ionicons, Entypo } from '@expo/vector-icons';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import { StatusBar } from 'expo-status-bar';
 
-const RestaurantDetailsScreen = ({ route }) => {
-    const { restaurantName, restaurantDetails } = route.params;
+const LaundryDetailsScreen = ({ route }) => {
+    const { laundryName, laundryDetails } = route.params;
 
-    const menuImages = restaurantDetails.menu;
+    const ratecardImages = laundryDetails.ratecard;
     const [currentPage, setCurrentPage] = useState(0);
     const [showImageZoom, setShowImageZoom] = useState(false); // State for controlling image zoom viewer
     const flatListRef = useRef();
@@ -20,7 +20,7 @@ const RestaurantDetailsScreen = ({ route }) => {
     };
 
     const handleCallPress = () => {
-        const contactNumber = restaurantDetails.contactNumber;
+        const contactNumber = laundryDetails.contactNumber;
 
         if (contactNumber) {
             const phoneNumber = `tel:${contactNumber}`;
@@ -36,8 +36,8 @@ const RestaurantDetailsScreen = ({ route }) => {
         }
     };
 
-    const renderMenuImages = () => {
-        return menuImages.map((image, index) => ({
+    const renderratecardImages = () => {
+        return ratecardImages.map((image, index) => ({
             url: image,
             props: {
                 style: { width: "100%", height: 550 },
@@ -50,13 +50,13 @@ const RestaurantDetailsScreen = ({ route }) => {
         <StatusBar backgroundColor="#94F074" barStyle="dark-content" />
             <View style={{ backgroundColor: "#94F074" }}>
                 <View style={{ alignItems: "center", justifyContent: "center", marginTop: 20, paddingHorizontal: 20, marginBottom: 16 }}>
-                    <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "600" }}>{restaurantName} Menu</Text>
-                    <Text style={{ textAlign: "center", fontSize: 15, fontWeight: "400", marginTop: 4 }}>{restaurantDetails.type}</Text>
+                    <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "600" }}>{laundryName}</Text>
+                    <Text style={{ textAlign: "center", fontSize: 15, fontWeight: "400", marginTop: 4 }}>{laundryDetails.timings}</Text>
                 </View>
             </View>
             {/* <FlatList
                 ref={flatListRef}
-                data={menuImages}
+                data={ratecardImages}
                 renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => setShowImageZoom(true)}>
                         <Image source={{ uri: item }} style={{ width: '100%', height: '100%' }} resizeMode="contain" />
@@ -69,7 +69,7 @@ const RestaurantDetailsScreen = ({ route }) => {
                 keyExtractor={(item, index) => index.toString()}
             />
             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                {menuImages.map((_, index) => (
+                {ratecardImages.map((_, index) => (
                     <View key={index} style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: index === currentPage ? '#000' : 'rgba(0, 0, 0, 0.4)', marginHorizontal: 5 }} />
                 ))}
             </View> */}
@@ -77,7 +77,7 @@ const RestaurantDetailsScreen = ({ route }) => {
             {/* Image Zoom Viewer */}
             <View style={{ width: Dimensions.get('window').width, height: 550 }}>
                 <ImageViewer
-                    imageUrls={renderMenuImages()}
+                    imageUrls={renderratecardImages()}
                     enableSwipeDown
                     onSwipeDown={() => setShowImageZoom(false)}
                     index={currentPage}
@@ -89,7 +89,7 @@ const RestaurantDetailsScreen = ({ route }) => {
             <View style={{ padding: 12, marginTop: 25, marginLeft: 20, marginRight: 20, flexDirection: "row", justifyContent: "space-between", alignItems: "center", borderRadius: 5, borderWidth: 4, borderColor: "#6CAB3C" }}>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <Image style={{ width: 50, height: 50, borderRadius: 100 }} source={{ uri: "https://icons.veryicon.com/png/o/object/material-design-icons/face-2.png" }} resizeMode='cover' />
-                    <Text style={{ fontFamily: 'Inter_400Regular', fontSize: 18, fontWeight: "700", marginLeft: 10 }}>{restaurantDetails.owner}</Text>
+                    <Text style={{ fontFamily: 'Inter_400Regular', fontSize: 18, fontWeight: "700", marginLeft: 10 }}>{laundryDetails.owner}</Text>
                 </View>
 
                 <View style={{flexDirection:"row", gap:10}}>
@@ -100,19 +100,9 @@ const RestaurantDetailsScreen = ({ route }) => {
                     </View>
 
                     {
-                        restaurantDetails.zomato && (
+                        laundryDetails.gmaps && (
                             <View style={{ alignItems: "center", justifyContent: "center", flexDirection: "row" }}>
-                                <TouchableOpacity onPress={() => Linking.openURL(restaurantDetails.zomato)} style={{}}>
-                                    <Image source={require('../assets/zomato_logo.png')} style={{ width: 40, height: 40 }} resizeMode="cover" />
-                                </TouchableOpacity>
-                            </View>
-                        )
-                    }
-
-                    {
-                        restaurantDetails.gmaps && (
-                            <View style={{ alignItems: "center", justifyContent: "center", flexDirection: "row" }}>
-                                <TouchableOpacity onPress={() => Linking.openURL(restaurantDetails.gmaps)} style={{ borderWidth: 4, borderColor: "#6CAB3C", borderRadius: 200, padding: 8 }}>
+                                <TouchableOpacity onPress={() => Linking.openURL(laundryDetails.gmaps)} style={{ borderWidth: 4, borderColor: "#6CAB3C", borderRadius: 200, padding: 8 }}>
                                     <Entypo name="location" size={24} color="black" />
                                 </TouchableOpacity>
                             </View>
@@ -125,4 +115,4 @@ const RestaurantDetailsScreen = ({ route }) => {
     );
 };
 
-export default RestaurantDetailsScreen;
+export default LaundryDetailsScreen;
