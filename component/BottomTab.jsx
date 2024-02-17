@@ -45,6 +45,13 @@ const BottomTab = ({ activeScreen }) => {
                 <MaterialCommunityIcons name="washing-machine" size={30} color="gray" />
               )}
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("FTP")}>
+              {activeScreen === "FTP" ? (
+                <FontAwesome name="file-text" size={25} color="black" />
+              ) : (
+                <FontAwesome name="file-text-o" size={25} color="black" />
+              )}
+            </TouchableOpacity>
           </View>
         </LinearGradient>
       </View>

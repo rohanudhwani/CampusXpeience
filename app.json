@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "MessMate",
-    "slug": "MessMate",
+    "name": "CampusXperience",
+    "slug": "CampusXperience",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,7 +22,7 @@
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.rohanudhwani.MessMate"
+      "package": "com.rohanudhwani.CampusXperience"
     },
     "web": {
       "favicon": "./assets/favicon.png"

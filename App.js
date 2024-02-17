@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { MenuScreen, SignUpScreen, LoginScreen, EditMenuScreen, RestaurantsScreen, RestaurantDetailsScreen, LaundryScreen, LaundryDetailsScreen } from './screens'
+import { MenuScreen, SignUpScreen, LoginScreen, EditMenuScreen, RestaurantsScreen, RestaurantDetailsScreen, LaundryScreen, LaundryDetailsScreen, FTPScreen } from './screens'
 import BottomTab from './component/BottomTab';
 import { ref, onValue } from 'firebase/database';
 import { db } from './firebase';
@@ -89,7 +89,6 @@ export default function App() {
   }
 
   if (!fontsLoaded && !fontError) {
-    console.log("Font not loaded")
     return null;
   }
 
@@ -105,6 +104,7 @@ export default function App() {
           <Stack.Screen name="Restaurants" component={RestaurantsScreen} />
           <Stack.Screen name="LaundryDetails" component={LaundryDetailsScreen} />
           <Stack.Screen name="RestaurantDetails" component={RestaurantDetailsScreen} />
+          <Stack.Screen name="FTP" component={FTPScreen} />
           <Stack.Screen name="EditMenu" component={EditMenuScreen} />
         </Stack.Navigator>
 
