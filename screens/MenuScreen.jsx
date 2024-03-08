@@ -150,6 +150,14 @@ const MenuScreen = ({ menu, dishes, updates }) => {
             setIsDinnerOpen(true);
             console.log("Dinner is open")
             return;
+        } else if (current24hrTime > convertTo24HourFormat(dinnerTimings[1])) {
+            setIsBreakfastOpen(true);
+            setIsLunchOpen(false);
+            setIsSnacksOpen(false);
+            setIsDinnerOpen(false);
+            forwardDay(1);
+            console.log("Mess closed")
+            return;
         }
         console.log("All closed", formattedTimeString)
     }, [breakfastTimings, lunchTimings, snacksTimings, dinnerTimings, current24hrTime])
