@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "CampusXperience",
-    "slug": "MessMate",
+    "slug": "CampusXperience",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -39,8 +39,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "c44bffa5-6561-4f32-afb8-ecd4562b1499"
+        "projectId": "36355677-866b-49a8-81fb-b2a36fb1ac79"
       }
-    }
+    },
+    "plugins":[ [ "expo-build-properties", { "android": { "usesCleartextTraffic": true } } ] ]
   }
 }

@@ -7,12 +7,19 @@
         "ratecard":["https://d1csarkz8obe9u.cloudfront.net/posterpreviews/cleaning-%26-laundry-price-list-flyers-design-template-418097b391f5c906966c5632699c4471_screen.jpg?ts=1661364683"],
         "gmaps":"https://maps.app.goo.gl/AR4wCyQE1ubX3gbi7"        
     },
-    "Ravi Meshram" : {
-        "mainImage": "https://elements-cover-images-0.imgix.net/ff84e529-a1e4-48e3-af1b-84305adf8959?auto=compress&h=630&w=1200&fit=crop&crop=edges&fm=jpeg&s=901ae76b6bee19d6bde97e7adcf6abbe",
+    "Komal Laundry" : {
+        "mainImage": "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-03-10_193242333.png?alt=media&token=5bce08af-539f-4422-863d-717aa83058c1",
         "contactNumber": "9545899230",
-        "timings": "6:00PM-6:05PM",
+        "timings": "7:00PM-7:05PM",
         "owner": "Ravi",
         "ratecard":["https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/WhatsApp%20Image%202024-02-15%20at%206.59.39%20PM.jpeg?alt=media&token=4722f1f9-d02c-4a5c-84c8-2ed7a7744d78"]
+    },
+    "Gaurav Laundry" : {
+        "mainImage": "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-03-10_193100833.png?alt=media&token=2330af48-1fd4-4303-bbde-43a0317b295c",
+        "contactNumber": "7743809416",
+        "timings": "8:30PM-9:30PM",
+        "owner": "Gaurav",
+        "ratecard":["https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/gettyimages-1486049233_wide-c2ab422ad61230b733aa415e9629909f49844ee2-s1100-c50.jpeg?alt=media&token=e3c847db-37f4-4616-8210-cbd096200ebb"]
     },
     "TumbleDry" : {
         "mainImage": "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-02-16_222837459.png?alt=media&token=d2fbd102-de68-4082-9e34-dded90fc1b0b",

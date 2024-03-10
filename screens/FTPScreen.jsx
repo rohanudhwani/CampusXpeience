@@ -10,7 +10,7 @@ const FTPScreen = () => {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
 
-    const url = 'http://192.168.77.84/FileRun/#/HOME'
+    const url = 'http://192.168.77.84/FileRun'
 
     const handleBackPress = () => {
         if (webViewRef.current) {
