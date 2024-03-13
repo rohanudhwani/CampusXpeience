@@ -3,9 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
 import { auth } from '../firebase'
-import { signOut } from 'firebase/auth'
 import { useNavigation } from '@react-navigation/native'
-import { Ionicons } from '@expo/vector-icons'
+import { Feather } from '@expo/vector-icons'
 import { connect } from 'react-redux';
 
 const LaundryScreen = ({ laundry }) => {
@@ -21,13 +20,7 @@ const LaundryScreen = ({ laundry }) => {
 
   const navigation = useNavigation()
 
-  const handleExitPress = () => {
-    signOut(auth).then(() => {
-      navigation.replace("Login")
-    }).catch((error) => {
-      console.log(error.message)
-    })
-  }
+
 
   // Render loader if data is not loaded yet
   if (!isLoaded) {
@@ -45,9 +38,9 @@ const LaundryScreen = ({ laundry }) => {
         <View style={{ backgroundColor: "#94F074" }}>
           <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 20, paddingHorizontal: 20, marginBottom: 20 }}>
             <Text style={{ flex: 1, textAlign: "center", fontSize: 20, fontWeight: "600", marginLeft: 25 }}>Laundry</Text>
-            <TouchableOpacity onPress={() => handleExitPress()}>
-              <Ionicons name="exit-outline" size={24} color="black" />
-            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("User")}>
+                            <Feather name="user" size={28} color="black" />
+                        </TouchableOpacity>
           </View>
         </View>
 

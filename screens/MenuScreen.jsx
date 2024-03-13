@@ -1,10 +1,9 @@
 import { ActivityIndicator, Animated, Image, ScrollView, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { AntDesign, Ionicons, Feather } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { auth, fireDb } from '../firebase';
-import { signOut } from 'firebase/auth'
 import { useNavigation } from '@react-navigation/native';
 import firebase from 'firebase/app';
 import { doc, getDoc } from "firebase/firestore";
@@ -246,13 +245,7 @@ const MenuScreen = ({ menu, dishes, updates }) => {
 
     const navigation = useNavigation()
 
-    const handleExitPress = () => {
-        signOut(auth).then(() => {
-            navigation.replace("Login")
-        }).catch((error) => {
-            console.log(error.message)
-        })
-    }
+
 
     const superscript = (number) => {
         if (number > 3 && number < 21) {
@@ -314,16 +307,16 @@ const MenuScreen = ({ menu, dishes, updates }) => {
                 <View style={{ backgroundColor: "#94F074" }}>
                     <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 20, paddingHorizontal: 20 }}>
                         <Text onPress={() => console.log(isAdmin)} style={{ flex: 1, textAlign: "center", fontSize: 20, fontWeight: "600", marginLeft: 25 }}>Menu</Text>
-                        <TouchableOpacity onPress={() => handleExitPress()}>
-                            <Ionicons name="exit-outline" size={24} color="black" />
+                        <TouchableOpacity onPress={() => navigation.navigate("User")}>
+                            <Feather name="user" size={28} color="black" />
                         </TouchableOpacity>
                     </View>
 
 
 
-                    <View style={{ marginTop: 20, marginBottom: 20, justifyContent: "space-evenly", flexDirection: "row", gap: 30 }}>
-                        <Text style={{ fontSize: 15, fontWeight: activeOption === "Today" ? 500 : "normal" }} onPress={() => { setActiveOption("Today"); changeDay(dayNames[day]) }}>Today</Text>
-                        <Text style={{ fontSize: 15, fontWeight: activeOption === "Week" ? 500 : "normal" }} onPress={() => setActiveOption("Week")}>Week</Text>
+                    <View style={{ marginTop: 20, marginBottom: 10, justifyContent: "space-evenly", flexDirection: "row", gap: 10 }}>
+                        <TouchableOpacity style={{backgroundColor: activeOption === "Today" ? "rgba(235,235,235,1)" : "rgba(235,235,235,0.5)", borderRadius:5, padding:10, paddingLeft:50, paddingRight:50}} onPress={() => { setActiveOption("Today"); changeDay(dayNames[day]) }}><Text style={{ fontSize: 15, fontWeight: activeOption === "Today" ? 500 : "normal" }}   >Today</Text></TouchableOpacity>
+                        <TouchableOpacity style={{backgroundColor: activeOption === "Week" ? "rgba(235,235,235,1)" : "rgba(235,235,235,0.5)", borderRadius:5, padding:10, paddingLeft:50, paddingRight:50}} onPress={() => setActiveOption("Week")} ><Text style={{ fontSize: 15, fontWeight: activeOption === "Week" ? 500 : "normal" }}>Week</Text></TouchableOpacity>
                     </View>
                 </View>
 

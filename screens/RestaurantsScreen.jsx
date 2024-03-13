@@ -2,8 +2,7 @@ import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, TouchableOpacit
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
-import { Ionicons } from '@expo/vector-icons'
-import { signOut } from 'firebase/auth'
+import { Feather } from '@expo/vector-icons'
 import { auth } from '../firebase'
 import { useNavigation } from '@react-navigation/native'
 import { connect } from 'react-redux';
@@ -20,14 +19,6 @@ const RestaurantsScreen = ({ restaurants }) => {
   }, [restaurants]);
 
   const navigation = useNavigation()
-
-  const handleExitPress = () => {
-    signOut(auth).then(() => {
-      navigation.replace("Login")
-    }).catch((error) => {
-      console.log(error.message)
-    })
-  }
 
 
   // Render loader if data is not loaded yet
@@ -46,8 +37,8 @@ const RestaurantsScreen = ({ restaurants }) => {
         <View style={{ backgroundColor: "#94F074" }}>
           <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 20, paddingHorizontal: 20, marginBottom: 20 }}>
             <Text style={{ flex: 1, textAlign: "center", fontSize: 20, fontWeight: "600", marginLeft: 25 }}>Restaurants</Text>
-            <TouchableOpacity onPress={() => handleExitPress()}>
-              <Ionicons name="exit-outline" size={24} color="black" />
+            <TouchableOpacity onPress={() => navigation.navigate("User")}>
+              <Feather name="user" size={28} color="black" />
             </TouchableOpacity>
           </View>
         </View>

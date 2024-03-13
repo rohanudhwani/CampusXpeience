@@ -1,0 +1,20 @@
+{
+    "General Store" : {
+        "mainImage": "https://www.shutterstock.com/image-vector/small-convenience-store-260nw-1247195668.jpg",
+        "contactNumber": "8788553037",
+        "timings": "10:30AM-8:00PM",
+        "upi": "upi://pay?pa=8788553037@okbizaxis&pn=Rudrani%20Collection&mc=5462&aid=uGICAgMCw-tLnQA&am"
+    },
+    "Night Canteen" : {
+        "mainImage": "https://cdn2.vectorstock.com/i/1000x1000/61/26/night-dinner-neon-sign-restaurant-logo-vector-22276126.jpg",
+        "contactNumber": "6263657756",
+        "timings": "11:00PM-2:00AM",
+        "upi": "upi://pay?pa=Q508221204@ybl&pn=PhonePeMerchant&mc=0000&mode=02&purpose=00"
+    },
+    "Acad Canteen" : {
+        "mainImage": "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-03-13_201340092.png?alt=media&token=c912371b-3bf7-4762-ad0b-52a433076035",
+        "contactNumber": "9324088967",
+        "timings": "10:00AM-6:30PM",
+        "upi": "upi://pay?pa=q313191991@ybl&pn=Mukesh%20Rai&mc=0000&mode=02&purpose=00"
+    }
+}
