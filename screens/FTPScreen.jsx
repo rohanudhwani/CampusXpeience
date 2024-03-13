@@ -1,9 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { View, StyleSheet, BackHandler } from 'react-native';
+import { View, StyleSheet, BackHandler, Text } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
+import NetInfo from '@react-native-community/netinfo';
 
 const FTPScreen = () => {
     const webViewRef = useRef(null);
@@ -19,6 +20,17 @@ const FTPScreen = () => {
         }
         return false;
     };
+
+    const [connectionType, setConnectionType] = useState('');
+
+    useEffect(() => {
+        const unsubscribe = NetInfo.addEventListener(state => {
+            setConnectionType(state.type);
+        });
+
+        // Cleanup function
+        return () => unsubscribe();
+    }, []);
 
     useEffect(() => {
         if (isFocused && webViewRef.current) {
@@ -52,7 +64,7 @@ const FTPScreen = () => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <StatusBar backgroundColor="white" barStyle="dark-content" />
-            <WebView
+            {connectionType === 'wifi' ? <WebView
                 ref={webViewRef}
                 source={{ uri: url }}
                 style={{ flex: 1 }}
@@ -60,7 +72,12 @@ const FTPScreen = () => {
                 javaScriptEnabled={true}
                 allowsFullscreenVideo={true}
                 domStorageEnabled={true}
-            />
+            /> 
+            : 
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <Text style={{fontSize:20}}>Connect to the Institute Network</Text>
+            </View>}
+            
         </SafeAreaView>
     );
 };
