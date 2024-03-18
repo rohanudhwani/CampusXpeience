@@ -306,10 +306,7 @@ const MenuScreen = ({ menu, dishes, updates }) => {
             <ScrollView>
                 <View style={{ backgroundColor: "#94F074" }}>
                     <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 20, paddingHorizontal: 20 }}>
-                        <Text onPress={() => console.log(isAdmin)} style={{ flex: 1, textAlign: "center", fontSize: 20, fontWeight: "600", marginLeft: 25 }}>Menu</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate("User")}>
-                            <Feather name="user" size={28} color="black" />
-                        </TouchableOpacity>
+                        <Text onPress={() => console.log(isAdmin)} style={{ flex: 1, textAlign: "center", fontSize: 20, fontWeight: "600" }}>Menu</Text>
                     </View>
 
 

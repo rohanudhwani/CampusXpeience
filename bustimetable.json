@@ -1,0 +1,62 @@
+{
+    "0": {
+      "Departure Station": "Sitabuldi",
+      "Arrival Station": "IIITN",
+      "Timings": ["6:30 AM", "7:10 AM"]
+    },
+    "1": {
+      "Departure Station": "IIITN",
+      "Arrival Station": "Sitabuldi",
+      "Timings": ["7:15 AM", "8:40 AM"]
+    },
+    "2": {
+      "Departure Station": "Sitabuldi",
+      "Arrival Station": "IIITN",
+      "Timings": ["9:10 AM", "10:00 AM"]
+    },
+    "3": {
+      "Departure Station": "IIITN",
+      "Arrival Station": "Sitabuldi",
+      "Timings": ["10:10 AM", "11:15 AM"]
+    },
+    "4": {
+      "Departure Station": "Sitabuldi",
+      "Arrival Station": "IIITN",
+      "Timings": ["11:20 AM", "12:00 PM"]
+    },
+    "5": {
+      "Departure Station": "IIITN",
+      "Arrival Station": "Sitabuldi",
+      "Timings": ["12:15 PM", "1:35 PM"]
+    },
+    "6": {
+      "Departure Station": "Sitabuldi",
+      "Arrival Station": "IIITN",
+      "Timings": ["2:30 PM", "3:30 PM"]
+    },
+    "7": {
+      "Departure Station": "IIITN",
+      "Arrival Station": "Sitabuldi",
+      "Timings": ["3:35 PM", "4:35 PM"]
+    },
+    "8": {
+      "Departure Station": "Sitabuldi",
+      "Arrival Station": "IIITN",
+      "Timings": ["4:40 PM", "5:40 PM"]
+    },
+    "9": {
+      "Departure Station": "IIITN",
+      "Arrival Station": "Sitabuldi",
+      "Timings": ["6:00 PM", "7:10 PM"]
+    },
+    "10": {
+      "Departure Station": "Sitabuldi",
+      "Arrival Station": "IIITN",
+      "Timings": ["7:15 PM", "8:00 PM"]
+    },
+    "11": {
+      "Departure Station": "IIITN",
+      "Arrival Station": "Sitabuldi",
+      "Timings": ["8:10 PM", "9:30 PM"]
+    }
+}

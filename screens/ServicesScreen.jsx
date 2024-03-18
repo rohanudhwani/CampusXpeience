@@ -65,10 +65,7 @@ const ServicesScreen = ({ services }) => {
             <ScrollView>
                 <View style={{ backgroundColor: "#94F074" }}>
                     <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 20, paddingHorizontal: 20, marginBottom: 20 }}>
-                        <Text style={{ flex: 1, textAlign: "center", fontSize: 20, fontWeight: "600", marginLeft: 25 }}>Services</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate("User")}>
-                            <Feather name="user" size={28} color="black" />
-                        </TouchableOpacity>
+                        <Text style={{ flex: 1, textAlign: "center", fontSize: 20, fontWeight: "600" }}>Services</Text>
                     </View>
                 </View>
 

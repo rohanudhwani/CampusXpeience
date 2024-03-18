@@ -8,7 +8,7 @@ import { auth, db, fireDb } from '../firebase'
 import { doc, setDoc } from 'firebase/firestore'
 
 
-const LoginScreen = () => {
+const SignUpScreen = () => {
 
 
   const [email, setEmail] = useState("")
@@ -73,7 +73,7 @@ const LoginScreen = () => {
         setLoading(false)
       }
       if (user) {
-        navigation.replace("Menu")
+        navigation.replace("Root")
       }
     })
     return unsubscribe
@@ -121,6 +121,6 @@ const LoginScreen = () => {
   )
 }
 
-export default LoginScreen
+export default SignUpScreen
 
 const styles = StyleSheet.create({})

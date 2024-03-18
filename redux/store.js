@@ -55,6 +55,15 @@ const servicesReducer = (state = null, action) => {
   }
 };
 
+const busReducer = (state = null, action) => {
+  switch (action.type) {
+    case 'SET_BUSES':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 // Combine reducers
 const rootReducer = combineReducers({
   menu: menuReducer,
@@ -63,6 +72,7 @@ const rootReducer = combineReducers({
   restaurants: restaurantsReducer,
   laundry: laundryReducer,
   services: servicesReducer,
+  buses: busReducer,
 });
 
 // Create Redux store

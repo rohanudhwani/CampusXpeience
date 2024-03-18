@@ -2,24 +2,23 @@ import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, TouchableOpacit
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StatusBar } from 'expo-status-bar'
+import { Feather } from '@expo/vector-icons'
 import { auth } from '../firebase'
 import { useNavigation } from '@react-navigation/native'
-import { Feather } from '@expo/vector-icons'
 import { connect } from 'react-redux';
 
-const LaundryScreen = ({ laundry }) => {
+const BusScreen = ({ buses }) => {
 
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    if (laundry !== null) {
+    if (buses !== null) {
       setIsLoaded(true); // Data is loaded
 
     }
-  }, [laundry]);
+  }, [buses]);
 
   const navigation = useNavigation()
-
 
 
   // Render loader if data is not loaded yet
@@ -32,24 +31,23 @@ const LaundryScreen = ({ laundry }) => {
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
       <StatusBar backgroundColor="#94F074" barStyle="dark-content" />
       <ScrollView>
         <View style={{ backgroundColor: "#94F074" }}>
           <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 20, paddingHorizontal: 20, marginBottom: 20 }}>
-            <Text style={{ flex: 1, textAlign: "center", fontSize: 20, fontWeight: "600" }}>Laundry</Text>
+            <Text style={{ flex: 1, textAlign: "center", fontSize: 20, fontWeight: "600" }}>Bus</Text>
           </View>
         </View>
 
-        <View style={{ marginTop: 50, gap: 30, marginLeft: 20, marginRight: 20, marginBottom: 100 }}>
+        <View style={{ marginTop: 30, gap: 20, marginLeft: 20, marginRight: 20, marginBottom: 100 }}>
           {
-            Object.keys(laundry).map((laundryName, index) => (
+            Object.keys(buses).map((bus, index) => (
               <View key={index} style={{}}>
-                <TouchableOpacity onPress={() => navigation.navigate("LaundryDetails", { laundryName: laundryName, laundryDetails: laundry[laundryName] })} style={{ flexDirection: 'row', backgroundColor: "#C8F7B1", borderRadius: 15, height: 160, alignItems: "center" }}>
-                  <Image source={{ uri: laundry[laundryName].mainImage }} style={{ width: 150, height: '100%', borderRadius: 15 }} resizeMode="cover" />
-                  <View style={{ flex: 1, marginLeft: 10, alignItems: "flex-start", marginBottom: 16, paddingTop: 4 }}>
-                    <Text style={{ fontSize: 20, fontWeight: "bold", textAlign: "center", marginRight: 10 }}>{laundryName}</Text>
-                    <Text style={{ fontSize: 15, fontWeight: "400", textAlign: "center", marginTop: 14 }}>{laundry[laundryName].timings}</Text>
+                <TouchableOpacity style={{ flexDirection: 'row', backgroundColor: "#C8F7B1", borderRadius: 15, height: 160, alignItems: "center" }}>
+                  <View style={{ flex: 1, marginLeft: 10, alignItems: "flex-start", marginBottom: 16, paddingTop: 4, alignContent:"center", justifyContent:"center", alignItems:"center" }}>
+                    <Text style={{ fontSize: 20, fontWeight: "bold", textAlign: "center", marginRight: 10 }}>{buses[bus]["Timings"][0]} - {buses[bus]["Timings"][1]}</Text>
+                    <Text style={{ fontSize: 15, fontWeight: "600", textAlign: "center", marginTop: 22 }}>{buses[bus]["Departure Station"]}  ------------------------->  {buses[bus]["Arrival Station"]}</Text>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -62,9 +60,9 @@ const LaundryScreen = ({ laundry }) => {
 }
 
 const mapStateToProps = state => ({
-  laundry: state.laundry
+  buses: state.buses
 });
 
-export default connect(mapStateToProps)(LaundryScreen)
+export default connect(mapStateToProps)(BusScreen)
 
 const styles = StyleSheet.create({})

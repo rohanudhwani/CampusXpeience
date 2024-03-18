@@ -22,7 +22,7 @@ const LoginScreen = () => {
         setLoading(false)
       }
       if (user) {
-        navigation.replace("Menu")
+        navigation.replace("Root")
       }
     })
     return unsubscribe
