@@ -76,20 +76,23 @@ const ServicesScreen = ({ services }) => {
                                 <View style={{ flexDirection: 'row', backgroundColor: "#C8F7B1", borderRadius: 15, height: 160, alignItems: "center" }}>
                                     <Image source={{ uri: services[servicesName].mainImage }} style={{ width: 150, height: '100%', borderRadius: 15 }} resizeMode="cover" />
                                     <View style={{ flex: 1, marginLeft: 10, alignItems: "flex-start", marginBottom: 16, paddingTop: 4 }}>
-                                        <Text style={{ fontSize: 20, fontWeight: "bold", textAlign: "center", marginRight: 10, marginTop:10 }}>{servicesName}</Text>
+                                        <Text style={{ fontSize: 20, fontWeight: "bold", textAlign: "center", marginRight: 10, marginTop: 10 }}>{servicesName}</Text>
                                         <Text style={{ fontSize: 15, fontWeight: "400", textAlign: "center", marginTop: 14 }}>{services[servicesName].timings}</Text>
 
-                                        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 10, marginTop:15 }}>
+                                        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 10, marginTop: 15 }}>
                                             <View style={{ alignItems: "center", justifyContent: "center", flexDirection: "row" }}>
                                                 <TouchableOpacity onPress={() => handleCallPress(services[servicesName].contactNumber)} style={{ borderWidth: 4, borderColor: "#6CAB3C", borderRadius: 200, padding: 8 }}>
                                                     <Ionicons name="call-outline" size={25} color="black" style={{ justifyContent: 'center', alignItems: 'center' }} />
                                                 </TouchableOpacity>
                                             </View>
-                                            <View style={{ alignItems: "center", justifyContent: "center", flexDirection: "row" }}>
-                                                <TouchableOpacity onPress={() => handlePayPress(services[servicesName].upi)} style={{ borderWidth: 4, borderColor: "#6CAB3C", borderRadius: 200, padding: 8 }}>
-                                                    <Image source={require('../assets/upi_black.png')} style={{ width: 65, height: 20 }} />
-                                                </TouchableOpacity>
-                                            </View>
+                                            {services[servicesName].upi && (
+                                                <View style={{ alignItems: "center", justifyContent: "center", flexDirection: "row" }}>
+                                                    <TouchableOpacity onPress={() => handlePayPress(services[servicesName].upi)} style={{ borderWidth: 4, borderColor: "#6CAB3C", borderRadius: 200, padding: 8 }}>
+                                                        <Image source={require('../assets/upi_black.png')} style={{ width: 65, height: 20 }} />
+                                                    </TouchableOpacity>
+                                                </View>
+                                                )
+                                            }
 
                                         </View>
                                     </View>

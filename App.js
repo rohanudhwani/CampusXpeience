@@ -1,16 +1,17 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { MenuScreen, SignUpScreen, LoginScreen, EditMenuScreen, RestaurantsScreen, RestaurantDetailsScreen, LaundryScreen, LaundryDetailsScreen, FTPScreen, ServicesScreen, ServicesDetailsScreen, UserScreen, BusScreen } from './screens'
+import { MenuScreen, SignUpScreen, LoginScreen, EditMenuScreen, RestaurantsScreen, RestaurantDetailsScreen, LaundryScreen, LaundryDetailsScreen, FTPScreen, ServicesScreen, UserScreen, BusScreen, AboutMeScreen } from './screens'
 import BottomTab from './component/BottomTab';
 import { ref, onValue } from 'firebase/database';
 import { auth, db } from './firebase';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { useFonts, Inter_400Regular, Inter_500Medium, Inter_700Bold } from '@expo-google-fonts/inter';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { DrawerContentScrollView, DrawerItemList, createDrawerNavigator } from '@react-navigation/drawer';
+import { AntDesign, Ionicons, FontAwesome5, FontAwesome } from '@expo/vector-icons';
 
 
 const Stack = createNativeStackNavigator()
@@ -39,24 +40,76 @@ const MyComponent = ({ setActiveScreen }) => {
   }, [navigation, setActiveScreen])
 }
 
-
-function Root() {
+const CustomDrawerContent = (props) => {
   return (
-    <Drawer.Navigator screenOptions={{ headerShown: true, headerTransparent:true, headerTitle:""}}>
-      <Drawer.Screen name="Menu" component={MenuScreen} />
-      <Drawer.Screen name="User" component={UserScreen} />
-      <Drawer.Screen name="Bus" component={BusScreen} />
-      <Drawer.Screen name="Laundry" component={LaundryScreen} options={{ drawerItemStyle: { height: 0 } }} />
-      <Drawer.Screen name="Restaurants" component={RestaurantsScreen} options={{ drawerItemStyle: { height: 0 } }} />
-      <Drawer.Screen name="LaundryDetails" component={LaundryDetailsScreen} options={{ drawerItemStyle: { height: 0 } }} />
-      <Drawer.Screen name="RestaurantDetails" component={RestaurantDetailsScreen} options={{ drawerItemStyle: { height: 0 } }} />
-      <Drawer.Screen name="FTP" component={FTPScreen} options={{ drawerItemStyle: { height: 0 } }} />
-      <Drawer.Screen name="EditMenu" component={EditMenuScreen} options={{ drawerItemStyle: { height: 0 } }} />
-      <Drawer.Screen name="Services" component={ServicesScreen} options={{ drawerItemStyle: { height: 0 } }} />
-      <Drawer.Screen name="ServicesDetails" component={ServicesDetailsScreen} options={{ drawerItemStyle: { height: 0 } }} />
-    </Drawer.Navigator>
+    <DrawerContentScrollView {...props}>
+      <View style={{ paddingHorizontal: 20 }}>
+        <Image source={require('./assets/icon.png')} style={{ width: 80, height: 80 }} />
+        <Text style={{ fontSize: 20, fontWeight: 'bold', marginVertical: 10 }}>CampusXperience</Text>
+      </View>
+      <DrawerItemList {...props} />
+    </DrawerContentScrollView>
   );
-}
+};
+
+
+const Root = () => (
+  <Drawer.Navigator
+    screenOptions={{ headerShown: true, headerTransparent: true, headerTitle: "" }}
+    drawerContent={(props) => <CustomDrawerContent {...props} />}
+  >
+    <Drawer.Screen
+      name="Menu"
+      component={MenuScreen}
+      options={{
+        drawerIcon: ({ focused, size }) => (
+          <Ionicons name="restaurant" size={size} color={focused ? "blue" : "black"} />
+        ),
+        drawerLabelStyle: { marginLeft: -15 }, // Adjust the margin here
+      }}
+    />
+    <Drawer.Screen
+      name="Bus"
+      component={BusScreen}
+      options={{
+        drawerIcon: ({ focused, size }) => (
+          <FontAwesome5 name="bus-alt" size={size} color={focused ? "blue" : "black"} />
+        ),
+        drawerLabelStyle: { marginLeft: -15 }, // Adjust the margin here
+      }}
+    />
+    <Drawer.Screen
+      name="User"
+      component={UserScreen}
+      options={{
+        drawerIcon: ({ focused, size }) => (
+          <FontAwesome style={{ marginLeft: 3 }} name="user" size={size} color={focused ? "blue" : "black"} />
+        ),
+        drawerLabelStyle: { marginLeft: -10 }, // Adjust the margin here
+      }}
+    />
+    <Drawer.Screen
+      name="About Me"
+      component={AboutMeScreen}
+      options={{
+        drawerIcon: ({ focused, size }) => (
+          <AntDesign name="codesquare" size={size} color={focused ? "blue" : "black"} />
+        ),
+        drawerLabelStyle: { marginLeft: -15 }, // Adjust the margin here
+      }}
+    />
+    {/* <Drawer.Screen name="Laundry" component={LaundryScreen} options={{ drawerItemStyle: { height: 0 } }} />
+    <Drawer.Screen name="Restaurants" component={RestaurantsScreen} options={{ drawerItemStyle: { height: 0 } }} />
+    <Drawer.Screen name="LaundryDetails" component={LaundryDetailsScreen} options={{ drawerItemStyle: { height: 0 } }} />
+    <Drawer.Screen name="RestaurantDetails" component={RestaurantDetailsScreen} options={{ drawerItemStyle: { height: 0 } }} />
+    <Drawer.Screen name="FTP" component={FTPScreen} options={{ drawerItemStyle: { height: 0 } }} />
+    <Drawer.Screen name="EditMenu" component={EditMenuScreen} options={{ drawerItemStyle: { height: 0 } }} />
+    <Drawer.Screen name="Services" component={ServicesScreen} options={{ drawerItemStyle: { height: 0 } }} /> */}
+  </Drawer.Navigator>
+);
+
+
+
 
 export default function App() {
   const [activeScreen, setActiveScreen] = useState("")
@@ -158,6 +211,13 @@ export default function App() {
             </>
           )}
           <Stack.Screen name="Root" component={Root} options={{ headerShown: false }} />
+          <Stack.Screen name="Laundry" component={LaundryScreen} />
+          <Stack.Screen name="Restaurants" component={RestaurantsScreen} />
+          <Stack.Screen name="LaundryDetails" component={LaundryDetailsScreen} />
+          <Stack.Screen name="RestaurantDetails" component={RestaurantDetailsScreen} />
+          <Stack.Screen name="FTP" component={FTPScreen} />
+          <Stack.Screen name="EditMenu" component={EditMenuScreen} />
+          <Stack.Screen name="Services" component={ServicesScreen} />
 
 
         </Stack.Navigator>
