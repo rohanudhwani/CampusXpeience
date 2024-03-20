@@ -54,7 +54,7 @@ const BusScreen = ({ buses }) => {
           </View>
         </View>
 
-        {/* <BusTrips buses={buses.mnlu} /> */}
+        {/* <BusTrips buses={buses.iiitn} /> */}
         {activeOption==="NLU" ? <BusTrips buses={buses.mnlu} /> : <BusTrips buses={buses.iiitn} />}
 
       </ScrollView>

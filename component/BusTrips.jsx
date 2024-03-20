@@ -26,10 +26,9 @@ const BusTrips = ({ buses }) => {
         for (let i = 0; i < trips.length; i++) {
             const trip = trips[i];
             const nextTrip = trips[i + 1] === undefined ? trips[0] : trips[i + 1];
-            const arrivalTime = buses?.[trip]?.Timings?.[0];
-            const departureTime = buses?.[trip]?.Timings?.[1];
-            const nextBusArrivalTime = buses?.[nextTrip]?.Timings?.[0];
-
+            const arrivalTime = convertTo24HourFormat(buses[trip]["Timings"][0]);
+            const departureTime = convertTo24HourFormat(buses[trip]["Timings"][1]);
+            const nextBusArrivalTime = convertTo24HourFormat(buses[nextTrip]["Timings"][0]);
 
             if (arrivalTime < current24hrTime && departureTime > current24hrTime) {
                 setCurrentTrip(parseInt(trip));
