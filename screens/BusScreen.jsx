@@ -51,7 +51,6 @@ const BusScreen = ({ buses }) => {
           <BusTrips key="IIITN" buses={buses.iiitn} />
         )}
 
-
       </ScrollView>
     </SafeAreaView>
   )
