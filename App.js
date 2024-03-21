@@ -5,7 +5,7 @@ import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { MenuScreen, SignUpScreen, LoginScreen, EditMenuScreen, RestaurantsScreen, RestaurantDetailsScreen, LaundryScreen, LaundryDetailsScreen, FTPScreen, ServicesScreen, UserScreen, BusScreen, AboutMeScreen } from './screens'
 import BottomTab from './component/BottomTab';
-import { ref, onValue } from 'firebase/database';
+import { ref, onValue, set } from 'firebase/database';
 import { auth, db } from './firebase';
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -54,10 +54,7 @@ const CustomDrawerContent = (props) => {
 
 
 const Root = () => (
-  <Drawer.Navigator
-    screenOptions={{ headerShown: true, headerTransparent: true, headerTitle: "" }}
-    drawerContent={(props) => <CustomDrawerContent {...props} />}
-  >
+  <Drawer.Navigator screenOptions={{ headerShown: true, headerTransparent: true, headerTitle: "" }} drawerContent={(props) => <CustomDrawerContent {...props} />} >
     <Drawer.Screen
       name="Menu"
       component={MenuScreen}
@@ -118,45 +115,42 @@ export default function App() {
   });
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        onValue(userRefMenu, (snapshot) => {
-          const data = snapshot.val();
-          store.dispatch({ type: 'SET_MENU', payload: data })
-        })
-        onValue(userRefDishes, (snapshot) => {
-          const data = snapshot.val();
-          store.dispatch({ type: 'SET_DISHES', payload: data })
-        })
-        onValue(userRefUpdates, (snapshot) => {
-          const data = snapshot.val();
-          store.dispatch({ type: 'SET_UPDATES', payload: data })
-        })
-        onValue(userRefRestaurants, (snapshot) => {
-          const data = snapshot.val();
-          store.dispatch({ type: 'SET_RESTAURANTS', payload: data })
-        })
-        onValue(userRefLaundry, (snapshot) => {
-          const data = snapshot.val();
-          store.dispatch({ type: 'SET_LAUNDRY', payload: data })
-        })
-        onValue(userRefServices, (snapshot) => {
-          const data = snapshot.val();
-          store.dispatch({ type: 'SET_SERVICES', payload: data })
-        })
-        onValue(userRefBus, (snapshot) => {
-          const data = snapshot.val();
-          store.dispatch({ type: 'SET_BUSES', payload: data })
-        })
-        setIsLoading(false);
-      } catch (error) {
-        console.log('Error fetching data:', error);
-        setIsLoading(true);
-      }
-    };
-
-    fetchData();
-  }, []);
+    setIsLoading(true);
+    try {
+      onValue(userRefMenu, (snapshot) => {
+        const data = snapshot.val();
+        store.dispatch({ type: 'SET_MENU', payload: data })
+      })
+      onValue(userRefDishes, (snapshot) => {
+        const data = snapshot.val();
+        store.dispatch({ type: 'SET_DISHES', payload: data })
+      })
+      onValue(userRefUpdates, (snapshot) => {
+        const data = snapshot.val();
+        store.dispatch({ type: 'SET_UPDATES', payload: data })
+      })
+      onValue(userRefRestaurants, (snapshot) => {
+        const data = snapshot.val();
+        store.dispatch({ type: 'SET_RESTAURANTS', payload: data })
+      })
+      onValue(userRefLaundry, (snapshot) => {
+        const data = snapshot.val();
+        store.dispatch({ type: 'SET_LAUNDRY', payload: data })
+      })
+      onValue(userRefServices, (snapshot) => {
+        const data = snapshot.val();
+        store.dispatch({ type: 'SET_SERVICES', payload: data })
+      })
+      onValue(userRefBus, (snapshot) => {
+        const data = snapshot.val();
+        store.dispatch({ type: 'SET_BUSES', payload: data })
+      })
+    } catch (error) {
+      console.log('Error fetching data:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [isSignedIn, activeScreen]);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -197,21 +191,25 @@ export default function App() {
       <NavigationContainer>
         <MyComponent setActiveScreen={setActiveScreen} />
         <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: true, }}>
-          {!isSignedIn && (
+          {!isSignedIn && !isLoading && (
             <>
               <Stack.Screen name="SignUp" component={SignUpScreen} />
               <Stack.Screen name="Login" component={LoginScreen} />
             </>
           )}
 
-          <Stack.Screen name="Root" component={Root} options={{ headerShown: false }} />
-          <Stack.Screen name="Laundry" component={LaundryScreen} />
+          {/* {isSignedIn && !isLoading && ( 
+            <> */}
+          <Stack.Screen name="Root" component={Root} />
+          <Stack.Screen name="EditMenu" component={EditMenuScreen} />
           <Stack.Screen name="Restaurants" component={RestaurantsScreen} />
+          <Stack.Screen name="RestaurantDetails" component={RestaurantDetailsScreen} />
+          <Stack.Screen name="Laundry" component={LaundryScreen} />
+          <Stack.Screen name="LaundryDetails" component={LaundryDetailsScreen} />
           <Stack.Screen name="FTP" component={FTPScreen} />
           <Stack.Screen name="Services" component={ServicesScreen} />
-          <Stack.Screen name="LaundryDetails" component={LaundryDetailsScreen} />
-          <Stack.Screen name="RestaurantDetails" component={RestaurantDetailsScreen} />
-          <Stack.Screen name="EditMenu" component={EditMenuScreen} />
+          {/* </>
+          )} */}
 
 
         </Stack.Navigator>

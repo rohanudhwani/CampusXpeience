@@ -2,7 +2,7 @@ import { ActivityIndicator, Animated, Image, ScrollView, StyleSheet, Text, Touch
 import React, { useEffect, useRef, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign, Ionicons, Feather } from '@expo/vector-icons';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { auth, fireDb } from '../firebase';
 import { useNavigation } from '@react-navigation/native';
 import firebase from 'firebase/app';
@@ -10,6 +10,10 @@ import { doc, getDoc } from "firebase/firestore";
 import { StatusBar } from 'expo-status-bar';
 
 const MenuScreen = ({ menu, dishes, updates }) => {
+
+    // console.log("Menu:", menu)
+    // console.log("Dishes:", dishes)
+    // console.log("Updates:", updates)
 
     const [isAdmin, setIsAdmin] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -58,6 +62,10 @@ const MenuScreen = ({ menu, dishes, updates }) => {
 
     const [tempMealMenu, setTempMealMenu] = useState([])
 
+    const menuData = useSelector(state => state.menu);
+
+
+
 
     useEffect(() => {
         async function fetchUserData() {
@@ -78,41 +86,12 @@ const MenuScreen = ({ menu, dishes, updates }) => {
 
     useEffect(() => {
         if (menu !== null && dishes !== null && updates !== null) {
-            setIsLoaded(true); // Data is loaded
-
+            setIsLoaded(true); 
+            
             setBreakfastTimings([menu[selectedDay].timings.Breakfast[0], menu[selectedDay].timings.Breakfast[1]]);
             setLunchTimings([menu[selectedDay].timings.Lunch[0], menu[selectedDay].timings.Lunch[1]]);
             setSnacksTimings([menu[selectedDay].timings.Snacks[0], menu[selectedDay].timings.Snacks[1]]);
             setDinnerTimings([menu[selectedDay].timings.Dinner[0], menu[selectedDay].timings.Dinner[1]]);
-
-
-            //is mapped  with dates and not day
-            // const updateMenu = (meal) => {
-            //     setTempMealMenu(menu[selectedDay][meal]);
-            //     if (updates && updates[selectedDay] && updates[selectedDay][meal]) {
-            //         const { remove, add } = updates[selectedDay][meal];
-    
-            //         console.log('Remove:', remove);
-                    
-            //         if (remove) {
-            //             setTempMealMenu(tempMealMenu.filter(item => !remove.includes(item)))
-            //         }
-            //         if (add) {
-            //             setTempMealMenu(tempMealMenu.concat(add))
-            //         }
-            //     }
-            //     if(meal==='Breakfast'){
-            //         setBreakfastMenu(tempMealMenu)
-            //     } else if(meal==='Lunch'){
-            //         setLunchMenu(tempMealMenu)
-            //     } else if(meal==='Snacks'){
-            //         setSnacksMenu(tempMealMenu)
-            //     } else if(meal==='Dinner'){
-            //         setDinnerMenu(tempMealMenu)
-            //     }
-            // }
-            // updateMenu('Breakfast');
-            // console.log('Breakfast menu:', breakfastMenu);
 
         }
     }, [menu, dishes, updates]);

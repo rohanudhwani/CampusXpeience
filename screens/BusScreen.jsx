@@ -48,7 +48,7 @@ const BusScreen = ({ buses }) => {
   return (
     <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
       <StatusBar backgroundColor="#94F074" barStyle="dark-content" />
-      <ScrollView>
+
         <View style={{ backgroundColor: "#94F074" }}>
           <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 20, paddingHorizontal: 20, marginBottom: 20 }}>
             <Text style={{ flex: 1, textAlign: "center", fontSize: 20, fontWeight: "600" }}>Bus</Text>
@@ -60,12 +60,16 @@ const BusScreen = ({ buses }) => {
           </View>
         </View>
 
-        <Swiper loop={false} showsPagination={false} index={activeOption === "NLU" ? 1 : 0} onIndexChanged={(index) => setActiveOption(index===0 ? "IIITN" : "NLU")} ref={(ref) => { swiperRef = ref; }}>
-          <BusTrips key="IIITN" buses={buses.iiitn} />
-          <BusTrips key="NLU" buses={buses.mnlu} />
+        <Swiper loop={false} showsPagination={false} index={activeOption === "NLU" ? 1 : 0} onIndexChanged={(index) => setActiveOption(index === 0 ? "IIITN" : "NLU")} ref={(ref) => { swiperRef = ref; }}>
+          <ScrollView nestedScrollEnabled={true} showsVerticalScrollIndicator={false}>
+            <BusTrips key="IIITN" buses={buses.iiitn} />
+          </ScrollView>
+          <ScrollView nestedScrollEnabled={true} showsVerticalScrollIndicator={false}>
+            <BusTrips key="NLU" buses={buses.mnlu} />
+          </ScrollView>
         </Swiper>
 
-      </ScrollView>
+
     </SafeAreaView>
   )
 }
