@@ -79,7 +79,7 @@ const LoginScreen = () => {
       ) : (
         <KeyboardAvoidingView>
           <View style={{ marginTop: 30, justifyContent: "center", alignItems: "center" }}>
-            <Text style={{ fontFamily: 'Inter_400Regular', fontSize: 25, color: "#5A7587", fontWeight: "bold" }}>MessMate</Text>
+            <Text style={{ fontFamily: 'Inter_400Regular', fontSize: 25, color: "#5A7587", fontWeight: "bold" }}>CampusXperience</Text>
           </View>
 
           <View style={{ marginTop: 60, marginLeft: 20 }}>

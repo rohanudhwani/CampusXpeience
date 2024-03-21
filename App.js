@@ -98,13 +98,6 @@ const Root = () => (
         drawerLabelStyle: { marginLeft: -15 }, // Adjust the margin here
       }}
     />
-    {/* <Drawer.Screen name="Laundry" component={LaundryScreen} options={{ drawerItemStyle: { height: 0 } }} />
-    <Drawer.Screen name="Restaurants" component={RestaurantsScreen} options={{ drawerItemStyle: { height: 0 } }} />
-    <Drawer.Screen name="LaundryDetails" component={LaundryDetailsScreen} options={{ drawerItemStyle: { height: 0 } }} />
-    <Drawer.Screen name="RestaurantDetails" component={RestaurantDetailsScreen} options={{ drawerItemStyle: { height: 0 } }} />
-    <Drawer.Screen name="FTP" component={FTPScreen} options={{ drawerItemStyle: { height: 0 } }} />
-    <Drawer.Screen name="EditMenu" component={EditMenuScreen} options={{ drawerItemStyle: { height: 0 } }} />
-    <Drawer.Screen name="Services" component={ServicesScreen} options={{ drawerItemStyle: { height: 0 } }} /> */}
   </Drawer.Navigator>
 );
 
@@ -203,21 +196,22 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <MyComponent setActiveScreen={setActiveScreen} />
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: true, }}>
           {!isSignedIn && (
             <>
               <Stack.Screen name="SignUp" component={SignUpScreen} />
               <Stack.Screen name="Login" component={LoginScreen} />
             </>
           )}
+
           <Stack.Screen name="Root" component={Root} options={{ headerShown: false }} />
           <Stack.Screen name="Laundry" component={LaundryScreen} />
           <Stack.Screen name="Restaurants" component={RestaurantsScreen} />
+          <Stack.Screen name="FTP" component={FTPScreen} />
+          <Stack.Screen name="Services" component={ServicesScreen} />
           <Stack.Screen name="LaundryDetails" component={LaundryDetailsScreen} />
           <Stack.Screen name="RestaurantDetails" component={RestaurantDetailsScreen} />
-          <Stack.Screen name="FTP" component={FTPScreen} />
           <Stack.Screen name="EditMenu" component={EditMenuScreen} />
-          <Stack.Screen name="Services" component={ServicesScreen} />
 
 
         </Stack.Navigator>

@@ -7,6 +7,7 @@ import { auth } from '../firebase'
 import { useNavigation } from '@react-navigation/native'
 import { connect } from 'react-redux';
 import BusTrips from '../component/BusTrips'
+import Swiper from 'react-native-swiper';
 
 const BusScreen = ({ buses }) => {
 
@@ -20,6 +21,20 @@ const BusScreen = ({ buses }) => {
   }, [buses]);
 
   const navigation = useNavigation()
+
+  const handleChangeOption = (option) => {
+    // Set activeOption after a short delay for smoother transition
+    setTimeout(() => {
+      setActiveOption(option);
+    }, 200); // Adjust the delay as needed
+
+    // Manually set index for Swiper
+    if (option === 'IIITN') {
+      swiperRef.scrollBy(-1, true);
+    } else {
+      swiperRef.scrollBy(1, true);
+    }
+  };
 
   // Render loader if data is not loaded yet
   if (!isLoaded) {
@@ -45,11 +60,10 @@ const BusScreen = ({ buses }) => {
           </View>
         </View>
 
-        {activeOption === "NLU" ? (
-          <BusTrips key="NLU" buses={buses.mnlu} />
-        ) : (
+        <Swiper loop={false} showsPagination={false} index={activeOption === "NLU" ? 1 : 0} onIndexChanged={(index) => setActiveOption(index===0 ? "IIITN" : "NLU")} ref={(ref) => { swiperRef = ref; }}>
           <BusTrips key="IIITN" buses={buses.iiitn} />
-        )}
+          <BusTrips key="NLU" buses={buses.mnlu} />
+        </Swiper>
 
       </ScrollView>
     </SafeAreaView>

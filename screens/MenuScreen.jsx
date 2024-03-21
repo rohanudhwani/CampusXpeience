@@ -126,28 +126,28 @@ const MenuScreen = ({ menu, dishes, updates }) => {
             setIsLunchOpen(false);
             setIsSnacksOpen(false);
             setIsDinnerOpen(false);
-            console.log("Breakfast is open")
+            // console.log("Breakfast is open")
             return;
         } else if (current24hrTime < convertTo24HourFormat(lunchTimings[1])) {
             setIsBreakfastOpen(false);
             setIsLunchOpen(true);
             setIsSnacksOpen(false);
             setIsDinnerOpen(false);
-            console.log("Lunch is open")
+            // console.log("Lunch is open")
             return;
         } else if (current24hrTime < convertTo24HourFormat(snacksTimings[1])) {
             setIsBreakfastOpen(false);
             setIsLunchOpen(false);
             setIsSnacksOpen(true);
             setIsDinnerOpen(false);
-            console.log("Snacks is open")
+            // console.log("Snacks is open")
             return;
         } else if (current24hrTime < convertTo24HourFormat(dinnerTimings[1])) {
             setIsBreakfastOpen(false);
             setIsLunchOpen(false);
             setIsSnacksOpen(false);
             setIsDinnerOpen(true);
-            console.log("Dinner is open")
+            // console.log("Dinner is open")
             return;
         } else if (current24hrTime > convertTo24HourFormat(dinnerTimings[1])) {
             setIsBreakfastOpen(true);
@@ -155,10 +155,10 @@ const MenuScreen = ({ menu, dishes, updates }) => {
             setIsSnacksOpen(false);
             setIsDinnerOpen(false);
             forwardDay(1);
-            console.log("Mess closed")
+            // console.log("Mess closed")
             return;
         }
-        console.log("All closed", formattedTimeString)
+        // console.log("All closed", formattedTimeString)
     }, [breakfastTimings, lunchTimings, snacksTimings, dinnerTimings, current24hrTime])
 
     const convertTo24HourFormat = (timeString) => {
