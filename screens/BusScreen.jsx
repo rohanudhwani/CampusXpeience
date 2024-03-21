@@ -19,16 +19,7 @@ const BusScreen = ({ buses }) => {
     }
   }, [buses]);
 
-
-
-
-
-
-
-
-
   const navigation = useNavigation()
-
 
   // Render loader if data is not loaded yet
   if (!isLoaded) {
@@ -54,8 +45,12 @@ const BusScreen = ({ buses }) => {
           </View>
         </View>
 
-        {/* <BusTrips buses={buses.iiitn} /> */}
-        {activeOption==="NLU" ? <BusTrips buses={buses.mnlu} /> : <BusTrips buses={buses.iiitn} />}
+        {activeOption === "NLU" ? (
+          <BusTrips key="NLU" buses={buses.mnlu} />
+        ) : (
+          <BusTrips key="IIITN" buses={buses.iiitn} />
+        )}
+
 
       </ScrollView>
     </SafeAreaView>
