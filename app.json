@@ -19,7 +19,7 @@
       "bundleIdentifier": "com.rohanudhwani.CampusXperience"
     },
     "android": {
-      "versionCode": 2,
+      "versionCode": 3,
       "config": {
         "usesCleartextTraffic": true,
         "googleServicesFile": "./google-services.json",
