@@ -66,8 +66,8 @@ const LaundryDetailsScreen = ({ route }) => {
     };
 
     const handleHardwareBack = () => {
-        navigation.goBack(); // Navigate to the previous screen
-        return true; // Return true to indicate that the back press is handled
+        navigation.goBack();
+        return true; 
       };
     
       // Add event listener when component mounts
@@ -89,27 +89,7 @@ const LaundryDetailsScreen = ({ route }) => {
                     <Text style={{ textAlign: "center", fontSize: 15, fontWeight: "400", marginTop: 4 }}>{laundryDetails.timings}</Text>
                 </View>
             </View>
-            {/* <FlatList
-                ref={flatListRef}
-                data={ratecardImages}
-                renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => setShowImageZoom(true)}>
-                        <Image source={{ uri: item }} style={{ width: '100%', height: '100%' }} resizeMode="contain" />
-                    </TouchableOpacity>
-                )}
-                horizontal
-                pagingEnabled
-                showsHorizontalScrollIndicator={false}
-                onScroll={handlePageChange}
-                keyExtractor={(item, index) => index.toString()}
-            />
-            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                {ratecardImages.map((_, index) => (
-                    <View key={index} style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: index === currentPage ? '#000' : 'rgba(0, 0, 0, 0.4)', marginHorizontal: 5 }} />
-                ))}
-            </View> */}
 
-            {/* Image Zoom Viewer */}
             <View style={{ width: Dimensions.get('window').width, height: 525 }}>
                 <ImageViewer
                     imageUrls={renderratecardImages()}
