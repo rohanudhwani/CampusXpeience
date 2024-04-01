@@ -31,7 +31,7 @@ const EditMenuScreen = ({ route }) => {
             console.error('Error updating updates JSON:', error);
         });
 
-        navigation.replace('Menu');
+        navigation.replace('Root');
     }
 
     return (
