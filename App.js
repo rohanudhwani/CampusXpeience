@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { MenuScreen, SignUpScreen, LoginScreen, EditMenuScreen, RestaurantsScreen, RestaurantDetailsScreen, LaundryScreen, LaundryDetailsScreen, FTPScreen, ServicesScreen, UserScreen, BusScreen, AboutMeScreen } from './screens'
+import { MenuScreen, SignUpScreen, LoginScreen, EditMenuScreen, RestaurantsScreen, RestaurantDetailsScreen, LaundryScreen, LaundryDetailsScreen, FTPScreen, ServicesScreen, UserScreen, BusScreen, AboutMeScreen, StudentBazaarScreen, StudentBazaarDetailsScreen } from './screens'
 import BottomTab from './component/BottomTab';
 import { ref, onValue, set } from 'firebase/database';
 import { auth, db } from './firebase';
@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { useFonts, Inter_400Regular, Inter_500Medium, Inter_700Bold } from '@expo-google-fonts/inter';
 import { DrawerContentScrollView, DrawerItemList, createDrawerNavigator } from '@react-navigation/drawer';
-import { AntDesign, Ionicons, FontAwesome5, FontAwesome } from '@expo/vector-icons';
+import { AntDesign, Ionicons, FontAwesome5, FontAwesome, MaterialIcons } from '@expo/vector-icons';
 
 
 const Stack = createNativeStackNavigator()
@@ -76,6 +76,27 @@ const Root = () => (
       }}
     />
     <Drawer.Screen
+      name="Student Bazaar"
+      component={StudentBazaarScreen}
+      options={{
+        drawerIcon: ({ focused, size }) => (
+          <MaterialIcons name="sell" size={size} color={focused ? "blue" : "black"} />
+        ),
+        drawerLabelStyle: { marginLeft: -15 }, // Adjust the margin here
+      }}
+    />
+    <Drawer.Screen
+      name="Student Bazaar Details"
+      component={StudentBazaarDetailsScreen}
+      options={{
+        drawerItemStyle: { height: 0 },
+        drawerIcon: ({ focused, size }) => (
+          <MaterialIcons name="sell" size={size} color={focused ? "blue" : "black"} />
+        ),
+        drawerLabelStyle: { marginLeft: -15 }, // Adjust the margin here
+      }}
+    />
+    <Drawer.Screen
       name="User"
       component={UserScreen}
       options={{
@@ -86,7 +107,7 @@ const Root = () => (
       }}
     />
     <Drawer.Screen
-      name="About Me"
+      name="About Developer"
       component={AboutMeScreen}
       options={{
         drawerIcon: ({ focused, size }) => (

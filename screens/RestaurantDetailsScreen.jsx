@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { Image, View, Dimensions, FlatList, Text, Linking, TouchableOpacity } from 'react-native';
+import React, {  useState } from 'react';
+import { Image, View, Dimensions, Text, Linking, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons, Entypo } from '@expo/vector-icons';
 import ImageViewer from 'react-native-image-zoom-viewer';
@@ -11,7 +11,7 @@ const RestaurantDetailsScreen = ({ route }) => {
     const menuImages = restaurantDetails.menu;
     const [currentPage, setCurrentPage] = useState(0);
     const [showImageZoom, setShowImageZoom] = useState(false); // State for controlling image zoom viewer
-    const flatListRef = useRef();
+
 
     const handlePageChange = (event) => {
         const { contentOffset } = event.nativeEvent;
@@ -54,25 +54,7 @@ const RestaurantDetailsScreen = ({ route }) => {
                     <Text style={{ textAlign: "center", fontSize: 15, fontWeight: "400", marginTop: 4 }}>{restaurantDetails.type}</Text>
                 </View>
             </View>
-            {/* <FlatList
-                ref={flatListRef}
-                data={menuImages}
-                renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => setShowImageZoom(true)}>
-                        <Image source={{ uri: item }} style={{ width: '100%', height: '100%' }} resizeMode="contain" />
-                    </TouchableOpacity>
-                )}
-                horizontal
-                pagingEnabled
-                showsHorizontalScrollIndicator={false}
-                onScroll={handlePageChange}
-                keyExtractor={(item, index) => index.toString()}
-            />
-            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                {menuImages.map((_, index) => (
-                    <View key={index} style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: index === currentPage ? '#000' : 'rgba(0, 0, 0, 0.4)', marginHorizontal: 5 }} />
-                ))}
-            </View> */}
+            
 
             {/* Image Zoom Viewer */}
             <View style={{ width: Dimensions.get('window').width, height: 550 }}>
