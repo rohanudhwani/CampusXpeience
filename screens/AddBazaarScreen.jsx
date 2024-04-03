@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { fireDb } from '../firebase';
 import { collection, getDocs } from '@firebase/firestore';
 import { auth } from '../firebase';
+import * as ImagePicker from 'expo-image-picker';
 
 const AddBazaarScreen = () => {
     const navigation = useNavigation();
@@ -19,7 +20,24 @@ const AddBazaarScreen = () => {
     const [condition, setCondition] = useState("New")
     const [instaID, setInstaID] = useState("")
 
+    const [selectedImages, setSelectedImages] = useState([]);
+    const [mainImageIndex, setMainImageIndex] = useState(0);
+
     const userEmail = auth.currentUser ? auth.currentUser.email : null;
+
+    const selectImages = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            quality: 1,
+            multiple: true, // Allow selecting multiple images
+        });
+
+        console.log(result.assets[0].uri);
+        if (!result.canceled) {
+            setSelectedImages(selectImages => [...selectImages, result.assets[0].uri]);
+        }
+    };
 
     return (
         <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
@@ -58,16 +76,42 @@ const AddBazaarScreen = () => {
                 </View>
 
                 <Text style={{ marginTop: 20, fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray", marginLeft: 20, marginRight: 20 }}>Contact Email: {userEmail}</Text>
-                <View style={{ marginTop: 10, marginLeft: 20, marginRight: 20, height: 50, borderColor: '#7DBD3F', borderWidth: 2, borderRadius: 10, paddingLeft: 20, flexDirection: "row", alignItems: 'center' }}>
+                <View style={{ marginTop: 10, marginLeft: 20, marginRight: 20, height: 40, borderColor: '#7DBD3F', borderWidth: 2, borderRadius: 10, paddingLeft: 20, flexDirection: "row", alignItems: 'center' }}>
                     <Text style={{ fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray" }}>@</Text>
                     <View style={{ width: 1, height: '80%', backgroundColor: '#7DBD3F', marginHorizontal: 10 }} />
                     <TextInput value={instaID} onChangeText={(text) => setInstaID(text)} style={{ flex: 1, fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray" }} placeholder="Insta ID (Optional)" />
                 </View>
 
-                <TouchableOpacity style={{ width: 150, height: 40, backgroundColor: "#7DBD3F", borderRadius: 10, justifyContent: "center", alignItems: "center", alignSelf: "center", borderColor: "#7DBD3F", borderWidth: 2, marginLeft: 20, marginRight: 20, marginTop: 10 }}>
+                <TouchableOpacity onPress={() => selectImages()} style={{ width: 150, height: 40, backgroundColor: "#7DBD3F", borderRadius: 10, justifyContent: "center", alignItems: "center", alignSelf: "center", borderColor: "#7DBD3F", borderWidth: 2, marginLeft: 20, marginRight: 20, marginTop: 20 }}>
                     <Text style={{ fontFamily: 'Inter_400Regular', fontSize: 18, color: "white", fontWeight: "bold" }}>Add Images</Text>
                 </TouchableOpacity>
 
+
+
+                {selectedImages.length > 0 && (
+                    <View style={{ marginTop: 10, alignItems: 'center', marginLeft: 20, marginRight: 20, marginBottom: 100 }}>
+                        <Text style={{ fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray", marginLeft: 20, marginRight: 20, marginBottom:10 }}>Set Main Image:</Text>
+                        {selectedImages.map((imageUri, index) => (
+                            (index % 3 === 0) ? (
+                                <View key={index} style={{ flexDirection: 'row', marginBottom: 15 }}>
+                                    <TouchableOpacity onPress={() => setMainImageIndex(index)}>
+                                        <Image source={{ uri: selectedImages[index] }} style={{ width: 110, height: 110, marginRight: 10, backgroundColor: "gray", borderColor: mainImageIndex === index ? '#7DBD3F' : 'transparent', borderWidth: 5 }} resizeMode='contain' />
+                                    </TouchableOpacity>
+                                    {(index + 1 < selectedImages.length) && (
+                                        <TouchableOpacity onPress={() => setMainImageIndex(index + 1)}>
+                                            <Image source={{ uri: selectedImages[index + 1] }} style={{ width: 110, height: 110, marginRight: 10, backgroundColor: "gray", borderColor: mainImageIndex === index + 1 ? '#7DBD3F' : 'transparent', borderWidth: 5 }} resizeMode='contain' />
+                                        </TouchableOpacity>
+                                    )}
+                                    {(index + 2 < selectedImages.length) && (
+                                        <TouchableOpacity onPress={() => setMainImageIndex(index + 2)}>
+                                            <Image source={{ uri: selectedImages[index + 2] }} style={{ width: 110, height: 110, backgroundColor: "gray", borderColor: mainImageIndex === index + 2 ? '#7DBD3F' : 'transparent', borderWidth: 5 }} resizeMode='contain' />
+                                        </TouchableOpacity>
+                                    )}
+                                </View>
+                            ) : null
+                        ))}
+                    </View>
+                )}
 
             </ScrollView>
         </SafeAreaView>

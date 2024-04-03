@@ -31,7 +31,7 @@ const StudentBazaarScreen = () => {
         };
 
         fetchItems();
-    }, [items]);
+    }, []);
 
     if (loading) {
         return (
