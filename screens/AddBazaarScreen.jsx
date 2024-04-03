@@ -5,10 +5,11 @@ import { StatusBar } from 'expo-status-bar';
 import { Feather, FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
-import { fireDb } from '../firebase';
+import { fireDb, auth, storageRef, storage } from '../firebase';
 import { collection, getDocs } from '@firebase/firestore';
-import { auth } from '../firebase';
 import * as ImagePicker from 'expo-image-picker';
+import { getDownloadURL, uploadBytes } from 'firebase/storage';
+
 
 const AddBazaarScreen = () => {
     const navigation = useNavigation();
@@ -22,6 +23,7 @@ const AddBazaarScreen = () => {
 
     const [selectedImages, setSelectedImages] = useState([]);
     const [mainImageIndex, setMainImageIndex] = useState(0);
+    const [allowToPost, setAllowToPost] = useState(false)
 
     const userEmail = auth.currentUser ? auth.currentUser.email : null;
 
@@ -32,12 +34,99 @@ const AddBazaarScreen = () => {
             quality: 1,
             multiple: true, // Allow selecting multiple images
         });
-
-        console.log(result.assets[0].uri);
         if (!result.canceled) {
             setSelectedImages(selectImages => [...selectImages, result.assets[0].uri]);
         }
     };
+
+    const uploadImagesToStorage = async (images_to_upload) => {
+        try {
+            // Create a reference to the storage location
+            let downloadURLs = [];
+            console.log("hello", Array.isArray(images_to_upload))
+            const uploadTasks = images_to_upload.map(async (imageUri, index) => {
+                const timestamp = Date.now(); // Get current timestamp
+                const imageName = `image_${timestamp}_${index}`;
+
+                const response = await fetch(imageUri);
+                const blob = await response.blob();
+                const imageRef = storageRef(storage, `bazaar/image_${imageName}`);
+
+                return uploadBytes(imageRef, blob).then((snapshot) => {
+                    return getDownloadURL(snapshot.ref).then((downloadURL) => {
+                        console.log("Image uploaded. Download URL:", downloadURL);
+                        return downloadURL;
+                    });
+                });
+            });
+
+            // Wait for all upload tasks to complete
+            const results = await Promise.all(uploadTasks);
+            downloadURLs = results.filter(url => url !== undefined); // Filter out any undefined URLs
+            return downloadURLs; // Return an array of download URLs
+        } catch (error) {
+            console.error("Error uploading images:", error);
+            return []; // Return an empty array in case of error
+        }
+    };
+
+
+    const postAd = async () => {
+        if (title === "") {
+            alert("Please add an Ad Title")
+            return
+        }
+        if (description === "") {
+            alert("Please enter a description")
+            return
+        }
+        if (price === "") {
+            alert("Please enter price")
+            return
+        }
+        if (selectedImages.length === 0) {
+            alert("Please select images")
+            return
+        }
+
+        const uploadedImages = await uploadImagesToStorage(selectedImages)
+
+
+        const adData = {
+            title: title,
+            description: description,
+            price: price,
+            condition: condition,
+            instaID: instaID,
+            userid: auth.currentUser.uid,
+            images: uploadedImages,
+            mainImage: uploadedImages[mainImageIndex],
+            createdAt: new Date().toISOString()
+        }
+
+        try {
+            // Reference to the 'bazaar' collection
+            const bazaarCollection = collection(fireDb, 'bazaar');
+    
+            // Add a new document with auto-generated ID
+            const docRef = await addDoc(bazaarCollection, adData);
+    
+            console.log('Ad added to Bazaar with ID:', docRef.id);
+            return docRef.id; // Return the ID of the newly added document
+        } catch (error) {
+            console.error('Error adding ad to Bazaar:', error);
+            return null; // Return null in case of error
+        }
+
+    }
+
+    useEffect(() => {
+        if (title !== "" && description !== "" && price !== "" && selectedImages.length !== 0) {
+            setAllowToPost(true)
+        }
+    }, [title, description, price, selectedImages])
+
+
 
     return (
         <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
@@ -45,7 +134,7 @@ const AddBazaarScreen = () => {
             <ScrollView>
                 <View style={{ backgroundColor: "#94F074" }}>
                     <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 20, paddingHorizontal: 20, marginBottom: 20 }}>
-                        <Text onPress={() => console.log("Text pressed")} style={{ flex: 1, textAlign: "center", fontSize: 20, fontWeight: "600" }}>Add to Bazaar</Text>
+                        <Text style={{ flex: 1, textAlign: "center", fontSize: 20, fontWeight: "600" }}>Add to Bazaar</Text>
                     </View>
                 </View>
 
@@ -89,8 +178,8 @@ const AddBazaarScreen = () => {
 
 
                 {selectedImages.length > 0 && (
-                    <View style={{ marginTop: 10, alignItems: 'center', marginLeft: 20, marginRight: 20, marginBottom: 100 }}>
-                        <Text style={{ fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray", marginLeft: 20, marginRight: 20, marginBottom:10 }}>Set Main Image:</Text>
+                    <View style={{ marginTop: 10, alignItems: 'center', marginLeft: 20, marginRight: 20 }}>
+                        <Text style={{ fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray", marginLeft: 20, marginRight: 20, marginBottom: 10 }}>Set Main Image:</Text>
                         {selectedImages.map((imageUri, index) => (
                             (index % 3 === 0) ? (
                                 <View key={index} style={{ flexDirection: 'row', marginBottom: 15 }}>
@@ -112,6 +201,10 @@ const AddBazaarScreen = () => {
                         ))}
                     </View>
                 )}
+
+                <TouchableOpacity onPress={() => postAd()} style={{ width: 150, height: 40, backgroundColor: allowToPost === true ? "#7DBD3F" : "gray", borderRadius: 10, justifyContent: "center", alignItems: "center", alignSelf: "center", borderColor: "#7DBD3F", borderWidth: 2, marginLeft: 20, marginRight: 20, marginTop: 20, marginBottom: 100 }}>
+                    <Text style={{ fontFamily: 'Inter_400Regular', fontSize: 18, color: "white", fontWeight: "bold" }}>Post AD</Text>
+                </TouchableOpacity>
 
             </ScrollView>
         </SafeAreaView>
