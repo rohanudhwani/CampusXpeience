@@ -47,17 +47,14 @@ const StudentBazaarScreen = () => {
             <ScrollView>
                 <View style={{ backgroundColor: "#94F074" }}>
                     <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 20, paddingHorizontal: 20, marginBottom: 20 }}>
-                        <Ionicons name="add-circle-outline" size={28} color="#C8F7B1" />
-                        <Text style={{ flex: 1, textAlign: "center", fontSize: 20, fontWeight: "600" }}>Student Bazaar</Text>
-                        <TouchableOpacity onPress={() => console.log("Hii")}>
-                            <Ionicons onPress={() => console.log("Hii")} name="add-circle-outline" size={28} color="black" />
-                        </TouchableOpacity>
+                        <Text onPress={() => console.log("Text pressed")} style={{ flex: 1, textAlign: "center", fontSize: 20, fontWeight: "600" }}>Student Bazaar</Text>
                     </View>
                 </View>
 
+
                 <View style={{ marginTop: 30, gap: 20, marginLeft: 20, marginRight: 20, marginBottom: 100 }}>
                     {items.map(item => (
-                        <TouchableOpacity onPress={() => navigation.navigate("Student Bazaar Details", {item: item})} key={item.id} style={{ flexDirection: 'row', backgroundColor: "#C8F7B1", borderRadius: 15, height: 160, alignItems: "center" }}>
+                        <TouchableOpacity onPress={() => navigation.navigate("Student Bazaar Details", { item: item })} key={item.id} style={{ flexDirection: 'row', backgroundColor: "#C8F7B1", borderRadius: 15, height: 160, alignItems: "center" }}>
                             <Image source={{ uri: item.mainImage }} style={{ width: 150, height: '100%', borderRadius: 15 }} resizeMode="cover" />
                             <View style={{ flex: 1, marginLeft: 10, alignItems: "flex-start", marginBottom: 16, paddingTop: 10 }}>
                                 <Text style={{ fontSize: 20, fontWeight: "bold", textAlign: "center" }}>{item.title}</Text>
@@ -68,6 +65,10 @@ const StudentBazaarScreen = () => {
                     ))}
                 </View>
             </ScrollView>
+
+            <TouchableOpacity style={{position: 'absolute', bottom: 80, right: 20, backgroundColor: "white", borderRadius: 50}} onPress={() => navigation.navigate("Add Bazaar")} >
+                <Ionicons name="add-circle-outline" size={60} color="black" />
+            </TouchableOpacity>
         </SafeAreaView>
     );
 };

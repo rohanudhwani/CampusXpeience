@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
-import { Image, View, Dimensions, Text, Linking, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, View, Dimensions, Text, Linking, TouchableOpacity, ScrollView, BackHandler } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons, Entypo, MaterialIcons } from '@expo/vector-icons';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import { StatusBar } from 'expo-status-bar';
 import { fireDb } from '../firebase';
 import { collection, getDocs, getDoc, doc } from '@firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
 
 const StudentBazaarDetailsScreen = ({ route }) => {
     const item = route.params.item;
+
+    const navigation = useNavigation();
 
     const images = item.images;
     const [currentPage, setCurrentPage] = useState(0);
@@ -45,8 +48,16 @@ const StudentBazaarDetailsScreen = ({ route }) => {
             if (userDocSnapshot.exists()) {
                 const userData = userDocSnapshot.data();
                 const userEmail = userData.email;
-                console.log('User email:', userEmail);
-                return userEmail;
+                const subject = `Regarding ${item.title}`;
+                const body = `Hi , I saw your ad on CampusXperience of ${item.title}. I am interested in it. Let me know if it is still available. Thanks!`;
+                const mailtoUrl = `mailto:${userEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                Linking.openURL(mailtoUrl)
+                    .then((supported) => {
+                        if (!supported) {
+                            console.log("Email app is not available");
+                        }
+                    })
+                    .catch((err) => console.error('Error opening email app:', err));
             } else {
                 console.log("User document does not exist");
                 return null;
@@ -58,19 +69,31 @@ const StudentBazaarDetailsScreen = ({ route }) => {
         }
     };
 
+    useEffect(() => {
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            // Handle the back button press
+            // For example, navigate back to the StudentBazaarScreen
+            navigation.navigate('Student Bazaar');
+            // Return true to prevent default behavior (exit the app)
+            return true;
+        });
+
+        // Clean up the event listener
+        return () => backHandler.remove();
+    }, [navigation]);
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <StatusBar backgroundColor="#94F074" barStyle="dark-content" />
             <View style={{ backgroundColor: "#94F074" }}>
                 <View style={{ alignItems: "center", justifyContent: "center", marginTop: 20, paddingHorizontal: 20, marginBottom: 16 }}>
                     <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "600" }}>{item.title}</Text>
-                    <Text style={{ textAlign: "center", fontSize: 15, fontWeight: "400", marginTop: 4 }}>{item.price}</Text>
                 </View>
             </View>
 
             <ScrollView>
                 {/* Image Zoom Viewer */}
-                <View style={{ width: Dimensions.get('window').width, height: 500 }}>
+                <View style={{ width: Dimensions.get('window').width, height: 400 }}>
                     <ImageViewer
                         imageUrls={renderImages()}
                         enableSwipeDown
@@ -80,9 +103,12 @@ const StudentBazaarDetailsScreen = ({ route }) => {
                     />
                 </View>
 
-                <Text style={{ marginTop: 20 }}>{description}
-                    <Text onPress={handleReadMoreLess} style={{ color: "#5552E9" }}> {readState} ...</Text>
-                </Text>
+                <View style={{marginLeft:20, marginRight:20, marginTop: 5}}>
+                    <Text style={{ textAlign: "center", fontSize: 20, fontWeight: "500" }}>{item.condition} for ₹{item.price}</Text>
+                    <Text style={{ marginTop: 10 }}>{description}
+                        <Text onPress={handleReadMoreLess} style={{ color: "#5552E9" }}> {readState} ...</Text>
+                    </Text>
+                </View>
 
 
                 <View style={{ padding: 12, marginTop: 25, marginLeft: 20, marginRight: 20, marginBottom: 90, flexDirection: "row", justifyContent: "space-between", alignItems: "center", borderRadius: 5, borderWidth: 4, borderColor: "#6CAB3C" }}>
@@ -91,9 +117,21 @@ const StudentBazaarDetailsScreen = ({ route }) => {
                         <Text style={{ fontFamily: 'Inter_400Regular', fontSize: 18, fontWeight: "700", marginLeft: 10 }}>Rohan</Text>
                     </View>
 
-                    <TouchableOpacity onPress={() => handleEmailPress(item.userID)} style={{ alignItems: "center", justifyContent: "center", flexDirection: "row", marginRight: 10 }}>
-                        <MaterialIcons name="email" size={32} color="black" style={{ justifyContent: 'center', alignItems: 'center' }} />
-                    </TouchableOpacity>
+                    <View style={{ flexDirection: "row", gap: 20, marginRight: 10 }}>
+                        <TouchableOpacity onPress={() => handleEmailPress(item.userID)} style={{ alignItems: "center", justifyContent: "center", flexDirection: "row" }}>
+                            <MaterialIcons name="email" size={32} color="black" style={{ justifyContent: 'center', alignItems: 'center' }} />
+                        </TouchableOpacity>
+
+                        {
+                            item.instaID && (
+                                <View style={{ alignItems: "center", justifyContent: "center", flexDirection: "row" }}>
+                                    <TouchableOpacity onPress={() => Linking.openURL(`https://instagram.com/${item.instaID}`)} style={{}}>
+                                        <Entypo name="instagram" size={28} color="black" style={{ justifyContent: 'center', alignItems: 'center' }} />
+                                    </TouchableOpacity>
+                                </View>
+                            )
+                        }
+                    </View>
 
                 </View>
             </ScrollView>

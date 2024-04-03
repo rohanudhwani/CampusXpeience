@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { MenuScreen, SignUpScreen, LoginScreen, EditMenuScreen, RestaurantsScreen, RestaurantDetailsScreen, LaundryScreen, LaundryDetailsScreen, FTPScreen, ServicesScreen, UserScreen, BusScreen, AboutMeScreen, StudentBazaarScreen, StudentBazaarDetailsScreen } from './screens'
+import { MenuScreen, SignUpScreen, LoginScreen, EditMenuScreen, RestaurantsScreen, RestaurantDetailsScreen, LaundryScreen, LaundryDetailsScreen, FTPScreen, ServicesScreen, UserScreen, BusScreen, AboutMeScreen, StudentBazaarScreen, StudentBazaarDetailsScreen, AddBazaarScreen } from './screens'
 import BottomTab from './component/BottomTab';
 import { ref, onValue, set } from 'firebase/database';
 import { auth, db } from './firebase';
@@ -89,11 +89,14 @@ const Root = () => (
       name="Student Bazaar Details"
       component={StudentBazaarDetailsScreen}
       options={{
-        drawerItemStyle: { height: 0 },
-        drawerIcon: ({ focused, size }) => (
-          <MaterialIcons name="sell" size={size} color={focused ? "blue" : "black"} />
-        ),
-        drawerLabelStyle: { marginLeft: -15 }, // Adjust the margin here
+        drawerItemStyle: { display: 'none' }
+      }}
+    />
+    <Drawer.Screen
+      name="Add Bazaar"
+      component={AddBazaarScreen}
+      options={{
+        drawerItemStyle: { display: 'none' }
       }}
     />
     <Drawer.Screen
