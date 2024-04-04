@@ -6,32 +6,38 @@ import { Feather, FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
 import { fireDb } from '../firebase';
-import { collection, getDocs } from '@firebase/firestore';
+import { collection, getDocs, onSnapshot } from '@firebase/firestore';
+import { TextInput } from 'react-native-gesture-handler';
 
 
 
 const StudentBazaarScreen = () => {
     const [items, setItems] = useState([]);
+    const [filteredItems, setFilteredItems] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const [searchQuery, setSearchQuery] = useState('');
 
     const navigation = useNavigation();
 
-    useEffect(() => {
-        const fetchItems = async () => {
-            try {
-                // const bazaarCollection = fireDb.collection('bazaar');
-                const snapshot = await getDocs(collection(fireDb, "bazaar"));
-                const itemsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setItems(itemsData);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error fetching items:', error);
-                setLoading(false);
-            }
-        };
 
-        fetchItems();
+    useEffect(() => {
+        const unsubscribe = onSnapshot(collection(fireDb, "bazaar"), (snapshot) => {
+            const itemsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            // Sort itemsData based on createdAt field in descending order
+            itemsData.sort((a, b) => (new Date(b.createdAt) - new Date(a.createdAt)));
+            setItems(itemsData);
+            setLoading(false);
+        });
+
+        return () => unsubscribe();
     }, []);
+
+    useEffect(() => {
+        setFilteredItems(items.filter(item => item.title.toLowerCase().includes(searchQuery.toLowerCase()) ))
+    
+    }, [searchQuery])
+
 
     if (loading) {
         return (
@@ -52,8 +58,12 @@ const StudentBazaarScreen = () => {
                 </View>
 
 
-                <View style={{ marginTop: 30, gap: 20, marginLeft: 20, marginRight: 20, marginBottom: 100 }}>
-                    {items.map(item => (
+
+                <TextInput value={searchQuery} onChangeText={(text) => setSearchQuery((text))} style={{ borderColor: "#C8F7B1", padding: 10, borderRadius: 10, borderWidth: 2, marginLeft: 20, marginRight: 20, marginTop: 10 }} placeholder="Search for items" />
+
+
+                <View style={{ marginTop: 20, gap: 20, marginLeft: 20, marginRight: 20, marginBottom: 100 }}>
+                    {filteredItems.map(item => (
                         <TouchableOpacity onPress={() => navigation.navigate("Student Bazaar Details", { item: item })} key={item.id} style={{ flexDirection: 'row', backgroundColor: "#C8F7B1", borderRadius: 15, height: 160, alignItems: "center" }}>
                             <Image source={{ uri: item.mainImage }} style={{ width: 150, height: '100%', borderRadius: 15 }} resizeMode="cover" />
                             <View style={{ flex: 1, marginLeft: 10, alignItems: "flex-start", marginBottom: 16, paddingTop: 10 }}>
@@ -66,7 +76,7 @@ const StudentBazaarScreen = () => {
                 </View>
             </ScrollView>
 
-            <TouchableOpacity style={{position: 'absolute', bottom: 80, right: 20, backgroundColor: "white", borderRadius: 50}} onPress={() => navigation.navigate("Add Bazaar")} >
+            <TouchableOpacity style={{ position: 'absolute', bottom: 80, right: 20, backgroundColor: "white", borderRadius: 50 }} onPress={() => navigation.navigate("Add Bazaar")} >
                 <Ionicons name="add-circle-outline" size={60} color="black" />
             </TouchableOpacity>
         </SafeAreaView>
