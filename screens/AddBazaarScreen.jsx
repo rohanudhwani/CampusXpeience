@@ -1,4 +1,4 @@
-import { ActivityIndicator, Button, Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, BackHandler, Button, Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -129,7 +129,7 @@ const AddBazaarScreen = () => {
             const userDataRef = doc(fireDb, 'users', uid);
 
             const userData = {
-                name: name,
+                displayName: name,
             };
             if (instaID !== null) {
                 userData.instaID = instaID;
@@ -142,7 +142,7 @@ const AddBazaarScreen = () => {
         }
 
         alert("Ad posted successfully!")
-        navigation.goBack();
+        navigation.navigate('Student Bazaar');
 
     }
 
@@ -152,6 +152,18 @@ const AddBazaarScreen = () => {
         }
     }, [title, description, price, selectedImages])
 
+    useEffect(() => {
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            // Handle the back button press
+            // For example, navigate back to the StudentBazaarScreen
+            navigation.navigate('Student Bazaar');
+            // Return true to prevent default behavior (exit the app)
+            return true;
+        });
+
+        // Clean up the event listener
+        return () => backHandler.remove();
+    }, [navigation]);
 
 
     return (
@@ -205,7 +217,7 @@ const AddBazaarScreen = () => {
                     <View style={{ marginTop: 10, marginLeft: 20, marginRight: 20, height: 40, borderColor: '#7DBD3F', borderWidth: 2, borderRadius: 10, paddingLeft: 20, flexDirection: "row", alignItems: 'center' }}>
                         <Text style={{ fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray" }}>@</Text>
                         <View style={{ width: 1, height: '80%', backgroundColor: '#7DBD3F', marginHorizontal: 10 }} />
-                        <TextInput value={instaID} onChangeText={(text) => setInstaID(text)} style={{ flex: 1, fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray" }} placeholder="Insta ID (Optional)" />
+                        <TextInput autoCapitalize='none' value={instaID} onChangeText={(text) => setInstaID(text)} style={{ flex: 1, fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray" }} placeholder="Insta ID (Optional)" />
                     </View>
 
                     <TouchableOpacity onPress={() => selectImages()} style={{ width: 150, height: 40, backgroundColor: "#7DBD3F", borderRadius: 10, justifyContent: "center", alignItems: "center", alignSelf: "center", borderColor: "#7DBD3F", borderWidth: 2, marginLeft: 20, marginRight: 20, marginTop: 20 }}>
