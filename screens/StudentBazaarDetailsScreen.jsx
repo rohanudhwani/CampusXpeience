@@ -114,7 +114,7 @@ const StudentBazaarDetailsScreen = ({ route }) => {
                 <View style={{ padding: 12, marginTop: 25, marginLeft: 20, marginRight: 20, marginBottom: 90, flexDirection: "row", justifyContent: "space-between", alignItems: "center", borderRadius: 5, borderWidth: 4, borderColor: "#6CAB3C" }}>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                         <Image style={{ width: 50, height: 50, borderRadius: 100 }} source={{ uri: "https://icons.veryicon.com/png/o/object/material-design-icons/face-2.png" }} resizeMode='cover' />
-                        <Text style={{ fontFamily: 'Inter_400Regular', fontSize: 18, fontWeight: "700", marginLeft: 10 }}>Rohan</Text>
+                        <Text style={{ fontFamily: 'Inter_400Regular', fontSize: 18, fontWeight: "700", marginLeft: 10 }}>{item.postedBy}</Text>
                     </View>
 
                     <View style={{ flexDirection: "row", gap: 20, marginRight: 10 }}>
