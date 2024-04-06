@@ -13,8 +13,8 @@ const StudentBazaarDetailsScreen = ({ route }) => {
 
     const navigation = useNavigation();
 
-    // const images = item.images;
-    const [images, setImages] = useState(item.images);
+    const images = item.images;
+    // const [images, setImages] = useState(item.images);
     const [currentPage, setCurrentPage] = useState(0);
     const [showImageZoom, setShowImageZoom] = useState(false); // State for controlling image zoom viewer
 
@@ -118,7 +118,7 @@ const StudentBazaarDetailsScreen = ({ route }) => {
         // Update the description when the item prop changes
         setDescription(item.description.substring(0, 150));
         setCurrentPage(0);
-        setImages(item.images);
+        // setImages(item.images);
 
     }, [route]);
 
