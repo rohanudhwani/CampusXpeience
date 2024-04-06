@@ -13,7 +13,8 @@ const StudentBazaarDetailsScreen = ({ route }) => {
 
     const navigation = useNavigation();
 
-    const images = item.images;
+    // const images = item.images;
+    const [images, setImages] = useState(item.images);
     const [currentPage, setCurrentPage] = useState(0);
     const [showImageZoom, setShowImageZoom] = useState(false); // State for controlling image zoom viewer
 
@@ -48,7 +49,7 @@ const StudentBazaarDetailsScreen = ({ route }) => {
                 const userData = userDocSnapshot.data();
                 const userEmail = userData.email;
                 const subject = `Regarding ${item.title}`;
-                const body = `Hi , I saw your ad on CampusXperience of ${item.title}. I am interested in it. Let me know if it is still available. Thanks!`;
+                const body = `Hi, I saw your ad on CampusXperience of ${item.title}. I am interested in it. Let me know if it is still available. Thanks!`;
                 const mailtoUrl = `mailto:${userEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
                 Linking.openURL(mailtoUrl)
                     .then((supported) => {
@@ -116,7 +117,10 @@ const StudentBazaarDetailsScreen = ({ route }) => {
     useEffect(() => {
         // Update the description when the item prop changes
         setDescription(item.description.substring(0, 150));
-    }, [item]);
+        setCurrentPage(0);
+        setImages(item.images);
+
+    }, [route]);
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -131,6 +135,7 @@ const StudentBazaarDetailsScreen = ({ route }) => {
                 {/* Image Zoom Viewer */}
                 <View style={{ width: Dimensions.get('window').width, height: 400 }}>
                     <ImageViewer
+                        key={item.id}
                         imageUrls={renderImages()}
                         enableSwipeDown
                         onSwipeDown={() => setShowImageZoom(false)}
