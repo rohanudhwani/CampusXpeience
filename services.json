@@ -19,4 +19,10 @@
         "contactNumber": "8767749381",
         "timings": "10:00AM-7:30PM"
     }
+    ,
+    "Hair Saloon" : {
+        "mainImage": "https://firebasestorage.googleapis.com/v0/b/messmate-31e30.appspot.com/o/image_2024-04-06_141224590.png?alt=media&token=5a5a0fa7-0047-4d70-b788-a2b706d21745",
+        "contactNumber": "9881553134",
+        "timings": "10:00AM-10:00PM"
+    }
 }

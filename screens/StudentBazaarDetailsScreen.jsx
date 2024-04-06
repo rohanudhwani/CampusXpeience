@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Image, View, Dimensions, Text, Linking, TouchableOpacity, ScrollView, BackHandler } from 'react-native';
+import { Image, View, Dimensions, Text, Linking, TouchableOpacity, ScrollView, BackHandler, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons, Entypo, MaterialIcons } from '@expo/vector-icons';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import { StatusBar } from 'expo-status-bar';
-import { fireDb } from '../firebase';
-import { collection, getDocs, getDoc, doc } from '@firebase/firestore';
+import { auth, fireDb } from '../firebase';
+import { collection, getDocs, getDoc, doc, deleteDoc } from '@firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
 
 const StudentBazaarDetailsScreen = ({ route }) => {
@@ -40,7 +40,6 @@ const StudentBazaarDetailsScreen = ({ route }) => {
     };
 
     const handleEmailPress = async (userID) => {
-        console.log('UUID:', userID);
         try {
             const userDocRef = doc(fireDb, "users", userID);
             const userDocSnapshot = await getDoc(userDocRef);
@@ -69,6 +68,38 @@ const StudentBazaarDetailsScreen = ({ route }) => {
         }
     };
 
+
+    const deleteAd = async () => {
+        if (auth.currentUser.uid !== item.userid) {
+            return;
+        }
+
+        Alert.alert(
+            'Confirm Deletion',
+            'Are you sure you want to delete this ad?',
+            [
+                {
+                    text: 'No',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Yes',
+                    onPress: async () => {
+                        try {
+                            const adDocRef = doc(fireDb, 'bazaar', item.id);
+                            await deleteDoc(adDocRef);
+                            navigation.navigate('Student Bazaar');
+                        } catch (error) {
+                            console.error('Error deleting ad:', error);
+                        }
+                    },
+                },
+            ],
+            { cancelable: true }
+        );
+    };
+
+
     useEffect(() => {
         const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
             // Handle the back button press
@@ -81,6 +112,11 @@ const StudentBazaarDetailsScreen = ({ route }) => {
         // Clean up the event listener
         return () => backHandler.remove();
     }, [navigation]);
+
+    useEffect(() => {
+        // Update the description when the item prop changes
+        setDescription(item.description.substring(0, 150));
+    }, [item]);
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -103,7 +139,7 @@ const StudentBazaarDetailsScreen = ({ route }) => {
                     />
                 </View>
 
-                <View style={{marginLeft:20, marginRight:20, marginTop: 5}}>
+                <View style={{ marginLeft: 20, marginRight: 20, marginTop: 5 }}>
                     <Text style={{ textAlign: "center", fontSize: 20, fontWeight: "500" }}>{item.condition} for ₹{item.price}</Text>
                     <Text style={{ marginTop: 10 }}>{description}
                         <Text onPress={handleReadMoreLess} style={{ color: "#5552E9" }}> {readState} ...</Text>
@@ -118,7 +154,7 @@ const StudentBazaarDetailsScreen = ({ route }) => {
                     </View>
 
                     <View style={{ flexDirection: "row", gap: 20, marginRight: 10 }}>
-                        <TouchableOpacity onPress={() => handleEmailPress(item.userID)} style={{ alignItems: "center", justifyContent: "center", flexDirection: "row" }}>
+                        <TouchableOpacity onPress={() => handleEmailPress(item.userid)} style={{ alignItems: "center", justifyContent: "center", flexDirection: "row" }}>
                             <MaterialIcons name="email" size={32} color="black" style={{ justifyContent: 'center', alignItems: 'center' }} />
                         </TouchableOpacity>
 
@@ -132,8 +168,18 @@ const StudentBazaarDetailsScreen = ({ route }) => {
                             )
                         }
                     </View>
-
                 </View>
+
+                {
+                    auth.currentUser.uid === item.userid && (
+                        <View style={{ position: "absolute", bottom: 20, right: 20, flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+                            <TouchableOpacity onPress={() => deleteAd()} style={{ backgroundColor: "#6CAB3C", padding: 10, borderRadius: 5, flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+                                <MaterialIcons name="delete" size={24} color="white" />
+                                <Text style={{ color: "white", marginLeft: 5 }}>Delete</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )
+                }
             </ScrollView>
         </SafeAreaView>
     )

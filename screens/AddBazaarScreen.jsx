@@ -141,6 +141,17 @@ const AddBazaarScreen = () => {
             console.error('Error adding user data to Firestore:', error);
         }
 
+        setTitle("")
+        setDescription("")
+        setPrice("")
+        setCondition("New")
+        setSelectedCategory(categories[0])
+        setName("")
+        setInstaID("")
+        setSelectedImages([])
+        setMainImageIndex(0)
+        setAllowToPost(false)
+
         alert("Ad posted successfully!")
         navigation.navigate('Student Bazaar');
 

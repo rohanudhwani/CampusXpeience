@@ -54,9 +54,9 @@
         "Snacks" : ["5:30PM", "6:30PM"],
         "Dinner" : ["7:30PM", "9:30PM"]
       },
-      "Breakfast": ["Sevai Upma", "Milk", "Tea", "Bread, Butter, Jam", "Seasonal Fruit"],
+      "Breakfast": ["Wada", "Milk", "Tea", "Bread, Butter, Jam", "Seasonal Fruit"],
       "Lunch": ["Chapati", "Sev Bhaji", "Mutter Rice", "Moong Dal", "Salad, Achar", "Chach"],
-      "Snacks": ["Tea", "Samosa-Bread Pakoda"],
+      "Snacks": ["Tea", "Chana Masala"],
       "Dinner": ["Chapati", "Mix Veg", "Rice", "Urad Dal", "Achar"]
     },
     "Saturday": {
