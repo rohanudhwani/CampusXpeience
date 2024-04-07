@@ -1,42 +1,42 @@
 {
   "0": {
     "Departure Station": "Sitabuldi",
-    "Timings": ["9:00 AM", "8:00 AM"],
+    "Timings": ["8:00 AM", "9:00 AM"],
     "Arrival Station": "MNLU"
   },
   "1": {
     "Departure Station": "MNLU",
-    "Timings": ["10:10 AM", "9:10 AM"],
+    "Timings": ["9:10 AM", "10:10 AM"],
     "Arrival Station": "Sitabuldi"
   },
   "2": {
     "Departure Station": "Sitabuldi",
-    "Timings": ["11:30 AM", "10:30 AM"],
+    "Timings": ["10:30 AM", "11:30 AM"],
     "Arrival Station": "MNLU"
   },
   "3": {
     "Departure Station": "MNLU",
-    "Timings": ["12:45 PM", "11:45 AM"],
+    "Timings": ["11:45 AM", "12:45 PM"],
     "Arrival Station": "Sitabuldi"
   },
   "4": {
     "Departure Station": "Sitabuldi",
-    "Timings": ["1:15 PM", "1:15 PM"],
+    "Timings": ["1:15 PM", "2:15 PM"],
     "Arrival Station": "MNLU"
   },
   "5": {
     "Departure Station": "MNLU",
-    "Timings": ["4:00 PM", "3:00 PM"],
+    "Timings": ["3:00 PM", "4:00 PM"],
     "Arrival Station": "Sitabuldi"
   },
   "6": {
     "Departure Station": "Sitabuldi",
-    "Timings": ["5:20 PM", "4:20 PM"],
+    "Timings": ["4:20 PM", "5:20 PM"],
     "Arrival Station": "MNLU"
   },
   "7": {
     "Departure Station": "MNLU",
-    "Timings": ["6:40 PM", "5:40 PM"],
+    "Timings": ["5:40 PM", "6:40 PM"],
     "Arrival Station": "Sitabuldi"
   }
 }

@@ -16,6 +16,7 @@ const AddBazaarScreen = () => {
     const navigation = useNavigation();
 
     const categories = ['Electronics', 'Sports & Games', 'Furniture', 'Collectibles & Antiques', 'Study Materials', 'Others'];
+    const MAX_TITLE_LENGTH = 30;
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
@@ -30,6 +31,13 @@ const AddBazaarScreen = () => {
     const [allowToPost, setAllowToPost] = useState(false)
 
     const userEmail = auth.currentUser ? auth.currentUser.email : null;
+
+    const handleTitleChange = (text) => {
+        // Truncate the title if it exceeds the maximum length
+        if (text.length <= MAX_TITLE_LENGTH) {
+            setTitle(text);
+        }
+    };
 
     const selectImages = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -189,7 +197,10 @@ const AddBazaarScreen = () => {
                     </View>
 
 
-                    <TextInput value={title} onChangeText={(text) => setTitle(text)} style={{ marginTop: 30, marginLeft: 20, marginRight: 20, height: 50, borderColor: '#7DBD3F', borderWidth: 2, borderRadius: 10, paddingLeft: 20, fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray" }} placeholder="Ad Title" />
+                    <TextInput value={title} onChangeText={handleTitleChange} maxLength={MAX_TITLE_LENGTH} style={{ marginTop: 30, marginLeft: 20, marginRight: 20, height: 50, borderColor: '#7DBD3F', borderWidth: 2, borderRadius: 10, paddingLeft: 20, fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray" }} placeholder="Ad Title" />
+                    <Text style={{ marginLeft: 20, color: 'gray' }}>
+                        {`${title.length}/${MAX_TITLE_LENGTH}`} {/* Display current character count */}
+                    </Text>
                     <TextInput value={description} onChangeText={(text) => setDescription(text)} multiline={true} numberOfLines={10} style={{ marginTop: 20, marginLeft: 20, marginRight: 20, height: 150, borderColor: '#7DBD3F', borderWidth: 2, borderRadius: 10, paddingLeft: 20, fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray" }} placeholder="Description" />
 
                     <Text style={{ marginTop: 20, fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray", marginLeft: 20, marginRight: 20 }}>SET A PRICE</Text>
@@ -263,7 +274,7 @@ const AddBazaarScreen = () => {
                     )}
 
                     <TouchableOpacity onPress={() => postAd()} style={{ width: 180, height: 60, backgroundColor: allowToPost === true ? "#7DBD3F" : "gray", borderRadius: 10, justifyContent: "center", alignItems: "center", alignSelf: "center", borderColor: "#7DBD3F", borderWidth: 2, marginLeft: 20, marginRight: 20, marginTop: 40, marginBottom: 100 }}>
-                        <Text style={{ fontFamily: 'Inter_400Regular', fontSize:22, color: "white", fontWeight: "bold" }}>Post AD</Text>
+                        <Text style={{ fontFamily: 'Inter_400Regular', fontSize: 22, color: "white", fontWeight: "bold" }}>Post AD</Text>
                     </TouchableOpacity>
 
                 </ScrollView>
