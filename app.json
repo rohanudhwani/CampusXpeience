@@ -52,6 +52,12 @@
             "usesCleartextTraffic": true
           }
         }
+      ],
+      [
+        "react-native-wifi-reborn",
+        {
+          "fineLocationPermission": true
+        }
       ]
     ]
   }
