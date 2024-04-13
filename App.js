@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { MenuScreen, SignUpScreen, LoginScreen, EditMenuScreen, RestaurantsScreen, RestaurantDetailsScreen, LaundryScreen, LaundryDetailsScreen, FTPScreen, ServicesScreen, UserScreen, BusScreen, AboutMeScreen, StudentBazaarScreen, StudentBazaarDetailsScreen, AddBazaarScreen } from './screens'
+import { MenuScreen, SignUpScreen, LoginScreen, EditMenuScreen, RestaurantsScreen, RestaurantDetailsScreen, LaundryScreen, LaundryDetailsScreen, FTPScreen, ServicesScreen, UserScreen, BusScreen, AboutMeScreen, StudentBazaarScreen, StudentBazaarDetailsScreen, AddBazaarScreen, FortinetLoginScreen } from './screens'
 import BottomTab from './component/BottomTab';
 import { ref, onValue, set } from 'firebase/database';
 import { auth, db } from './firebase';
@@ -112,6 +112,16 @@ const Root = () => (
     <Drawer.Screen
       name="About Developer"
       component={AboutMeScreen}
+      options={{
+        drawerIcon: ({ focused, size }) => (
+          <AntDesign name="codesquare" size={size} color={focused ? "blue" : "black"} />
+        ),
+        drawerLabelStyle: { marginLeft: -15 }, // Adjust the margin here
+      }}
+    />
+    <Drawer.Screen
+      name="Fortinet Login"
+      component={FortinetLoginScreen}
       options={{
         drawerIcon: ({ focused, size }) => (
           <AntDesign name="codesquare" size={size} color={focused ? "blue" : "black"} />
