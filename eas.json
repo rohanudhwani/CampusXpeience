@@ -23,5 +23,8 @@
     "production": {
       "environment": "production"
     }
+  },
+  "cli": {
+    "appVersionSource": "remote"
   }
 }

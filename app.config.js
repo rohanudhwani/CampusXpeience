@@ -20,7 +20,7 @@ export default {
       bundleIdentifier: "com.rohanudhwani.CampusXperience"
     },
     android: {
-      versionCode: 6,
+      blockedPermissions: ['android.permission.READ_MEDIA_IMAGES', 'android.permission.READ_MEDIA_VIDEO'],
       config: {
         usesCleartextTraffic: true,
         googleServicesFile: "./google-services.json",
