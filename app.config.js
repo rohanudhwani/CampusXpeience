@@ -19,7 +19,7 @@ export default {
       bundleIdentifier: "com.rohanudhwani.CampusXperience"
     },
     android: {
-      versionCode: 4,
+      versionCode: 5,
       config: {
         usesCleartextTraffic: true,
         googleServicesFile: "./google-services.json",
