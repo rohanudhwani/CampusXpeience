@@ -6,7 +6,7 @@ import { Feather, FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
 import { fireDb, auth, storageRef, storage } from '../firebase';
-import { addDoc, collection, doc, getDocs, setDoc, updateDoc } from '@firebase/firestore';
+import { addDoc, collection, doc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
 import * as ImagePicker from 'expo-image-picker';
 import { getDownloadURL, uploadBytes } from 'firebase/storage';
 import { Picker } from '@react-native-picker/picker';

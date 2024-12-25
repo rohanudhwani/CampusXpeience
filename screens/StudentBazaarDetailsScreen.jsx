@@ -5,7 +5,7 @@ import { Ionicons, Entypo, MaterialIcons } from '@expo/vector-icons';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import { StatusBar } from 'expo-status-bar';
 import { auth, fireDb } from '../firebase';
-import { collection, getDocs, getDoc, doc, deleteDoc } from '@firebase/firestore';
+import { collection, getDocs, getDoc, doc, deleteDoc } from 'firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
 
 const StudentBazaarDetailsScreen = ({ route }) => {

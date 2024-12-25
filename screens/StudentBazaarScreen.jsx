@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Feather, FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { fireDb } from '../firebase';
-import { collection, getDocs } from '@firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { TextInput } from 'react-native-gesture-handler';
 import { Picker } from '@react-native-picker/picker';
 
