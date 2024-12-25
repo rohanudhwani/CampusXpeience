@@ -41,10 +41,10 @@ const AddBazaarScreen = () => {
 
     const selectImages = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            mediaTypes: ['images'],
             allowsEditing: true,
             quality: 1,
-            multiple: true, // Allow selecting multiple images
+            // multiple: true,
         });
         if (!result.canceled) {
             setSelectedImages(selectImages => [...selectImages, result.assets[0].uri]);
@@ -234,12 +234,12 @@ const AddBazaarScreen = () => {
                         </Picker>
                     </View>
 
-                    <TextInput value={name} onChangeText={(text) => setName(text)} style={{ marginTop: 20, marginLeft: 20, marginRight: 20, height: 40, borderColor: '#7DBD3F', borderWidth: 2, borderRadius: 10, paddingLeft: 20, fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray" }} placeholder="Contact Name" />
+                    <TextInput value={name} onChangeText={(text) => setName(text)} style={{ marginTop: 20, marginLeft: 20, marginRight: 20, height: 40, borderColor: '#7DBD3F', borderWidth: 2, borderRadius: 10, paddingLeft: 20, fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray", paddingVertical: 0 }} placeholder="Contact Name" />
                     <Text style={{ marginTop: 10, fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray", marginLeft: 20, marginRight: 20 }}>Contact Email: {userEmail}</Text>
                     <View style={{ marginTop: 10, marginLeft: 20, marginRight: 20, height: 40, borderColor: '#7DBD3F', borderWidth: 2, borderRadius: 10, paddingLeft: 20, flexDirection: "row", alignItems: 'center' }}>
                         <Text style={{ fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray" }}>@</Text>
                         <View style={{ width: 1, height: '80%', backgroundColor: '#7DBD3F', marginHorizontal: 10 }} />
-                        <TextInput autoCapitalize='none' value={instaID} onChangeText={(text) => setInstaID(text)} style={{ flex: 1, fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray" }} placeholder="Insta ID (Optional)" />
+                        <TextInput autoCapitalize='none' value={instaID} onChangeText={(text) => setInstaID(text)} style={{ flex: 1, fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray", paddingVertical: 0 }} placeholder="Insta ID (Optional)" />
                     </View>
 
                     <TouchableOpacity onPress={() => selectImages()} style={{ width: 150, height: 40, backgroundColor: "#7DBD3F", borderRadius: 10, justifyContent: "center", alignItems: "center", alignSelf: "center", borderColor: "#7DBD3F", borderWidth: 2, marginLeft: 20, marginRight: 20, marginTop: 20 }}>

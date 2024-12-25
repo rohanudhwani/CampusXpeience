@@ -2,6 +2,7 @@ import 'dotenv/config'; // If you're using dotenv to manage environment variable
 
 export default {
   expo: {
+    "newArchEnabled": true,
     name: "CampusXperience",
     slug: "CampusXperience",
     version: "1.0.2",
@@ -19,7 +20,7 @@ export default {
       bundleIdentifier: "com.rohanudhwani.CampusXperience"
     },
     android: {
-      versionCode: 5,
+      versionCode: 6,
       config: {
         usesCleartextTraffic: true,
         googleServicesFile: "./google-services.json",
@@ -39,6 +40,17 @@ export default {
     web: {
       favicon: "./assets/favicon.png"
     },
+    "plugins": [
+      [
+        "expo-build-properties"
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you post ads of used items to the bazaar."
+        }
+      ]
+    ],
     extra: {
       eas: {
         projectId: "36355677-866b-49a8-81fb-b2a36fb1ac79"
