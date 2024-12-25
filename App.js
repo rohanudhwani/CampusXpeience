@@ -12,7 +12,9 @@ import store from './redux/store';
 import { useFonts, Inter_400Regular, Inter_500Medium, Inter_700Bold } from '@expo-google-fonts/inter';
 import { DrawerContentScrollView, DrawerItemList, createDrawerNavigator } from '@react-navigation/drawer';
 import { AntDesign, Ionicons, FontAwesome5, FontAwesome, MaterialIcons } from '@expo/vector-icons';
+import { AppRegistry, Platform } from 'react-native';
 
+AppRegistry.registerComponent('main', () => App);
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator();
@@ -119,7 +121,7 @@ const Root = () => (
         drawerLabelStyle: { marginLeft: -15 }, // Adjust the margin here
       }}
     />
-    <Drawer.Screen
+    {/* <Drawer.Screen
       name="Fortinet Login"
       component={FortinetLoginScreen}
       options={{
@@ -128,7 +130,7 @@ const Root = () => (
         ),
         drawerLabelStyle: { marginLeft: -15 }, // Adjust the margin here
       }}
-    />
+    /> */}
   </Drawer.Navigator>
 );
 

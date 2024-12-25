@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { View, StyleSheet, BackHandler, Text } from 'react-native';
+import { View, StyleSheet, BackHandler, Text, Image } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
@@ -22,6 +22,7 @@ const FTPScreen = () => {
     };
 
     const [connectionType, setConnectionType] = useState('');
+    const [isUrlReachable, setIsUrlReachable] = useState(false);
 
     useEffect(() => {
         const unsubscribe = NetInfo.addEventListener(state => {
@@ -37,6 +38,15 @@ const FTPScreen = () => {
             webViewRef.current.injectJavaScript(`window.location = '${url}'`);
         }
     }, [isFocused]);
+
+    useEffect(() => {
+        if (connectionType === 'wifi') {
+            fetch(url)
+                .then(response => setIsUrlReachable(true))
+                .catch(error => setIsUrlReachable(false));
+        }
+    }, [connectionType]);
+
 
 
     useEffect(() => {
@@ -64,7 +74,7 @@ const FTPScreen = () => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <StatusBar backgroundColor="white" barStyle="dark-content" />
-            {connectionType === 'wifi' ? <WebView
+            {connectionType === 'wifi' && isUrlReachable ? <WebView
                 ref={webViewRef}
                 source={{ uri: url }}
                 style={{ flex: 1 }}
@@ -72,12 +82,19 @@ const FTPScreen = () => {
                 javaScriptEnabled={true}
                 allowsFullscreenVideo={true}
                 domStorageEnabled={true}
-            /> 
-            : 
-            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                <Text style={{fontSize:20}}>Connect to the Institute Network</Text>
-            </View>}
-            
+            />
+                :
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Image source={require('../assets/no_connection.png')} style={{ width: 200, height: 200 }} resizeMode="cover" />
+                    <Text style={{ fontSize: 20, textAlign: 'center', paddingHorizontal: 10 }}>
+                        Please connect to the IIITN Institute Wi-Fi network to continue using the FTP Feature of the app.
+                    </Text>
+                    <Text style={{ fontSize: 14, textAlign: 'center', paddingHorizontal: 10 }}>
+                        Ensure you are connected to the correct network for seamless access to all features.
+                    </Text>
+                </View>
+            }
+
         </SafeAreaView>
     );
 };

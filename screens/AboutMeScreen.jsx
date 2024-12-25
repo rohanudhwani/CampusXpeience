@@ -10,7 +10,7 @@ const AboutMeScreen = () => {
     const linkedinLink = 'https://www.linkedin.com/in/rohanudhwani/';
     const instagramLink = 'https://www.instagram.com/rohanudhwanii/';
     const coffeeLink = 'https://paypal.me/rohanudhwani?country.x=IN&locale.x=en_GB';
-    const avatarImage = 'https://media.licdn.com/dms/image/D5603AQFmHxz6YUhoUA/profile-displayphoto-shrink_800_800/0/1703168954891?e=1716422400&v=beta&t=nthQO99woNSpOE_NQRkEQ4A8Sg35wUPjjL4-jqc4fl0';
+    const avatarImage = 'https://media.licdn.com/dms/image/v2/D5603AQFmHxz6YUhoUA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1703168954891?e=1740614400&v=beta&t=YEN5-RZtuQrmdKfMK-VZsmTFZr1foW7wbr3FCS-HAqc';
 
     // Function to open a link in the browser
     const openLink = (url) => {
