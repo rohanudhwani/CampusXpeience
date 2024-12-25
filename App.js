@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { MenuScreen, SignUpScreen, LoginScreen, EditMenuScreen, RestaurantsScreen, RestaurantDetailsScreen, LaundryScreen, LaundryDetailsScreen, FTPScreen, ServicesScreen, UserScreen, BusScreen, AboutMeScreen, StudentBazaarScreen, StudentBazaarDetailsScreen, AddBazaarScreen, FortinetLoginScreen } from './screens'
+import { MenuScreen, SignUpScreen, LoginScreen, ResetPasswordScreen, EditMenuScreen, RestaurantsScreen, RestaurantDetailsScreen, LaundryScreen, LaundryDetailsScreen, FTPScreen, ServicesScreen, UserScreen, BusScreen, AboutMeScreen, StudentBazaarScreen, StudentBazaarDetailsScreen, AddBazaarScreen, FortinetLoginScreen } from './screens'
 import BottomTab from './component/BottomTab';
 import { ref, onValue, set } from 'firebase/database';
 import { auth, db } from './firebase';
@@ -141,7 +141,7 @@ export default function App() {
   const [activeScreen, setActiveScreen] = useState("")
   const [isLoading, setIsLoading] = useState(true)
 
-  const screensWithoutBottomTab = ["SignUp", "Login", "RestaurantDetails", "LaundryDetails", "Root"];
+  const screensWithoutBottomTab = ["SignUp", "Login", "ResetPassword", "RestaurantDetails", "LaundryDetails", "Root"];
 
   const [isSignedIn, setIsSignedIn] = useState(false)
   const [authLoading, setAuthLoading] = useState(true)
@@ -231,6 +231,7 @@ export default function App() {
             <>
               <Stack.Screen name="SignUp" component={SignUpScreen} />
               <Stack.Screen name="Login" component={LoginScreen} />
+              <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
             </>
           )}
 

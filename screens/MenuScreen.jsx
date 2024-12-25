@@ -308,6 +308,7 @@ const MenuScreen = ({ menu, dishes, updates }) => {
                                 <Text style={{ fontSize: 15, fontWeight: "500" }}>{option}</Text>
                             </TouchableOpacity>
                         ))}
+                        <View style={{ height: 50 }} />
                     </> : <>
                         <View style={{ alignItems: "center", flexDirection: "row" }}>
                             <View style={{ justifyContent: "center" }}>

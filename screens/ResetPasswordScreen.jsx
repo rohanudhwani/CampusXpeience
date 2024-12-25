@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { signInWithEmailAndPassword, sendPasswordResetEmail  } from 'firebase/auth';
 import { auth } from '../firebase';
 
-const LoginScreen = () => {
+const ResetPasswordScreen = () => {
 
 
   const [email, setEmail] = useState("")
@@ -28,35 +28,66 @@ const LoginScreen = () => {
     return unsubscribe
   }, [])
 
-  const handleLogin = () => {
-    if (email === "" || password === "") {
+  const onResetPassword = () => {
+    if (email === "") {
       Alert.alert(
-        "Invalid Details",
-        "Please fill all the fields",
-        [
-          { text: "OK", onPress: () => console.log("OK Pressed") }
-        ]
-      );
-    }
-    signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
-      const user = userCredential._tokenResponse.user;
-      setEmail("")
-      setPassword("")
-    }).catch((error) => {
-      Alert.alert(
-        "Sign In Unsuccessful",
-        "Wrong email or password",
+        "Error",
+        "Please enter an email",
         [
           { text: "OK", onPress: () => console.log("OK Pressed") }
         ]
       );
       return;
-    });
+    }
+    
+  
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        console.log("Password reset email sent successfully to:", email);
+        // You can display a success message to the user
+        Alert.alert(
+          "Check your email!",
+          "Password reset email sent",
+          [
+            { text: "OK", onPress: () => navigation.navigate("Login") }
+          ]
+        );
+      })
+      .catch((error) => {
+        console.error("Error sending password reset email:", error);
+        // Handle specific error cases
+        if (error.code === 'auth/invalid-email') {
+          console.log("The email address is invalid.");
+          Alert.alert(
+            "Error",
+            "The email address is invalid.",
+            [
+              { text: "OK", onPress: () => console.log("OK Pressed") }
+            ]
+          );
+        } else if (error.code === 'auth/user-not-found') {
+          console.log("There is no user corresponding to the provided email.");
+          Alert.alert(
+            "Error",
+            "There is no user corresponding to the provided email.",
+            [
+              { text: "OK", onPress: () => console.log("OK Pressed") }
+            ]
+          );
+        } else {
+          console.log("An unknown error occurred.");
+          Alert.alert(
+            "Error",
+            "An unknown error occurred.",
+            [
+              { text: "OK", onPress: () => console.log("OK Pressed") }
+            ]
+          );
+        }
+      });
   }
 
-  const onResetPassword = () => {
-    navigation.navigate("ResetPassword");
-  };
+
 
 
 
@@ -74,20 +105,18 @@ const LoginScreen = () => {
           </View>
 
           <View style={{ marginTop: 60, marginLeft: 20 }}>
-            <Text style={{ fontFamily: 'Inter_400Regular', fontSize: 25, fontWeight: "bold" }}>Login to your Account</Text>
-            <Text style={{ marginTop: 10, fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray" }}>Please login to access your account</Text>
+            <Text style={{ fontFamily: 'Inter_400Regular', fontSize: 25, fontWeight: "bold" }}>Reset your Password</Text>
+            <Text style={{ marginTop: 10, fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray" }}>Please enter your registered email</Text>
           </View>
 
           <TextInput value={email} onChangeText={(text) => setEmail(text)} style={{ marginTop: 70, marginLeft: 20, marginRight: 20, height: 50, borderColor: '#7DBD3F', borderWidth: 2, borderRadius: 10, paddingLeft: 20, fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray" }} placeholder="Email Address" />
-          <TextInput value={password} onChangeText={(text) => setPassword(text)} secureTextEntry={true} style={{ marginTop: 40, marginLeft: 20, marginRight: 20, height: 50, borderColor: '#7DBD3F', borderWidth: 2, borderRadius: 10, paddingLeft: 20, fontFamily: 'Inter_400Regular', fontSize: 15, color: "gray" }} placeholder="Enter Password" />
 
           <View style={{ marginTop: 20, justifyContent: "space-between", flexDirection: "row", marginRight: 20, marginLeft: 20 }}>
             <Text onPress={() => navigation.navigate("SignUp")} style={{ fontFamily: 'Inter_400Regular', fontSize: 13, color: "gray" }}>Sign Up?</Text>
-            <Text onPress={() => onResetPassword()} style={{ fontFamily: 'Inter_400Regular', fontSize: 13, color: "gray" }}>Forgot Password?</Text>
           </View>
 
-          <TouchableOpacity onPress={() => handleLogin()} style={{ marginTop: 30, marginLeft: 20, marginRight: 20, height: 50, backgroundColor: "#7DBD3F", borderRadius: 10, justifyContent: "center", alignItems: "center" }}>
-            <Text style={{ fontFamily: 'Inter_400Regular', fontSize: 15, color: "white", fontWeight: "bold" }}>Login</Text>
+          <TouchableOpacity onPress={() => onResetPassword()} style={{ marginTop: 30, marginLeft: 20, marginRight: 20, height: 50, backgroundColor: "#7DBD3F", borderRadius: 10, justifyContent: "center", alignItems: "center" }}>
+            <Text style={{ fontFamily: 'Inter_400Regular', fontSize: 15, color: "white", fontWeight: "bold" }}>Send Reset Password Link on Email</Text>
           </TouchableOpacity>
 
           {/* <View style={{ marginTop: 25, justifyContent: "center", alignItems: "center" }}>
@@ -109,6 +138,6 @@ const LoginScreen = () => {
   )
 }
 
-export default LoginScreen
+export default ResetPasswordScreen
 
 const styles = StyleSheet.create({})
